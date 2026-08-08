@@ -6,11 +6,178 @@ import imgRectangle from "@/imports/Root/db574d06762a18763fd34165d99983ad364d404
 import imgRectangle1 from "@/imports/Root/f23974d1c6001db55b9b2363a3521dae87c918e7.png";
 import svgPaths from "@/imports/Root/svg-72i1clds9c";
 
+const GA_ID = "G-GM03DD1T2R";
+const SITE_URL = "https://www.abogadamasri.com";
+const SITE_NAME = "Abogada Marinela Masri";
+const TITLE = "Abogada Marinela Masri Kasrin | Asesoría Legal en Venezuela";
+const DESCRIPTION =
+  "Abogada con más de 25 años de experiencia en Derecho Civil, Laboral y Mercantil en Venezuela. Atención presencial en Caracas y online para todo el país.";
+
+// ─── SEO ─────────────────────────────────────────────────────────────────────
+
+function setMeta(name: string, content: string, attr: "name" | "property" = "name") {
+  let el = document.querySelector<HTMLMetaElement>(`meta[${attr}="${name}"]`);
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute(attr, name);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("content", content);
+}
+
+function setLink(rel: string, href: string, attrs: Record<string, string> = {}) {
+  const selector = Object.entries(attrs).reduce(
+    (s, [k, v]) => s + `[${k}="${v}"]`,
+    `link[rel="${rel}"]`
+  );
+  let el = document.querySelector<HTMLLinkElement>(selector);
+  if (!el) {
+    el = document.createElement("link");
+    el.rel = rel;
+    Object.entries(attrs).forEach(([k, v]) => el!.setAttribute(k, v));
+    document.head.appendChild(el);
+  }
+  el.href = href;
+}
+
+function useSEO() {
+  useEffect(() => {
+    // HTML lang attribute
+    document.documentElement.lang = "es";
+
+    // Title
+    document.title = TITLE;
+
+    // Viewport (in case framework doesn't inject it)
+    setMeta("viewport", "width=device-width, initial-scale=1");
+
+    // Mobile browser chrome color
+    setMeta("theme-color", "#1a2b4a");
+
+    // Preconnect hints for fonts and analytics
+    setLink("preconnect", "https://fonts.googleapis.com");
+    setLink("preconnect", "https://fonts.gstatic.com", { crossorigin: "" });
+    setLink("preconnect", "https://www.googletagmanager.com");
+
+    // Basic meta
+    setMeta("description", DESCRIPTION);
+    setMeta("keywords", "abogada Venezuela, derecho civil Venezuela, derecho laboral Venezuela, derecho mercantil, divorcios Venezuela, bienes inmuebles Venezuela, condominio Venezuela, contratos Venezuela, Marinela Masri, abogada Caracas");
+    setMeta("author", "Marinela Masri Kasrin");
+    setMeta("robots", "index, follow");
+    setMeta("language", "es");
+
+    // Canonical
+    setLink("canonical", SITE_URL + "/");
+
+    // Open Graph
+    setMeta("og:type", "website", "property");
+    setMeta("og:url", SITE_URL + "/", "property");
+    setMeta("og:site_name", SITE_NAME, "property");
+    setMeta("og:title", TITLE, "property");
+    setMeta("og:description", DESCRIPTION, "property");
+    setMeta("og:image", SITE_URL + "/og-image.png", "property");
+    setMeta("og:image:secure_url", SITE_URL + "/og-image.png", "property");
+    setMeta("og:image:type", "image/png", "property");
+    setMeta("og:image:width", "1200", "property");
+    setMeta("og:image:height", "630", "property");
+    setMeta("og:image:alt", "Abogada Marinela Masri Kasrin — Asesoría Legal en Venezuela", "property");
+    setMeta("og:locale", "es_VE", "property");
+
+    // Twitter Card
+    setMeta("twitter:card", "summary_large_image");
+    setMeta("twitter:title", TITLE);
+    setMeta("twitter:description", DESCRIPTION);
+    setMeta("twitter:image", SITE_URL + "/og-image.png");
+    setMeta("twitter:image:alt", "Abogada Marinela Masri Kasrin — Asesoría Legal en Venezuela");
+
+    // JSON-LD structured data — LegalService
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "LegalService",
+      "name": "Abogada Marinela Masri Kasrin",
+      "alternateName": "Marinela Masri",
+      "description": DESCRIPTION,
+      "url": SITE_URL,
+      "logo": SITE_URL + "/og-image.png",
+      "image": SITE_URL + "/og-image.png",
+      "telephone": "+58-414-170-0773",
+      "email": "marinelamasri79@gmail.com",
+      "foundingDate": "2014",
+      "priceRange": "$$",
+      "currenciesAccepted": "VES, USD",
+      "paymentAccepted": "Cash, Bank Transfer",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Venezuela"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Plaza Venezuela",
+        "addressLocality": "Caracas",
+        "addressRegion": "Distrito Capital",
+        "addressCountry": "VE"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "10.4880",
+        "longitude": "-66.8792"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "08:00",
+        "closes": "18:00"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Servicios Legales",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Derecho Civil" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Derecho Mercantil" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Derecho Laboral" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Divorcios y Familia" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Bienes Inmuebles" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Contratos y Documentos" } },
+        ]
+      },
+      "sameAs": [
+        `https://wa.me/584141700773`
+      ]
+    };
+
+    let ld = document.getElementById("ld-json");
+    if (!ld) {
+      ld = document.createElement("script");
+      ld.id = "ld-json";
+      ld.setAttribute("type", "application/ld+json");
+      document.head.appendChild(ld);
+    }
+    ld.textContent = JSON.stringify(schema);
+  }, []);
+}
+
+// ─── Google Analytics ─────────────────────────────────────────────────────────
+
+function useGoogleAnalytics() {
+  useEffect(() => {
+    if (document.getElementById("ga-script")) return;
+    const s1 = document.createElement("script");
+    s1.id = "ga-script";
+    s1.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+    s1.async = true;
+    document.head.appendChild(s1);
+
+    const s2 = document.createElement("script");
+    s2.id = "ga-init";
+    s2.text = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`;
+    document.head.appendChild(s2);
+  }, []);
+}
 // ─── Icon components ──────────────────────────────────────────────────────────
 
 function ScaleIcon() {
   return (
-    <div className="relative shrink-0 size-8">
+    <div className="relative shrink-0 size-8" aria-hidden="true">
       <svg className="absolute inset-0 size-full" fill="none" viewBox="0 0 32 32">
         <path d={svgPaths.p11c279e0} stroke="#C9A84C" strokeLinecap="round" strokeWidth="2" />
       </svg>
@@ -20,7 +187,7 @@ function ScaleIcon() {
 
 function LogoIcon() {
   return (
-    <div className="relative shrink-0 size-8">
+    <div className="relative shrink-0 size-8" aria-hidden="true">
       <svg className="absolute inset-0 size-full" fill="none" viewBox="0 0 32 32">
         <path d={svgPaths.p12c4d700} stroke="#C9A84C" strokeLinecap="round" strokeWidth="2" />
       </svg>
@@ -30,7 +197,7 @@ function LogoIcon() {
 
 function MailIcon() {
   return (
-    <div className="relative shrink-0 size-6">
+    <div className="relative shrink-0 size-6" aria-hidden="true">
       <svg className="absolute inset-0 size-full" fill="none" viewBox="0 0 24 24">
         <path d={svgPaths.p3d4f9680} stroke="#1A2B4A" strokeLinecap="round" strokeWidth="2" />
       </svg>
@@ -40,7 +207,7 @@ function MailIcon() {
 
 function PhoneIcon() {
   return (
-    <div className="relative shrink-0 size-6">
+    <div className="relative shrink-0 size-6" aria-hidden="true">
       <svg className="absolute inset-0 size-full" fill="none" viewBox="0 0 24 24">
         <path d={svgPaths.p28682900} stroke="#1A2B4A" strokeLinecap="round" strokeWidth="2" />
       </svg>
@@ -50,7 +217,7 @@ function PhoneIcon() {
 
 function MapPinIcon() {
   return (
-    <div className="relative shrink-0 size-6">
+    <div className="relative shrink-0 size-6" aria-hidden="true">
       <svg className="absolute inset-0 size-full" fill="none" viewBox="0 0 24 24">
         <path d={svgPaths.p3d476500} stroke="#1A2B4A" strokeLinecap="round" strokeWidth="2" />
       </svg>
@@ -60,7 +227,7 @@ function MapPinIcon() {
 
 function MsgIcon({ stroke = "white" }: { stroke?: string }) {
   return (
-    <div className="relative shrink-0 size-5">
+    <div className="relative shrink-0 size-5" aria-hidden="true">
       <svg className="absolute inset-0 size-full" fill="none" viewBox="0 0 20 20">
         <g clipPath="url(#mc)">
           <path d={svgPaths.p2ea05980} stroke={stroke} strokeLinecap="round" strokeWidth="2" />
@@ -195,7 +362,7 @@ function Hero() {
         }}
         style={{ transformOrigin: "50% 50%" }}
       >
-        <img alt="" className="absolute max-w-none object-cover size-full" src={imgHero} />
+        <img alt="" role="presentation" className="absolute max-w-none object-cover size-full" src={imgHero} />
         <div className="absolute inset-0 bg-[rgba(26,43,74,0.82)]" />
       </motion.div>
 
@@ -531,7 +698,7 @@ function About() {
           ].map((b) => (
             <button key={b.label} onClick={b.action} className="flex flex-col gap-3 items-center group">
               <div className="relative size-[88px] sm:size-[110px] md:size-[120px]">
-                <img alt={b.label} className="absolute inset-0 size-full object-contain" src={b.img} />
+                <img alt={b.label} loading="lazy" className="absolute inset-0 size-full object-contain" src={b.img} />
               </div>
               <p className="font-['Schibsted_Grotesk',sans-serif] font-bold text-[#1a2b4a] text-[16px] sm:text-[20px] md:text-[24px] underline leading-[1.2] text-center group-hover:text-[#c9a84c] transition-colors">
                 {b.label}
@@ -683,7 +850,7 @@ function ContactCta() {
           <p className="font-['Instrument_Serif',serif] text-[28px] sm:text-[36px] md:text-[48px] lg:text-[56px] leading-tight">
             ¿Necesita Asesoría Legal?
           </p>
-          <p className="font-['Schibsted_Grotesk',sans-serif] font-medium opacity-80 text-[14px] md:text-[18px] md:text-[22px]">
+          <p className="font-['Schibsted_Grotesk',sans-serif] font-medium opacity-80 text-[14px] md:text-[22px]">
             Contácteme hoy mismo para una consulta
           </p>
         </div>
@@ -754,6 +921,8 @@ function Footer() {
 // ─── App ──────────────────────────────────────────────────────────────────────
 
 export default function App() {
+  useSEO();
+  useGoogleAnalytics();
   return (
     <div className="bg-white min-h-screen w-full overflow-x-hidden">
       <Navbar />
