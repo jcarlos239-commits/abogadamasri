@@ -709,12 +709,17 @@ function ContactCta() {
               0412-280-9538
             </span>
           </a>
-          <div className="flex items-center gap-2.5">
+          <a
+            href="https://www.google.com/maps/place/Abogada+Marinela+Masri+Kasrin/@10.4944047,-66.8873985,3322m/data=!3m1!1e3!4m10!1m2!2m1!1sabogados+en+caracas!3m6!1s0x5549f078d44630b:0xf4eaf479cc7c2534!8m2!3d10.4944047!4d-66.877711!15sChNhYm9nYWRvcyBlbiBjYXJhY2FzWhUiE2Fib2dhZG9zIGVuIGNhcmFjYXOSAQZsYXd5ZXLgAQA!16s%2Fg%2F11zdjd0v72?entry=ttu&g_ep=EgoyMDI2MDgwOS4wIKXMDSoASAFQAw%3D%3D"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2.5 active:opacity-70"
+          >
             <MapPinIcon />
             <span className="font-['Schibsted_Grotesk',sans-serif] font-semibold text-[#1a2b4a] text-[13px] md:text-[16px]">
-              Plaza Venezuela, Caracas
+              CC City Market, Blvr. de Sabana Grande, Caracas 1050
             </span>
-          </div>
+          </a>
         </div>
       </div>
     </section>
