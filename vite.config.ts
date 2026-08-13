@@ -33,4 +33,20 @@ export default defineConfig({
 
   // File types to support raw imports. Never add .css, .tsx, or .ts files to this.
   assetsInclude: ['**/*.svg', '**/*.csv'],
+
+  build: {
+    rollupOptions: {
+      input: {
+        index:                       path.resolve(__dirname, 'index.html'),
+        'sobre-marinela-masri':      path.resolve(__dirname, 'sobre-marinela-masri/index.html'),
+        'servicios':                 path.resolve(__dirname, 'servicios/index.html'),
+        'derecho-civil':             path.resolve(__dirname, 'derecho-civil/index.html'),
+        'derecho-mercantil':      path.resolve(__dirname, 'derecho-mercantil/index.html'),
+        'derecho-laboral':        path.resolve(__dirname, 'derecho-laboral/index.html'),
+        'derecho-familia-divorcios': path.resolve(__dirname, 'derecho-familia-divorcios/index.html'),
+        'bienes-inmuebles':       path.resolve(__dirname, 'bienes-inmuebles/index.html'),
+        'contratos-documentos':   path.resolve(__dirname, 'contratos-documentos/index.html'),
+      },
+    },
+  },
 })
