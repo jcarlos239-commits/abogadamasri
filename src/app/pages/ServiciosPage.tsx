@@ -66,10 +66,10 @@ export default function ServiciosPage() {
             <span className="font-['Schibsted_Grotesk',sans-serif] text-[#c9a84c] text-[12px]">Servicios</span>
           </nav>
           <h1 className="font-['Instrument_Serif',serif] text-white text-[32px] sm:text-[42px] md:text-[52px] leading-[1.1] mb-4">
-            Servicios Jurídicos
+            Servicios Jurídicos en Caracas
           </h1>
           <p className="font-['Schibsted_Grotesk',sans-serif] text-white/70 text-[15px] md:text-[18px] leading-[1.6] max-w-[640px]">
-            Asesoría legal integral para personas y empresas en Venezuela. Más de 25 años de experiencia respaldando los derechos de nuestros clientes.
+            Asesoría legal integral para personas y empresas en Venezuela. Consultas presenciales en Caracas y atención en línea para todo el país. Más de 25 años de experiencia respaldando los derechos de cada cliente.
           </p>
         </div>
       </section>
@@ -78,10 +78,10 @@ export default function ServiciosPage() {
       <section className="bg-white w-full">
         <div className="px-6 md:px-16 py-10 md:py-14 max-w-[860px] mx-auto">
           <p className="font-['Schibsted_Grotesk',sans-serif] text-[#374151] text-[15px] md:text-[17px] leading-[1.75] mb-4">
-            Marinela Masri Kasrin ofrece asesoría jurídica completa en las principales áreas del derecho venezolano, tanto para personas naturales como para empresas y comerciantes. Cada cliente recibe atención directa y personalizada, con consultas presenciales en Caracas y atención en línea disponible para toda Venezuela.
+            Marinela Masri Kasrin ofrece asesoría jurídica completa en las principales áreas del derecho venezolano, tanto para personas naturales como para empresas y comerciantes. Cada cliente recibe atención directa y personalizada: consultas presenciales en Caracas y atención en línea disponible para clientes en todo el territorio venezolano.
           </p>
           <p className="font-['Schibsted_Grotesk',sans-serif] text-[#374151] text-[15px] md:text-[17px] leading-[1.75]">
-            Explore cada área de práctica para conocer en detalle los servicios que puede obtener, cuándo debe consultar a un abogado y respuestas a las preguntas más frecuentes.
+            Explore cada área de práctica para conocer en detalle los servicios disponibles, los trámites específicos del sistema legal venezolano, cuándo es el momento correcto para buscar asesoría y respuestas a las preguntas más frecuentes que enfrentan los clientes.
           </p>
         </div>
       </section>

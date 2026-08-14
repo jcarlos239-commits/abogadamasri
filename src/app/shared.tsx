@@ -14,12 +14,12 @@ export const MAPS_EMBED =
 export const WA_BASE = "https://wa.me/584141700773?text=";
 
 export const SERVICE_ROUTES = [
-  { slug: "/derecho-civil",            label: "Derecho Civil",           icon: "⚖️" },
-  { slug: "/derecho-mercantil",        label: "Derecho Mercantil",       icon: "🏢" },
-  { slug: "/derecho-laboral",          label: "Derecho Laboral",         icon: "👔" },
-  { slug: "/derecho-familia-divorcios",label: "Divorcios y Familia",     icon: "💍" },
-  { slug: "/bienes-inmuebles",         label: "Bienes Inmuebles",        icon: "🏠" },
-  { slug: "/contratos-documentos",     label: "Contratos y Documentos",  icon: "📄" },
+  { slug: "/derecho-civil/",            label: "Derecho Civil",           icon: "⚖️" },
+  { slug: "/derecho-mercantil/",        label: "Derecho Mercantil",       icon: "🏢" },
+  { slug: "/derecho-laboral/",          label: "Derecho Laboral",         icon: "👔" },
+  { slug: "/derecho-familia-divorcios/",label: "Divorcios y Familia",     icon: "💍" },
+  { slug: "/bienes-inmuebles/",         label: "Bienes Inmuebles",        icon: "🏠" },
+  { slug: "/contratos-documentos/",     label: "Contratos y Documentos",  icon: "📄" },
 ] as const;
 
 // ─── Per-page SEO ─────────────────────────────────────────────────────────────

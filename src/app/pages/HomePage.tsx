@@ -17,7 +17,7 @@ function Hero() {
         style={{ transformOrigin: "50% 50%" }}
       >
         <img alt="" role="presentation" className="absolute max-w-none object-cover size-full" src={imgHero} />
-        <div className="absolute inset-0 bg-[rgba(26,43,74,0.82)]" />
+        <div className="absolute inset-0 bg-[rgba(26,43,74,0.70)]" />
       </motion.div>
 
       <div className="relative flex flex-col items-center justify-center gap-8 px-6 md:px-16 py-14 md:py-20 min-h-[440px] md:min-h-[500px]">
@@ -30,13 +30,13 @@ function Hero() {
             Abogada Marinela Masri Kasrin
           </p>
           <p className="font-['Instrument_Serif',serif] leading-[1.1] text-white text-[28px] sm:text-[38px] md:text-[54px] lg:text-[72px]">
-            Asesoría Legal Profesional en Venezuela
+            Abogada en Caracas con Más de 25 Años de Experiencia
           </p>
           <p className="font-['Schibsted_Grotesk',sans-serif] font-semibold text-[#c9a84c] text-[13px] sm:text-[15px] md:text-[18px] lg:text-[24px]">
-            Más de 25 años de experiencia al servicio de sus derechos
+            Asesoría legal con dedicación, ética y resultados comprobados
           </p>
           <p className="font-['Schibsted_Grotesk',sans-serif] opacity-80 leading-[1.6] text-[13px] sm:text-[14px] md:text-[16px] text-white max-w-[640px]">
-            Especialista en Derecho Civil, Laboral y Mercantil. Representación legal con dedicación, ética y resultados.
+            Especialista en Derecho Civil, Laboral y Mercantil. Consultas presenciales en Caracas y atención en línea para toda Venezuela.
           </p>
         </motion.div>
 
@@ -68,12 +68,12 @@ function Hero() {
 // ─── Services grid ────────────────────────────────────────────────────────────
 
 const serviceCards = [
-  { slug: "/derecho-civil",             icon: "⚖️", label: "Derecho Civil",          desc: "Contratos, sucesiones, trámites registrales, litigios civiles y poderes notariales." },
-  { slug: "/derecho-mercantil",         icon: "🏢", label: "Derecho Mercantil",      desc: "Constitución, actualización y disolución de empresas. Actas de asamblea y más." },
-  { slug: "/derecho-laboral",           icon: "👔", label: "Derecho Laboral",        desc: "Prestaciones sociales, calificaciones de despido y acuerdos extrajudiciales." },
-  { slug: "/derecho-familia-divorcios", icon: "💍", label: "Divorcios y Familia",    desc: "Divorcios, custodia, manutención y régimen LOPNNA para familias en Venezuela." },
-  { slug: "/bienes-inmuebles",          icon: "🏠", label: "Bienes Inmuebles",       desc: "Compraventa, arrendamientos, condominio y asesoría inmobiliaria integral." },
-  { slug: "/contratos-documentos",      icon: "📄", label: "Contratos y Documentos",desc: "Redacción, revisión y autenticación de contratos y documentos legales." },
+  { slug: "/derecho-civil/",             icon: "⚖️", label: "Derecho Civil",          desc: "Contratos, sucesiones, trámites registrales, litigios civiles y poderes notariales." },
+  { slug: "/derecho-mercantil/",         icon: "🏢", label: "Derecho Mercantil",      desc: "Constitución, actualización y disolución de empresas. Actas de asamblea y más." },
+  { slug: "/derecho-laboral/",           icon: "👔", label: "Derecho Laboral",        desc: "Prestaciones sociales, calificaciones de despido y acuerdos extrajudiciales." },
+  { slug: "/derecho-familia-divorcios/", icon: "💍", label: "Divorcios y Familia",    desc: "Divorcios, custodia, manutención y régimen LOPNNA para familias en Venezuela." },
+  { slug: "/bienes-inmuebles/",          icon: "🏠", label: "Bienes Inmuebles",       desc: "Compraventa, arrendamientos, condominio y asesoría inmobiliaria integral." },
+  { slug: "/contratos-documentos/",      icon: "📄", label: "Contratos y Documentos",desc: "Redacción, revisión y autenticación de contratos y documentos legales." },
 ];
 
 function Services() {
@@ -85,7 +85,7 @@ function Services() {
             Áreas de Práctica
           </p>
           <p className="font-['Schibsted_Grotesk',sans-serif] text-[#4b5563] text-[14px] md:text-[18px] leading-[1.5] max-w-[600px]">
-            Soluciones jurídicas integrales para personas y empresas
+            Soluciones jurídicas integrales para personas y empresas en Venezuela
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6">

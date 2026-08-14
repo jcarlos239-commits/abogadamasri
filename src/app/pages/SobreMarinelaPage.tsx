@@ -40,10 +40,13 @@ export default function SobreMarinelaPage() {
               Marinela Masri Kasrin es abogada egresada de la Universidad Santa María (2002) con más de 25 años de experiencia en el ejercicio del derecho en Venezuela. Especializada en Derecho Civil, Laboral y Mercantil, ha dedicado su carrera a brindar asesoría legal integral tanto a personas naturales como jurídicas.
             </p>
             <p>
-              Desde 2014 ejerce de forma independiente, ofreciendo atención personalizada, ética profesional y un compromiso inquebrantable con la justicia y los intereses de sus clientes. Previamente se desempeñó como abogada en el Fondo Nacional de Ciencia, Tecnología e Innovación (FONACIT) entre 2006 y 2014.
+              Desde 2014 ejerce de forma independiente en Caracas, ofreciendo atención personalizada, ética profesional y un compromiso inquebrantable con la justicia y los intereses de sus clientes. Previamente se desempeñó como abogada en el Fondo Nacional de Ciencia, Tecnología e Innovación (FONACIT) entre 2006 y 2014.
             </p>
             <p>
               Su formación continua incluye diplomados, congresos internacionales y talleres especializados que garantizan una defensa técnica actualizada y de excelencia, manteniendo siempre al día el conocimiento del ordenamiento jurídico venezolano.
+            </p>
+            <p>
+              Entre sus clientes se encuentran personas naturales que enfrentan situaciones de familia, sucesiones o conflictos laborales, así como empresarios y comerciantes que requieren asesoría para la constitución o gestión legal de sus empresas. Cada consulta recibe atención directa de Marinela Masri, con seguimiento personalizado hasta la resolución del asunto.
             </p>
           </div>
         </div>
@@ -124,7 +127,7 @@ export default function SobreMarinelaPage() {
             {SERVICE_ROUTES.map(s => (
               <a
                 key={s.slug}
-                href={`${s.slug}/`}
+                href={s.slug}
                 className="flex flex-col gap-2 items-center text-center bg-[#f5f5f5] hover:bg-[#1a2b4a] border border-[#e5e7eb] hover:border-[#c9a84c] rounded-[12px] px-4 py-5 transition-all group"
               >
                 <div className="bg-[#1a2b4a] group-hover:bg-[#c9a84c] flex items-center justify-center rounded-[20px] size-[44px] shrink-0 transition-colors">

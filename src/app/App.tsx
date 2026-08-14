@@ -41,12 +41,18 @@ export default function App() {
             <Route path="/sobre-marinela-masri/"       element={<SobreMarinelaPage />} />
             <Route path="/servicios"                   element={<ServiciosPage />} />
             <Route path="/servicios/"                  element={<ServiciosPage />} />
-            <Route path="/derecho-civil"               element={<DerechoCivilPage />} />
-            <Route path="/derecho-mercantil"           element={<DerechoMercantilPage />} />
-            <Route path="/derecho-laboral"             element={<DerechoLaboralPage />} />
-            <Route path="/derecho-familia-divorcios"   element={<DerechoFamiliaPage />} />
-            <Route path="/bienes-inmuebles"            element={<BienesInmueblesPage />} />
-            <Route path="/contratos-documentos"        element={<ContratosDocumentosPage />} />
+            <Route path="/derecho-civil"                element={<DerechoCivilPage />} />
+            <Route path="/derecho-civil/"               element={<DerechoCivilPage />} />
+            <Route path="/derecho-mercantil"            element={<DerechoMercantilPage />} />
+            <Route path="/derecho-mercantil/"           element={<DerechoMercantilPage />} />
+            <Route path="/derecho-laboral"              element={<DerechoLaboralPage />} />
+            <Route path="/derecho-laboral/"             element={<DerechoLaboralPage />} />
+            <Route path="/derecho-familia-divorcios"    element={<DerechoFamiliaPage />} />
+            <Route path="/derecho-familia-divorcios/"   element={<DerechoFamiliaPage />} />
+            <Route path="/bienes-inmuebles"             element={<BienesInmueblesPage />} />
+            <Route path="/bienes-inmuebles/"            element={<BienesInmueblesPage />} />
+            <Route path="/contratos-documentos"         element={<ContratosDocumentosPage />} />
+            <Route path="/contratos-documentos/"        element={<ContratosDocumentosPage />} />
             <Route path="*"                            element={<NotFound />} />
           </Routes>
         </main>
