@@ -27,16 +27,16 @@ function Hero() {
           transition={{ duration: 6, times: [0, 0.05, 0.2, 1], repeat: Infinity }}
         >
           <p className="font-['Instrument_Serif',serif] leading-[1.1] text-[#c9a84c] text-[26px] sm:text-[36px] md:text-[52px] lg:text-[72px]">
-            Abogada Marinela Masri Kasrin
+            Servicios de Abogado en Caracas
           </p>
           <p className="font-['Instrument_Serif',serif] leading-[1.1] text-white text-[28px] sm:text-[38px] md:text-[54px] lg:text-[72px]">
-            Abogada en Caracas con Más de 25 Años de Experiencia
+            Abogada Marinela Masri Kasrin
           </p>
           <p className="font-['Schibsted_Grotesk',sans-serif] font-semibold text-[#c9a84c] text-[13px] sm:text-[15px] md:text-[18px] lg:text-[24px]">
             Asesoría legal con dedicación, ética y resultados comprobados
           </p>
           <p className="font-['Schibsted_Grotesk',sans-serif] opacity-80 leading-[1.6] text-[13px] sm:text-[14px] md:text-[16px] text-white max-w-[640px]">
-            Especialista en Derecho Civil, Laboral y Mercantil. Consultas presenciales en Caracas y atención en línea para toda Venezuela.
+            Asesoría legal en Derecho Civil, Mercantil, Laboral, Familia, Bienes Inmuebles y Contratos. Consultas presenciales en Caracas y atención en línea para toda Venezuela.
           </p>
         </motion.div>
 
@@ -54,10 +54,10 @@ function Hero() {
             Escríbeme por WhatsApp
           </a>
           <a
-            href="tel:+584122809538"
+            href="tel:+584141700773"
             className="flex-1 flex items-center justify-center border border-white text-white px-5 py-3.5 rounded-[8px] font-['Schibsted_Grotesk',sans-serif] font-semibold text-[13px] md:text-[15px]"
           >
-            Llámame: +58 412-280-9538
+            Llámame: +58 414-170-0773
           </a>
         </motion.div>
       </div>
@@ -148,7 +148,7 @@ function About() {
         <div className="flex flex-col sm:flex-row gap-3">
           {[
             { value: "25+",          label: "Años Experiencia" },
-            { value: "Civil & Laboral", label: "Especialidades" },
+            { value: "6",               label: "Áreas de práctica" },
             { value: "Caracas, VZLA",  label: "Ubicación" },
           ].map(s => (
             <div key={s.label} className="bg-[#1a2b4a] rounded-[8px] border border-[#c9a84c] flex-1">

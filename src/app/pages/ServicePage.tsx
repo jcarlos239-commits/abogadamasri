@@ -1,23 +1,22 @@
-import * as Accordion from "@radix-ui/react-accordion";
-import { ChevronDown } from "lucide-react";
 import { Link } from "react-router";
 import { usePageSEO, WA_BASE, SERVICE_ROUTES, MsgIcon, ContactCta, WhyTrust } from "../shared";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-interface ServiceData {
-  slug:        string;
-  icon:        string;
-  title:       string;
-  metaTitle:   string;
-  metaDesc:    string;
-  heroDesc:    string;
-  intro:       string;
-  items:       string[];
-  whenToSeek:  string[];
-  faq:         { q: string; a: string }[];
-  related:     string[];
-  waText:      string;
+export interface ServiceData {
+  slug:       string;
+  icon:       string;
+  title:      string;
+  metaTitle:  string;
+  metaDesc:   string;
+  heroDesc:   string;
+  intro:      string;
+  items:      string[];
+  whenToSeek: string[];
+  faq:        { q: string; a: string }[];
+  related:    string[];
+  waText:     string;
+  subTopics?: { slug: string; icon: string; label: string; desc: string }[];
 }
 
 // ─── Service data ─────────────────────────────────────────────────────────────
@@ -51,16 +50,27 @@ const allServices: ServiceData[] = [
       "Cuando un familiar ha fallecido y los bienes deben ser transferidos a los herederos",
     ],
     faq: [
-      { q: "¿Qué es una sucesión y cuándo necesito un abogado?", a: "La sucesión es el proceso legal por el cual los bienes de una persona fallecida se transfieren a sus herederos. Implica declaraciones ante el SENIAT y trámites en el Registro. Un abogado garantiza que el proceso sea correcto, evita errores que pueden retrasar la herencia y protege los derechos de cada heredero." },
-      { q: "¿Qué documentos se necesitan para tramitar una herencia en Venezuela?", a: "Para iniciar una sucesión en Venezuela generalmente se requiere el acta de defunción del causante, los documentos de identidad de los herederos, los títulos de propiedad de los bienes que integran el patrimonio y la declaración sucesoral ante el SENIAT. Dado que los trámites varían según la composición del patrimonio y los herederos, consultar con un abogado desde el inicio evita errores costosos y demoras." },
       { q: "¿Qué es un Título Supletorio?", a: "Es un documento judicial que acredita la propiedad o posesión de una mejora o bienhechría sobre un terreno. Se tramita ante los tribunales civiles y requiere la asistencia de un abogado para presentar correctamente las pruebas y el expediente." },
       { q: "¿Qué es la prescripción adquisitiva?", a: "Es el mecanismo legal por el cual una persona puede adquirir la propiedad de un bien al haberlo poseído de forma pública, pacífica y continua durante el tiempo establecido por la ley venezolana. El proceso requiere demanda judicial y representación legal." },
       { q: "¿Se puede resolver un conflicto civil sin ir a juicio?", a: "Sí. Muchos conflictos civiles se resuelven mediante acuerdos extrajudiciales, lo cual ahorra tiempo y costos considerables. Marinela Masri puede asesorarle en la negociación de estos acuerdos garantizando que sus intereses queden debidamente protegidos." },
       { q: "¿Cuánto puede tardar un proceso civil en Venezuela?", a: "Los tiempos varían significativamente según el tipo de proceso: un trámite notarial puede resolverse en días; un proceso judicial puede extenderse meses o más dependiendo de la complejidad del caso y la carga del tribunal. Los acuerdos extrajudiciales suelen ser la vía más rápida. Marinela Masri puede darle una estimación realista según las particularidades de su situación." },
-      { q: "¿Puedo tramitar poderes para personas fuera de Venezuela?", a: "Sí. Es posible gestionar poderes para personas en el extranjero con apostilla y los registros correspondientes, tanto dentro de Venezuela como en cualquier país del mundo, con la debida gestión notarial e internacional." },
     ],
-    related: ["/bienes-inmuebles/", "/contratos-documentos/", "/derecho-familia-divorcios/"],
-    waText:  "Hola%2C%20necesito%20asesor%C3%ADa%20en%20Derecho%20Civil",
+    related:   ["/bienes-inmuebles/", "/contratos-documentos/", "/derecho-familia-divorcios/"],
+    waText:    "Hola%2C%20necesito%20asesor%C3%ADa%20en%20Derecho%20Civil",
+    subTopics: [
+      {
+        slug:  "/derecho-civil/herencias-sucesiones/",
+        icon:  "🏛️",
+        label: "Herencias y Sucesiones",
+        desc:  "Gestión de trámites sucesorales ante el SENIAT, declaración sucesoral y orientación a herederos en Venezuela.",
+      },
+      {
+        slug:  "/contratos-documentos/poder-notarial/",
+        icon:  "📜",
+        label: "Poderes Notariales",
+        desc:  "Poderes generales, especiales, de administración y disposición, con apostilla para uso internacional.",
+      },
+    ],
   },
   {
     slug:      "/derecho-mercantil/",
@@ -167,15 +177,24 @@ const allServices: ServiceData[] = [
     ],
     faq: [
       { q: "¿Cuáles son los tipos de divorcio en Venezuela?", a: "Los principales son el divorcio contencioso (por causales establecidas en el Código Civil) y el divorcio por desafecto (reconocido por la Sentencia 1070 del TSJ), que permite disolver el matrimonio por pérdida del afecto marital, sin necesidad de demostrar causas específicas." },
-      { q: "¿Qué es el divorcio por desafecto?", a: "Es una modalidad reconocida por el Tribunal Supremo de Justicia (Sentencia 1070) que permite a cualquiera de los cónyuges solicitar el divorcio alegando la pérdida del afecto conyugal. No requiere demostrar culpa del otro cónyuge, lo que simplifica el proceso en muchos casos." },
-      { q: "¿Cuánto tiempo tarda un proceso de divorcio en Venezuela?", a: "Depende del tipo de divorcio y de si existe acuerdo entre las partes. Un divorcio por desafecto puede tramitarse en semanas si no hay bienes en disputa ni hijos menores en conflicto. Un divorcio contencioso con bienes en disputa y proceso de custodia puede extenderse varios meses. La voluntad de ambas partes para llegar a acuerdos es el factor que más influye en la duración." },
-      { q: "¿Puedo iniciar un proceso de divorcio si mi cónyuge está en el extranjero?", a: "Sí, es posible. El proceso puede iniciarse ante los tribunales venezolanos competentes con las debidas notificaciones. Si el cónyuge en el extranjero cuenta con un poder notarial vigente, el proceso puede agilizarse considerablemente. Marinela Masri puede asesorarle sobre los pasos específicos según la situación de su caso." },
-      { q: "¿Qué es la patria potestad y cuándo puede privarse?", a: "La patria potestad es el conjunto de derechos y obligaciones de los padres sobre sus hijos menores. Puede ser privada judicialmente cuando el progenitor incurre en conductas que perjudican al niño, según las causales establecidas en el Código Civil y la LOPNNA." },
-      { q: "¿Cómo se determina la obligación de manutención?", a: "La obligación de manutención (pensión alimentaria) se determina judicialmente considerando las necesidades del menor y la capacidad económica del obligado. Se tramita bajo el régimen especial de la LOPNNA y puede modificarse si cambian las circunstancias de las partes." },
       { q: "¿Qué es la LOPNNA?", a: "La Ley Orgánica para la Protección del Niño, Niña y Adolescente (LOPNNA) es la normativa que rige todos los asuntos legales relacionados con menores de edad en Venezuela, incluyendo custodia, manutención, régimen de convivencia y protección de derechos." },
     ],
-    related: ["/derecho-civil/", "/contratos-documentos/", "/bienes-inmuebles/"],
-    waText:  "Hola%2C%20necesito%20asesor%C3%ADa%20en%20Derecho%20de%20Familia",
+    related:   ["/derecho-civil/", "/contratos-documentos/", "/bienes-inmuebles/"],
+    waText:    "Hola%2C%20necesito%20asesor%C3%ADa%20en%20Derecho%20de%20Familia",
+    subTopics: [
+      {
+        slug:  "/derecho-familia-divorcios/divorcio/",
+        icon:  "💔",
+        label: "Divorcio",
+        desc:  "Divorcios contenciosos, por desafecto (Sentencia 1070 TSJ) y separación de cuerpos.",
+      },
+      {
+        slug:  "/derecho-familia-divorcios/custodia-lopnna/",
+        icon:  "👶",
+        label: "Custodia y LOPNNA",
+        desc:  "Régimen de convivencia familiar, obligación de manutención y asuntos bajo la LOPNNA.",
+      },
+    ],
   },
   {
     slug:      "/bienes-inmuebles/",
@@ -246,55 +265,24 @@ const allServices: ServiceData[] = [
       { q: "¿Por qué es importante revisar un contrato con un abogado antes de firmarlo?", a: "Un abogado identifica cláusulas abusivas, ambigüedades o términos que podrían resultar perjudiciales. Esta revisión previa evita conflictos futuros, protege sus intereses y le da claridad sobre los compromisos que está asumiendo." },
       { q: "¿Qué diferencia hay entre un contrato autenticado y uno registrado?", a: "La autenticación ante Notaría verifica la identidad de los firmantes y la fecha del acto. El registro ante el Registro Público otorga fecha cierta y oponibilidad frente a terceros. La importancia de cada uno depende del tipo de bien o acto jurídico involucrado." },
       { q: "¿Qué debe incluir un contrato de arrendamiento?", a: "Como mínimo debe incluir: identificación de las partes, descripción del inmueble, canon de arrendamiento, duración, condiciones de renovación y cláusulas sobre incumplimiento. Un contrato bien redactado protege tanto al arrendador como al arrendatario." },
-      { q: "¿Para qué sirve un poder notarial y cuáles son sus tipos?", a: "Un poder notarial permite que otra persona actúe legalmente en su nombre. Puede ser general (para múltiples actos), especial (para un acto específico) o de administración y disposición (para gestionar bienes). Marinela Masri puede asesorarle sobre cuál es el más adecuado para su situación." },
+      { q: "¿Para qué sirve un poder notarial y cuáles son sus tipos?", a: "Un poder notarial permite que otra persona actúe legalmente en su nombre. Puede ser general (para múltiples actos), especial (para un acto específico) o de administración y disposición (para gestionar bienes). Para información detallada sobre poderes, consulte la página específica." },
       { q: "¿Qué es la apostilla y cuándo se necesita?", a: "La apostilla es una certificación que otorga validez internacional a documentos públicos venezolanos, de acuerdo con el Convenio de La Haya. Se necesita cuando un documento emitido en Venezuela debe surtir efectos legales en otro país: contratos, poderes notariales, actas civiles, entre otros. El trámite en Venezuela se realiza ante el Ministerio de Relaciones Exteriores." },
       { q: "¿Qué sucede si la otra parte no cumple un contrato firmado?", a: "Si una parte incumple sus obligaciones contractuales, el afectado puede exigir el cumplimiento forzoso, la resolución del contrato y/o el pago de daños y perjuicios, según lo estipulado en el contrato y las disposiciones del Código Civil venezolano. Marinela Masri puede asesorarle sobre la vía más conveniente —extrajudicial o judicial— según las circunstancias de su caso." },
-      { q: "¿Puedo otorgar poderes para personas que están fuera de Venezuela?", a: "Sí. Es posible gestionar poderes para personas en el extranjero mediante el proceso de apostilla y los registros correspondientes, tanto dentro de Venezuela como en otros países, con la debida coordinación notarial e internacional." },
     ],
-    related: ["/derecho-civil/", "/derecho-mercantil/", "/bienes-inmuebles/"],
-    waText:  "Hola%2C%20necesito%20asesor%C3%ADa%20sobre%20Contratos%20y%20Documentos",
+    related:   ["/derecho-civil/", "/derecho-mercantil/", "/bienes-inmuebles/"],
+    waText:    "Hola%2C%20necesito%20asesor%C3%ADa%20sobre%20Contratos%20y%20Documentos",
+    subTopics: [
+      {
+        slug:  "/contratos-documentos/poder-notarial/",
+        icon:  "📜",
+        label: "Poderes Notariales",
+        desc:  "Poderes generales, especiales, de administración y disposición, con apostilla para uso internacional.",
+      },
+    ],
   },
 ];
 
-const serviceMap = Object.fromEntries(allServices.map(s => [s.slug, s]));
-
-// ─── FAQ Accordion ────────────────────────────────────────────────────────────
-
-function FaqSection({ faq }: { faq: ServiceData["faq"] }) {
-  return (
-    <section className="bg-white w-full">
-      <div className="py-12 md:py-16 px-6 md:px-16 max-w-[860px] mx-auto">
-        <h2 className="font-['Instrument_Serif',serif] text-[#1a2b4a] text-[26px] md:text-[36px] mb-8">
-          Preguntas Frecuentes
-        </h2>
-        <Accordion.Root type="single" collapsible className="flex flex-col gap-0">
-          {faq.map((item, i) => (
-            <Accordion.Item
-              key={i}
-              value={`faq-${i}`}
-              className="border-b border-[#e5e7eb] last:border-b-0"
-            >
-              <Accordion.Trigger className="flex items-center justify-between w-full py-4 text-left gap-4 group">
-                <span className="font-['Schibsted_Grotesk',sans-serif] font-semibold text-[#1a2b4a] text-[14px] md:text-[16px] leading-[1.4]">
-                  {item.q}
-                </span>
-                <ChevronDown
-                  size={18}
-                  className="shrink-0 text-[#c9a84c] transition-transform duration-200 group-data-[state=open]:rotate-180"
-                />
-              </Accordion.Trigger>
-              <Accordion.Content className="overflow-hidden data-[state=open]:animate-none data-[state=closed]:animate-none">
-                <p className="font-['Schibsted_Grotesk',sans-serif] text-[#4b5563] text-[14px] md:text-[15px] leading-[1.7] pb-5">
-                  {item.a}
-                </p>
-              </Accordion.Content>
-            </Accordion.Item>
-          ))}
-        </Accordion.Root>
-      </div>
-    </section>
-  );
-}
+export const serviceMap = Object.fromEntries(allServices.map(s => [s.slug, s]));
 
 // ─── ServicePageLayout ────────────────────────────────────────────────────────
 
@@ -346,8 +334,42 @@ function ServicePageLayout({ data }: { data: ServiceData }) {
               {para}
             </p>
           ))}
+          <p className="font-['Schibsted_Grotesk',sans-serif] text-[14px] md:text-[15px] mt-1">
+            <Link to="/sobre-marinela-masri/" className="text-[#c9a84c] hover:text-[#1a2b4a] transition-colors font-medium">
+              Conozca más sobre la trayectoria profesional de Marinela Masri →
+            </Link>
+          </p>
         </div>
       </section>
+
+      {/* Sub-topics */}
+      {data.subTopics && data.subTopics.length > 0 && (
+        <section className="bg-[#eef2f7] w-full">
+          <div className="px-6 md:px-16 py-8 md:py-10 max-w-[860px] mx-auto">
+            <h2 className="font-['Instrument_Serif',serif] text-[#1a2b4a] text-[20px] md:text-[26px] mb-5">
+              Temas relacionados
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {data.subTopics.map(t => (
+                <Link
+                  key={t.slug}
+                  to={t.slug}
+                  className="flex items-start gap-4 bg-white rounded-[12px] px-5 py-4 shadow-[0_2px_8px_rgba(0,0,0,0.06)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.10)] hover:border-[#c9a84c] border border-transparent transition-all group"
+                >
+                  <div className="bg-[#1a2b4a] group-hover:bg-[#c9a84c] flex items-center justify-center rounded-[14px] size-[44px] shrink-0 transition-colors">
+                    <span className="text-[22px] leading-none">{t.icon}</span>
+                  </div>
+                  <div className="flex flex-col gap-1 min-w-0">
+                    <p className="font-['Schibsted_Grotesk',sans-serif] font-semibold text-[#1a2b4a] text-[14px] leading-[1.3]">{t.label}</p>
+                    <p className="font-['Schibsted_Grotesk',sans-serif] text-[#4b5563] text-[13px] leading-[1.5]">{t.desc}</p>
+                    <span className="font-['Schibsted_Grotesk',sans-serif] text-[#c9a84c] text-[12px] font-medium mt-1">Ver más →</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Services included */}
       <section className="bg-[#f5f5f5] w-full">
@@ -365,28 +387,6 @@ function ServicePageLayout({ data }: { data: ServiceData }) {
           </ul>
         </div>
       </section>
-
-      {/* When to seek advice */}
-      <section className="bg-white w-full">
-        <div className="px-6 md:px-16 py-10 md:py-14 max-w-[860px] mx-auto">
-          <h2 className="font-['Instrument_Serif',serif] text-[#1a2b4a] text-[24px] md:text-[32px] mb-6">
-            ¿Cuándo consultar a un abogado?
-          </h2>
-          <div className="flex flex-col gap-3">
-            {data.whenToSeek.map((tip, i) => (
-              <div key={i} className="flex items-start gap-3">
-                <div className="bg-[#1a2b4a] rounded-full size-6 flex items-center justify-center shrink-0 mt-0.5">
-                  <span className="text-[#c9a84c] text-[11px] font-bold">{i + 1}</span>
-                </div>
-                <p className="font-['Schibsted_Grotesk',sans-serif] text-[#374151] text-[14px] md:text-[15px] leading-[1.6]">{tip}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <FaqSection faq={data.faq} />
 
       {/* Related services */}
       {related.length > 0 && (
@@ -422,9 +422,9 @@ function ServicePageLayout({ data }: { data: ServiceData }) {
 
 // ─── Individual page exports ──────────────────────────────────────────────────
 
-export function DerechoCivilPage()            { return <ServicePageLayout data={serviceMap["/derecho-civil/"]} />; }
-export function DerechoMercantilPage()        { return <ServicePageLayout data={serviceMap["/derecho-mercantil/"]} />; }
-export function DerechoLaboralPage()          { return <ServicePageLayout data={serviceMap["/derecho-laboral/"]} />; }
-export function DerechoFamiliaPage()          { return <ServicePageLayout data={serviceMap["/derecho-familia-divorcios/"]} />; }
-export function BienesInmueblesPage()         { return <ServicePageLayout data={serviceMap["/bienes-inmuebles/"]} />; }
-export function ContratosDocumentosPage()     { return <ServicePageLayout data={serviceMap["/contratos-documentos/"]} />; }
+export function DerechoCivilPage()        { return <ServicePageLayout data={serviceMap["/derecho-civil/"]} />; }
+export function DerechoMercantilPage()    { return <ServicePageLayout data={serviceMap["/derecho-mercantil/"]} />; }
+export function DerechoLaboralPage()      { return <ServicePageLayout data={serviceMap["/derecho-laboral/"]} />; }
+export function DerechoFamiliaPage()      { return <ServicePageLayout data={serviceMap["/derecho-familia-divorcios/"]} />; }
+export function BienesInmueblesPage()     { return <ServicePageLayout data={serviceMap["/bienes-inmuebles/"]} />; }
+export function ContratosDocumentosPage() { return <ServicePageLayout data={serviceMap["/contratos-documentos/"]} />; }

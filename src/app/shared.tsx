@@ -366,10 +366,10 @@ export function ContactCta({ waText = "Hola%2C%20me%20gustar%C3%ADa%20agendar%20
               marinelamasri79@gmail.com
             </span>
           </a>
-          <a href="tel:+584122809538" className="flex items-center gap-2.5 active:opacity-70">
+          <a href="tel:+584141700773" className="flex items-center gap-2.5 active:opacity-70">
             <PhoneIcon />
             <span className="font-['Schibsted_Grotesk',sans-serif] font-semibold text-[#1a2b4a] text-[13px] md:text-[16px]">
-              0412-280-9538
+              0414-170-0773
             </span>
           </a>
         </div>
@@ -429,11 +429,17 @@ export function Footer() {
           Defensa legal con ética y profesionalismo en Caracas, Venezuela. Más de 25 años de trayectoria impecable.
         </p>
         <div className="flex flex-wrap gap-x-6 gap-y-2">
+          <Link to="/servicios/" className="font-['Schibsted_Grotesk',sans-serif] text-white/50 text-[12px] hover:text-[#c9a84c] transition-colors">
+            Todos los Servicios
+          </Link>
           {SERVICE_ROUTES.map(s => (
             <Link key={s.slug} to={s.slug} className="font-['Schibsted_Grotesk',sans-serif] text-white/50 text-[12px] hover:text-[#c9a84c] transition-colors">
               {s.label}
             </Link>
           ))}
+          <Link to="/sobre-marinela-masri/" className="font-['Schibsted_Grotesk',sans-serif] text-white/50 text-[12px] hover:text-[#c9a84c] transition-colors">
+            Sobre Marinela Masri
+          </Link>
         </div>
         <div className="border-t border-white/10 pt-6 flex flex-col gap-2 items-center text-center">
           <p className="font-['Schibsted_Grotesk',sans-serif] text-white/50 text-[12px] md:text-[14px]">

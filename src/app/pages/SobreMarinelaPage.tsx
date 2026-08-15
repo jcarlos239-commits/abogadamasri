@@ -20,9 +20,12 @@ export default function SobreMarinelaPage() {
             <span className="text-white/30 text-[12px]">/</span>
             <span className="font-['Schibsted_Grotesk',sans-serif] text-[#c9a84c] text-[12px]">Sobre Mí</span>
           </nav>
-          <h1 className="font-['Instrument_Serif',serif] text-white text-[32px] sm:text-[42px] md:text-[52px] leading-[1.1] mb-4">
-            Abogada Marinela Masri Kasrin
+          <h1 className="font-['Instrument_Serif',serif] text-white text-[32px] sm:text-[42px] md:text-[52px] leading-[1.1] mb-2">
+            Servicios de Abogado en Caracas
           </h1>
+          <p className="font-['Instrument_Serif',serif] text-[#c9a84c] text-[22px] sm:text-[30px] md:text-[38px] leading-[1.1] mb-4">
+            Abogada Marinela Masri Kasrin
+          </p>
           <p className="font-['Schibsted_Grotesk',sans-serif] text-white/70 text-[15px] md:text-[18px] leading-[1.6] max-w-[600px]">
             Más de 25 años defendiendo los derechos de personas y empresas en Venezuela, con dedicación, ética y profesionalismo.
           </p>

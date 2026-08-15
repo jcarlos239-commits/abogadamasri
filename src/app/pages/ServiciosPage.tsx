@@ -65,11 +65,17 @@ export default function ServiciosPage() {
             <span className="text-white/30 text-[12px]">/</span>
             <span className="font-['Schibsted_Grotesk',sans-serif] text-[#c9a84c] text-[12px]">Servicios</span>
           </nav>
-          <h1 className="font-['Instrument_Serif',serif] text-white text-[32px] sm:text-[42px] md:text-[52px] leading-[1.1] mb-4">
+          <h1 className="font-['Instrument_Serif',serif] text-white text-[32px] sm:text-[42px] md:text-[52px] leading-[1.1] mb-2">
             Servicios Jurídicos en Caracas
           </h1>
-          <p className="font-['Schibsted_Grotesk',sans-serif] text-white/70 text-[15px] md:text-[18px] leading-[1.6] max-w-[640px]">
-            Asesoría legal integral para personas y empresas en Venezuela. Consultas presenciales en Caracas y atención en línea para todo el país. Más de 25 años de experiencia respaldando los derechos de cada cliente.
+          <p className="font-['Instrument_Serif',serif] text-[#c9a84c] text-[22px] sm:text-[30px] md:text-[38px] leading-[1.1] mb-3">
+            Abogada Marinela Masri Kasrin
+          </p>
+          <p className="font-['Schibsted_Grotesk',sans-serif] font-semibold text-white/90 text-[14px] md:text-[17px] leading-[1.5] max-w-[640px] mb-2">
+            Asesoría legal con dedicación, ética y resultados comprobados
+          </p>
+          <p className="font-['Schibsted_Grotesk',sans-serif] text-white/70 text-[14px] md:text-[16px] leading-[1.6] max-w-[640px]">
+            Asesoría legal en Derecho Civil, Mercantil, Laboral, Familia, Bienes Inmuebles y Contratos. Consultas presenciales en Caracas y atención en línea para toda Venezuela.
           </p>
         </div>
       </section>
@@ -154,10 +160,10 @@ export default function ServiciosPage() {
               Consulta por WhatsApp
             </a>
             <a
-              href="tel:+584122809538"
+              href="tel:+584141700773"
               className="flex items-center justify-center border border-[#1a2b4a] text-[#1a2b4a] px-7 py-3.5 rounded-[8px] font-['Schibsted_Grotesk',sans-serif] font-semibold text-[14px] hover:bg-[#1a2b4a] hover:text-white transition-all"
             >
-              Llamar: +58 412-280-9538
+              Llamar: +58 414-170-0773
             </a>
           </div>
         </div>

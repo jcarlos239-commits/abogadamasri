@@ -11,6 +11,12 @@ import {
   BienesInmueblesPage,
   ContratosDocumentosPage,
 } from "./pages/ServicePage";
+import {
+  HerenciasSucesionesPage,
+  DivorcioPage,
+  CustodiaLopnnaPage,
+  PoderNotarialPage,
+} from "./pages/SubServicePage";
 
 function NotFound() {
   return (
@@ -51,9 +57,17 @@ export default function App() {
             <Route path="/derecho-familia-divorcios/"   element={<DerechoFamiliaPage />} />
             <Route path="/bienes-inmuebles"             element={<BienesInmueblesPage />} />
             <Route path="/bienes-inmuebles/"            element={<BienesInmueblesPage />} />
-            <Route path="/contratos-documentos"         element={<ContratosDocumentosPage />} />
-            <Route path="/contratos-documentos/"        element={<ContratosDocumentosPage />} />
-            <Route path="*"                            element={<NotFound />} />
+            <Route path="/contratos-documentos"                              element={<ContratosDocumentosPage />} />
+            <Route path="/contratos-documentos/"                             element={<ContratosDocumentosPage />} />
+            <Route path="/derecho-civil/herencias-sucesiones"                element={<HerenciasSucesionesPage />} />
+            <Route path="/derecho-civil/herencias-sucesiones/"               element={<HerenciasSucesionesPage />} />
+            <Route path="/derecho-familia-divorcios/divorcio"                element={<DivorcioPage />} />
+            <Route path="/derecho-familia-divorcios/divorcio/"               element={<DivorcioPage />} />
+            <Route path="/derecho-familia-divorcios/custodia-lopnna"         element={<CustodiaLopnnaPage />} />
+            <Route path="/derecho-familia-divorcios/custodia-lopnna/"        element={<CustodiaLopnnaPage />} />
+            <Route path="/contratos-documentos/poder-notarial"               element={<PoderNotarialPage />} />
+            <Route path="/contratos-documentos/poder-notarial/"              element={<PoderNotarialPage />} />
+            <Route path="*"                                                  element={<NotFound />} />
           </Routes>
         </main>
         <Footer />
