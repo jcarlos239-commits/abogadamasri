@@ -1,4 +1,22 @@
 {
   "trailingSlash": true,
-  "cleanUrls": false
+  "cleanUrls": false,
+  "rewrites": [
+    {
+      "source": "/derecho-civil/herencias-sucesiones/",
+      "destination": "/derecho-civil/herencias-sucesiones/index.html"
+    },
+    {
+      "source": "/derecho-familia-divorcios/divorcio/",
+      "destination": "/derecho-familia-divorcios/divorcio/index.html"
+    },
+    {
+      "source": "/derecho-familia-divorcios/custodia-lopnna/",
+      "destination": "/derecho-familia-divorcios/custodia-lopnna/index.html"
+    },
+    {
+      "source": "/contratos-documentos/poder-notarial/",
+      "destination": "/contratos-documentos/poder-notarial/index.html"
+    }
+  ]
 }
