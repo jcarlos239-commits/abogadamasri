@@ -10,13 +10,13 @@ interface SubServiceData {
   parentLabel: string;
   icon:        string;
   title:       string;
+  h1?:         string;
   metaTitle:   string;
   metaDesc:    string;
   heroDesc:    string;
   intro:       string;
   items:       string[];
   whenToSeek:  string[];
-  faq:         { q: string; a: string }[];
   related:     string[];
   waText:      string;
 }
@@ -31,8 +31,9 @@ const allSubServices: SubServiceData[] = [
     parentLabel: "Derecho Civil",
     icon:        "🏛️",
     title:       "Herencias y Sucesiones",
-    metaTitle:   "Herencias y Sucesiones en Caracas | Abogada Marinela Masri",
-    metaDesc:    "Asesoría legal en herencias y sucesiones en Caracas. Gestión de trámites sucesorales ante el SENIAT, declaración sucesoral y orientación a herederos en Venezuela. Marinela Masri Kasrin.",
+    h1:          "Abogado de Herencias y Sucesiones en Caracas",
+    metaTitle:   "Abogado de Herencias y Sucesiones en Caracas | Marinela Masri Kasrin",
+    metaDesc:    "Abogado de herencias y sucesiones en Caracas, Venezuela. Asesoría legal en declaraciones sucesorales, herencias, testamentos y particiones.",
     heroDesc:    "Asesoría legal en materia sucesoral en Venezuela: gestión de herencias, trámites ante el SENIAT y orientación a herederos en Caracas.",
     intro:       "El fallecimiento de un familiar plantea, además del proceso de duelo, una serie de gestiones legales que deben realizarse correctamente para que los bienes del causante pasen a sus herederos. En Venezuela, este proceso —conocido como sucesión— implica trámites ante el SENIAT, inscripciones ante el Registro Público y, en muchos casos, la coordinación entre los herederos para llegar a acuerdos sobre la distribución del patrimonio.\n\nContar con orientación legal desde el inicio del proceso sucesoral ayuda a evitar errores costosos, demoras innecesarias y conflictos entre herederos. Marinela Masri acompaña a sus clientes en la gestión de los trámites sucesorales, tanto presencialmente en Caracas como en línea para clientes en todo el país.",
     items: [
@@ -51,28 +52,6 @@ const allSubServices: SubServiceData[] = [
       "Cuando los documentos de propiedad del causante presentan irregularidades o están incompletos",
       "Cuando necesita formalizar la transferencia de un inmueble a nombre de los herederos",
     ],
-    faq: [
-      {
-        q: "¿Qué es una sucesión y cuándo necesito un abogado?",
-        a: "La sucesión es el proceso legal por el cual los bienes de una persona fallecida se transfieren a sus herederos. Implica declaraciones ante el SENIAT y trámites en el Registro. Un abogado garantiza que el proceso sea correcto, evita errores que pueden retrasar la herencia y protege los derechos de cada heredero.",
-      },
-      {
-        q: "¿Qué es la declaración sucesoral y ante quién se realiza?",
-        a: "La declaración sucesoral es el documento mediante el cual los herederos informan al SENIAT sobre los bienes, derechos y obligaciones que forman parte de la herencia. Su presentación es un paso fundamental en el proceso sucesoral venezolano. Marinela Masri puede orientarle sobre este trámite y las gestiones que implica.",
-      },
-      {
-        q: "¿Qué documentos se necesitan para tramitar una herencia en Venezuela?",
-        a: "Para iniciar una sucesión en Venezuela generalmente se requiere el acta de defunción del causante, los documentos de identidad de los herederos, los títulos de propiedad de los bienes que integran el patrimonio y la declaración sucesoral ante el SENIAT. Dado que los trámites varían según la composición del patrimonio y los herederos, consultar con un abogado desde el inicio evita errores costosos y demoras.",
-      },
-      {
-        q: "¿Qué ocurre cuando hay desacuerdo entre los herederos?",
-        a: "Si los herederos no llegan a un acuerdo sobre la distribución del patrimonio, puede iniciarse un proceso de partición judicial. Marinela Masri puede asesorarle tanto en la negociación de acuerdos extrajudiciales entre herederos como en los procesos de partición, buscando la solución que mejor proteja sus intereses.",
-      },
-      {
-        q: "¿Cuánto puede tardar un proceso sucesoral en Venezuela?",
-        a: "Los plazos varían significativamente según la complejidad del patrimonio, el número de herederos y si existe acuerdo entre ellos. Un proceso sin conflictos puede resolverse en meses; uno que requiera partición judicial puede extenderse considerablemente más. Marinela Masri puede darle una estimación más concreta según las circunstancias de su caso.",
-      },
-    ],
     related: ["/derecho-civil/", "/bienes-inmuebles/", "/contratos-documentos/"],
     waText:  "Hola%2C%20necesito%20asesor%C3%ADa%20sobre%20herencias%20y%20sucesiones",
   },
@@ -84,8 +63,9 @@ const allSubServices: SubServiceData[] = [
     parentLabel: "Divorcios y Familia",
     icon:        "💔",
     title:       "Divorcio en Venezuela",
-    metaTitle:   "Divorcio en Venezuela | Abogada Marinela Masri Kasrin",
-    metaDesc:    "Asesoría legal para procesos de divorcio en Venezuela. Divorcio contencioso, divorcio por desafecto (Sentencia 1070 TSJ) y separación de cuerpos. Abogada Marinela Masri en Caracas.",
+    h1:          "Abogado de Divorcio en Venezuela",
+    metaTitle:   "Abogado de Divorcio en Venezuela | Marinela Masri Kasrin",
+    metaDesc:    "Abogado de divorcio en Venezuela. Marinela Masri Kasrin ofrece asesoría y representación legal en procesos de divorcio y asuntos relacionados con la separación.",
     heroDesc:    "Orientación y representación legal en procesos de divorcio en Venezuela: divorcios contenciosos, por desafecto y separación de cuerpos.",
     intro:       "El divorcio es uno de los procesos legales que mayor impacto tiene en la vida de una persona. Además de disolver el vínculo matrimonial, puede involucrar la distribución de bienes conyugales, la definición de regímenes de convivencia con los hijos y otros asuntos que requieren atención cuidadosa.\n\nEn Venezuela, los procesos de divorcio se rigen principalmente por el Código Civil y la jurisprudencia del Tribunal Supremo de Justicia. Contar con asesoría legal desde el inicio del proceso permite tomar decisiones informadas y proteger adecuadamente los derechos e intereses de quien busca asistencia.",
     items: [
@@ -101,28 +81,6 @@ const allSubServices: SubServiceData[] = [
       "Cuando hay bienes conyugales que deben ser distribuidos",
       "Cuando su cónyuge se encuentra en el extranjero y necesita orientación sobre el proceso",
     ],
-    faq: [
-      {
-        q: "¿Cuáles son los tipos de divorcio en Venezuela?",
-        a: "Los principales son el divorcio contencioso (por causales establecidas en el Código Civil) y el divorcio por desafecto (reconocido por la Sentencia 1070 del TSJ), que permite disolver el matrimonio por pérdida del afecto marital, sin necesidad de demostrar causas específicas.",
-      },
-      {
-        q: "¿Qué es el divorcio por desafecto?",
-        a: "Es una modalidad reconocida por el Tribunal Supremo de Justicia (Sentencia 1070) que permite a cualquiera de los cónyuges solicitar el divorcio alegando la pérdida del afecto conyugal. No requiere demostrar culpa del otro cónyuge, lo que simplifica el proceso en muchos casos.",
-      },
-      {
-        q: "¿Cuánto tiempo tarda un proceso de divorcio en Venezuela?",
-        a: "Depende del tipo de divorcio y de si existe acuerdo entre las partes. Un divorcio por desafecto puede tramitarse en semanas si no hay bienes en disputa ni hijos menores en conflicto. Un divorcio contencioso con bienes en disputa puede extenderse varios meses. La voluntad de ambas partes para llegar a acuerdos es el factor que más influye en la duración.",
-      },
-      {
-        q: "¿Puedo iniciar un proceso de divorcio si mi cónyuge está en el extranjero?",
-        a: "Sí, es posible. El proceso puede iniciarse ante los tribunales venezolanos competentes con las debidas notificaciones. Si el cónyuge en el extranjero cuenta con un poder notarial vigente, el proceso puede agilizarse considerablemente. Marinela Masri puede asesorarle sobre los pasos específicos según la situación de su caso.",
-      },
-      {
-        q: "¿Qué ocurre con los bienes conyugales al divorciarse?",
-        a: "La distribución de los bienes adquiridos durante el matrimonio se realiza mediante la partición de bienes conyugales, que puede acordarse extrajudicialmente entre las partes o resolverse judicialmente si no hay acuerdo. Marinela Masri puede orientarle sobre este proceso y la forma de proteger sus intereses en la distribución.",
-      },
-    ],
     related: ["/derecho-familia-divorcios/", "/derecho-familia-divorcios/custodia-lopnna/", "/bienes-inmuebles/"],
     waText:  "Hola%2C%20necesito%20asesor%C3%ADa%20sobre%20un%20proceso%20de%20divorcio",
   },
@@ -134,8 +92,9 @@ const allSubServices: SubServiceData[] = [
     parentLabel: "Divorcios y Familia",
     icon:        "👶",
     title:       "Custodia y LOPNNA",
-    metaTitle:   "Custodia y LOPNNA en Caracas | Abogada Marinela Masri",
-    metaDesc:    "Asesoría legal en custodia, régimen de convivencia familiar, obligación de manutención y asuntos de LOPNNA en Caracas. Abogada Marinela Masri Kasrin.",
+    h1:          "Abogado de Custodia y LOPNNA en Caracas",
+    metaTitle:   "Abogado de Custodia y LOPNNA en Caracas | Marinela Masri Kasrin",
+    metaDesc:    "Abogado de custodia y LOPNNA en Caracas, Venezuela. Asesoría legal sobre guarda y custodia, patria potestad y régimen de convivencia familiar.",
     heroDesc:    "Orientación legal en custodia, régimen de convivencia, manutención y asuntos bajo la LOPNNA en Venezuela.",
     intro:       "Los asuntos relacionados con niños, niñas y adolescentes tienen un régimen legal especial en Venezuela: la LOPNNA (Ley Orgánica para la Protección del Niño, Niña y Adolescente) establece los derechos de los menores y los procedimientos que deben seguirse ante los tribunales de protección.\n\nEstos procesos pueden surgir independientemente de un divorcio: padres separados o en proceso de separación que necesitan definir la custodia, la convivencia o la manutención de sus hijos, así como situaciones que involucran la patria potestad o el reconocimiento de paternidad. Marinela Masri ofrece asesoría en estas materias con profesionalismo y atención al bienestar de los menores involucrados.",
     items: [
@@ -152,28 +111,6 @@ const allSubServices: SubServiceData[] = [
       "Cuando enfrenta un proceso ante los tribunales de protección bajo la LOPNNA",
       "Cuando un progenitor ha incurrido en conductas que podrían justificar la privación de la patria potestad",
     ],
-    faq: [
-      {
-        q: "¿Qué es el régimen de convivencia familiar y cómo se establece?",
-        a: "El régimen de convivencia familiar regula el tiempo que cada progenitor pasa con sus hijos cuando los padres no conviven. Puede acordarse entre las partes o establecerse judicialmente ante los tribunales de protección. Su objetivo principal es proteger el interés superior del menor y garantizar el vínculo con ambos padres cuando sea posible.",
-      },
-      {
-        q: "¿Qué es la patria potestad y cuándo puede privarse?",
-        a: "La patria potestad es el conjunto de derechos y obligaciones de los padres sobre sus hijos menores. Puede ser privada judicialmente cuando el progenitor incurre en conductas que perjudican al niño, según las causales establecidas en el Código Civil y la LOPNNA.",
-      },
-      {
-        q: "¿Cómo se determina la obligación de manutención?",
-        a: "La obligación de manutención (pensión alimentaria) se determina judicialmente considerando las necesidades del menor y la capacidad económica del obligado. Se tramita bajo el régimen especial de la LOPNNA y puede modificarse si cambian las circunstancias de las partes.",
-      },
-      {
-        q: "¿Qué es la LOPNNA?",
-        a: "La Ley Orgánica para la Protección del Niño, Niña y Adolescente (LOPNNA) es la normativa que rige todos los asuntos legales relacionados con menores de edad en Venezuela, incluyendo custodia, manutención, régimen de convivencia y protección de derechos.",
-      },
-      {
-        q: "¿Puede un proceso de custodia tramitarse independientemente del divorcio?",
-        a: "Sí. Los procesos relativos a la custodia, el régimen de convivencia y la manutención de los hijos pueden iniciarse de forma independiente, ya sea que los padres estén casados, en proceso de divorcio o nunca hayan estado casados. Lo determinante es la necesidad de regular la relación legal entre los progenitores y el menor.",
-      },
-    ],
     related: ["/derecho-familia-divorcios/", "/derecho-familia-divorcios/divorcio/", "/derecho-civil/"],
     waText:  "Hola%2C%20necesito%20asesor%C3%ADa%20sobre%20custodia%20y%20LOPNNA",
   },
@@ -185,8 +122,9 @@ const allSubServices: SubServiceData[] = [
     parentLabel: "Contratos y Documentos",
     icon:        "📜",
     title:       "Poderes Notariales",
-    metaTitle:   "Poder Notarial en Venezuela | Abogada Marinela Masri Kasrin",
-    metaDesc:    "Asesoría y preparación de poderes notariales en Venezuela. Poderes generales, especiales, de administración y disposición, con apostilla para uso internacional. Marinela Masri Kasrin en Caracas.",
+    h1:          "Abogado de Poder Notarial en Venezuela",
+    metaTitle:   "Abogado de Poder Notarial en Venezuela | Marinela Masri Kasrin",
+    metaDesc:    "Abogado de poder notarial en Venezuela. Asesoría para la elaboración y formalización de poderes, documentos notariales y representación legal.",
     heroDesc:    "Preparación y asesoría en poderes notariales en Venezuela: poderes generales, especiales, de administración y disposición, nacionales e internacionales.",
     intro:       "Un poder notarial es el instrumento mediante el cual una persona (el poderdante) autoriza a otra (el apoderado) a actuar legalmente en su nombre para los actos que el poder especifique. Es uno de los documentos legales más utilizados en Venezuela, tanto por personas que necesitan que alguien gestione sus asuntos mientras están ausentes, como por quienes requieren un representante para un trámite específico.\n\nEl tipo de poder y su alcance deben ser definidos con precisión desde el inicio: un poder demasiado amplio puede generar riesgos; uno demasiado limitado puede no ser suficiente para los trámites que se necesitan. Marinela Masri puede orientarle sobre el tipo de poder adecuado para su situación y asistirle en la preparación del documento.",
     items: [
@@ -204,30 +142,112 @@ const allSubServices: SubServiceData[] = [
       "Cuando tiene un poder vigente que desea revocar",
       "Cuando necesita un poder con apostilla para que tenga validez en otro país",
     ],
-    faq: [
-      {
-        q: "¿Para qué sirve un poder notarial y cuáles son sus tipos?",
-        a: "Un poder notarial permite que otra persona actúe legalmente en su nombre. Puede ser general (para múltiples actos), especial (para un acto específico) o de administración y disposición (para gestionar bienes). Marinela Masri puede asesorarle sobre cuál es el más adecuado para su situación.",
-      },
-      {
-        q: "¿Qué diferencia hay entre un poder general y un poder especial?",
-        a: "Un poder general faculta al apoderado para realizar una amplia variedad de actos en nombre del poderdante. Un poder especial está limitado a uno o varios actos concretos y precisamente determinados. La elección entre uno y otro depende del propósito específico y del nivel de control que desea mantener el poderdante.",
-      },
-      {
-        q: "¿Qué es la apostilla y cuándo se necesita?",
-        a: "La apostilla es una certificación que otorga validez internacional a documentos públicos venezolanos, de acuerdo con el Convenio de La Haya. Se necesita cuando un documento emitido en Venezuela debe surtir efectos legales en otro país. El trámite en Venezuela se realiza ante el Ministerio de Relaciones Exteriores.",
-      },
-      {
-        q: "¿Puedo otorgar un poder notarial si me encuentro fuera de Venezuela?",
-        a: "Sí, es posible gestionar poderes para personas en el extranjero mediante el proceso de apostilla y los registros correspondientes, tanto dentro de Venezuela como en otros países, con la debida coordinación notarial e internacional.",
-      },
-      {
-        q: "¿Cómo se revoca un poder notarial?",
-        a: "La revocatoria de un poder notarial debe realizarse formalmente, generalmente ante la misma Notaría donde se otorgó el poder original, y notificarse al apoderado. Un poder no revocado formalmente mantiene su vigencia, lo cual puede generar riesgos si se quiere limitar la actuación del apoderado. Marinela Masri puede orientarle sobre el proceso correcto.",
-      },
-    ],
     related: ["/contratos-documentos/", "/derecho-civil/", "/bienes-inmuebles/"],
     waText:  "Hola%2C%20necesito%20asesor%C3%ADa%20sobre%20un%20poder%20notarial",
+  },
+
+  // ── Condominios ─────────────────────────────────────────────────────────────
+  {
+    slug:        "/bienes-inmuebles/condominios/",
+    parentSlug:  "/bienes-inmuebles/",
+    parentLabel: "Bienes Inmuebles",
+    icon:        "🏢",
+    title:       "Condominios",
+    h1:          "Abogado para Condominios en Venezuela",
+    metaTitle:   "Abogado para Condominios en Venezuela | Marinela Masri",
+    metaDesc:    "Abogado para condominios en Venezuela. Asesoría a juntas de condominio y propietarios en cobro de cuotas, conflictos, asambleas y gestión legal.",
+    heroDesc:    "Asesoría legal a juntas de condominio y propietarios en Venezuela: cobro de cuotas, conflictos entre propietarios, asambleas y derechos bajo la Ley de Propiedad Horizontal.",
+    intro:       "Los condominios en Venezuela se rigen por la Ley de Propiedad Horizontal, que establece los derechos y obligaciones de propietarios, juntas administradoras y administradores. Cuando surgen conflictos por impago de cuotas, desacuerdos entre propietarios o problemas en la gestión del edificio, contar con asesoría legal permite resolver estas situaciones de forma ordenada y dentro del marco legal venezolano.\n\nMarinela Masri ofrece orientación jurídica en materia de condominio tanto para juntas administradoras que necesitan gestionar el cobro de cuotas o resolver conflictos internos, como para propietarios que tienen dudas sobre sus derechos y obligaciones dentro del condominio.",
+    items: [
+      "Cobro de cuotas de condominio, extrajudicial y judicial",
+      "Asesoría ante propietarios que no pagan",
+      "Obligaciones de los propietarios bajo la Ley de Propiedad Horizontal",
+      "Conflictos entre propietarios y administradores",
+      "Asesoría jurídica a juntas de condominio",
+      "Convocatoria y validez de asambleas de propietarios",
+      "Administración legal de condominios",
+      "Derechos y obligaciones de los copropietarios",
+      "Reclamos relacionados con condominios",
+      "Asesoría a asociaciones de propietarios",
+    ],
+    whenToSeek: [
+      "Cuando propietarios se niegan a pagar las cuotas de condominio",
+      "Cuando hay disputas entre propietarios y la junta administradora",
+      "Cuando necesita orientación sobre la convocatoria de asambleas",
+      "Cuando tiene dudas sobre los derechos y obligaciones como propietario",
+      "Cuando la junta requiere apoyo legal para gestionar el edificio",
+    ],
+    related: ["/bienes-inmuebles/", "/derecho-civil/", "/contratos-documentos/"],
+    waText:  "Hola%2C%20necesito%20asesor%C3%ADa%20sobre%20condominios",
+  },
+
+  // ── Legalización y Apostilla ────────────────────────────────────────────────
+  {
+    slug:        "/derecho-civil/legalizacion-apostilla/",
+    parentSlug:  "/derecho-civil/",
+    parentLabel: "Derecho Civil",
+    icon:        "🌐",
+    title:       "Legalización y Apostilla",
+    h1:          "Legalización y Apostilla de Documentos en Venezuela",
+    metaTitle:   "Legalización y Apostilla en Venezuela | Marinela Masri",
+    metaDesc:    "Legalización y apostilla de documentos en Venezuela. Asesoría y gestión de documentos civiles, académicos, notariales y emitidos por SAREN.",
+    heroDesc:    "Orientación y gestión de legalización y apostilla de documentos en Venezuela: documentos civiles, académicos, notariales y emitidos por SAREN para uso internacional.",
+    intro:       "La apostilla y la legalización son los procedimientos que permiten que documentos venezolanos tengan validez legal en otros países. Venezuela es signataria del Convenio de La Haya sobre la Apostilla, lo que simplifica el proceso para los países miembros del convenio. Para los países no signatarios, el trámite de legalización implica pasos adicionales ante el Ministerio de Relaciones Exteriores y los organismos competentes.\n\nDependiendo del tipo de documento —civil, académico, notarial o emitido por organismos como el SAREN— el proceso puede requerir pasos previos de autenticación o verificación. Marinela Masri puede orientarle sobre el procedimiento correcto para cada tipo de documento y asistirle en la gestión.",
+    items: [
+      "Legalización y apostilla de documentos en Venezuela",
+      "Diferencia entre legalización y apostilla: cuándo aplica cada una",
+      "Apostilla electrónica en Venezuela",
+      "Documentos que pueden ser legalizados o apostillados",
+      "Apostilla de antecedentes penales",
+      "Documentos civiles, académicos y notariales",
+      "Documentos emitidos por SAREN",
+      "Orientación sobre requisitos y pasos del trámite",
+      "Errores frecuentes que pueden retrasar el trámite",
+      "Asesoría y gestión documental",
+    ],
+    whenToSeek: [
+      "Cuando necesita usar documentos venezolanos en el extranjero",
+      "Cuando no sabe si necesita apostilla o legalización para su documento",
+      "Cuando un trámite migratorio, académico o laboral requiere documentos apostillados",
+      "Cuando tiene dudas sobre los pasos previos necesarios para cada tipo de documento",
+    ],
+    related: ["/derecho-civil/", "/contratos-documentos/", "/contratos-documentos/poder-notarial/"],
+    waText:  "Hola%2C%20necesito%20asesor%C3%ADa%20sobre%20legalizaci%C3%B3n%20y%20apostilla",
+  },
+
+  // ── Registro Mercantil ───────────────────────────────────────────────────────
+  {
+    slug:        "/derecho-mercantil/registro-mercantil/",
+    parentSlug:  "/derecho-mercantil/",
+    parentLabel: "Derecho Mercantil",
+    icon:        "📋",
+    title:       "Registro Mercantil",
+    h1:          "Registro Mercantil para Empresas en Venezuela",
+    metaTitle:   "Registro Mercantil para Empresas | Marinela Masri",
+    metaDesc:    "Registro Mercantil para empresas en Venezuela. Asesoría legal en constitución de sociedades, actas de asamblea, actualización y trámites ante SAREN.",
+    heroDesc:    "Asesoría legal para la constitución, actualización y registro de empresas ante el Registro Mercantil en Venezuela: sociedades mercantiles, actas y documentos societarios.",
+    intro:       "El Registro Mercantil es el organismo que da fe pública de los actos y contratos de las empresas en Venezuela. Desde la constitución de una nueva sociedad hasta la actualización de su junta directiva, modificaciones estatutarias o disolución, cada trámite requiere documentación legal correcta y el cumplimiento de procedimientos específicos.\n\nMarinela Masri acompaña a empresas, comerciantes y emprendedores en sus trámites ante el Registro Mercantil, garantizando que los documentos societarios estén correctamente redactados, que los actos queden debidamente registrados y que su empresa opere con plena seguridad jurídica.",
+    items: [
+      "Constitución y registro de empresas ante el Registro Mercantil",
+      "Registro Mercantil para empresas y sociedades",
+      "Asesoría sobre tipos de sociedades mercantiles",
+      "Redacción y protocolización de actas de asamblea",
+      "Actualización y modificación del Registro Mercantil",
+      "Registro de libros y documentos societarios",
+      "Asesoría para empresas y sociedades mercantiles",
+      "Trámites relacionados con SAREN",
+      "Revisión y redacción de documentos mercantiles",
+      "Asesoría legal integral para empresas",
+    ],
+    whenToSeek: [
+      "Cuando va a constituir una nueva empresa en Venezuela",
+      "Cuando necesita actualizar los datos o junta directiva de su empresa",
+      "Cuando va a modificar los estatutos o el objeto social de su empresa",
+      "Cuando necesita gestionar trámites ante el Registro Mercantil o SAREN",
+      "Cuando necesita registrar libros o documentos societarios",
+    ],
+    related: ["/derecho-mercantil/", "/contratos-documentos/", "/derecho-civil/"],
+    waText:  "Hola%2C%20necesito%20asesor%C3%ADa%20sobre%20el%20Registro%20Mercantil",
   },
 ];
 
@@ -242,6 +262,7 @@ const COMBINED_MAP: Record<string, { slug: string; icon: string; title: string }
     allSubServices.map(s => [s.slug, { slug: s.slug, icon: s.icon, title: s.title }])
   ),
 };
+
 
 // ─── SubServicePageLayout ─────────────────────────────────────────────────────
 
@@ -281,7 +302,7 @@ function SubServicePageLayout({ data }: { data: SubServiceData }) {
               <span className="text-[28px] leading-none">{data.icon}</span>
             </div>
             <h1 className="font-['Instrument_Serif',serif] text-white text-[28px] sm:text-[38px] md:text-[48px] leading-[1.1]">
-              {data.title}
+              {data.h1 ?? data.title}
             </h1>
           </div>
           <p className="font-['Schibsted_Grotesk',sans-serif] text-white/70 text-[15px] md:text-[18px] leading-[1.6] max-w-[600px] mb-5">
@@ -374,4 +395,13 @@ export function CustodiaLopnnaPage() {
 }
 export function PoderNotarialPage() {
   return <SubServicePageLayout data={subServiceMap["/contratos-documentos/poder-notarial/"]} />;
+}
+export function CondominiosPage() {
+  return <SubServicePageLayout data={subServiceMap["/bienes-inmuebles/condominios/"]} />;
+}
+export function LegalizacionApostillaPage() {
+  return <SubServicePageLayout data={subServiceMap["/derecho-civil/legalizacion-apostilla/"]} />;
+}
+export function RegistroMercantilPage() {
+  return <SubServicePageLayout data={subServiceMap["/derecho-mercantil/registro-mercantil/"]} />;
 }

@@ -35,8 +35,8 @@ function setCanonical(href: string) {
   el.href = href;
 }
 
-const HOME_TITLE = "Abogada Marinela Masri Kasrin | Asesoría Legal en Venezuela";
-const HOME_DESC  = "Abogada con más de 25 años de experiencia en Derecho Civil, Laboral y Mercantil en Venezuela. Atención presencial en Caracas y online para todo el país.";
+const HOME_TITLE = "Abogado en Caracas | Marinela Masri Kasrin | Asesoría Legal";
+const HOME_DESC  = "Abogado en Caracas, Venezuela. Marinela Masri Kasrin ofrece asesoría legal en derecho civil, mercantil, laboral, familia, bienes inmuebles y contratos.";
 const SITE_URL   = "https://www.abogadamasri.com";
 
 export function usePageSEO(title: string, description: string, path: string) {
@@ -216,9 +216,9 @@ export function Navbar() {
             <Link to="/sobre-marinela-masri/" className="font-['Schibsted_Grotesk',sans-serif] font-medium text-[#1a2b4a] text-[15px] hover:text-[#c9a84c] transition-colors">
               Sobre Mí
             </Link>
-            <button onClick={() => goSection("contacto")} className="font-['Schibsted_Grotesk',sans-serif] font-medium text-[#1a2b4a] text-[15px] hover:text-[#c9a84c] transition-colors">
-              Contacto
-            </button>
+            <Link to="/blog/" className="font-['Schibsted_Grotesk',sans-serif] font-medium text-[#1a2b4a] text-[15px] hover:text-[#c9a84c] transition-colors">
+              Blog
+            </Link>
             <a
               href={`${WA_BASE}Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20consulta`}
               target="_blank" rel="noopener noreferrer"
@@ -277,9 +277,9 @@ export function Navbar() {
           <Link to="/sobre-marinela-masri/" className="font-['Schibsted_Grotesk',sans-serif] font-medium text-[#1a2b4a] text-[16px] py-3 border-b border-[#f3f4f6] active:text-[#c9a84c]">
             Sobre Mí
           </Link>
-          <button onClick={() => goSection("contacto")} className="font-['Schibsted_Grotesk',sans-serif] font-medium text-[#1a2b4a] text-[16px] text-left py-3 border-b border-[#f3f4f6] active:text-[#c9a84c]">
-            Contacto
-          </button>
+          <Link to="/blog/" className="font-['Schibsted_Grotesk',sans-serif] font-medium text-[#1a2b4a] text-[16px] py-3 border-b border-[#f3f4f6] active:text-[#c9a84c]">
+            Blog
+          </Link>
           <a
             href={`${WA_BASE}Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20consulta`}
             target="_blank" rel="noopener noreferrer"
@@ -445,7 +445,7 @@ export function Footer() {
           <p className="font-['Schibsted_Grotesk',sans-serif] text-white/50 text-[12px] md:text-[14px]">
             Abogada Marinela Masri Kasrin © 2026 · Caracas, Venezuela
           </p>
-          <p className="font-['Schibsted_Grotesk',sans-serif] text-white/30 text-[10px] md:text-[12px] leading-[1.5] max-w-[600px]">
+          <p className="font-['Schibsted_Grotesk',sans-serif] text-white/50 text-[10px] md:text-[12px] leading-[1.5] max-w-[600px]">
             Este sitio web es únicamente informativo y no constituye asesoría legal formal.
           </p>
         </div>

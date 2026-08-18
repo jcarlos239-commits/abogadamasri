@@ -1,8 +1,8 @@
 import { Link } from "react-router";
 import { usePageSEO, WA_BASE, MsgIcon, ContactCta, WhyTrust } from "../shared";
 
-const META_TITLE = "Servicios Jurídicos en Caracas | Abogada Marinela Masri";
-const META_DESC  = "Asesoría jurídica integral en Caracas. Derecho Civil, Mercantil, Laboral, Familia, Bienes Inmuebles y Contratos. Más de 25 años de experiencia al servicio de personas y empresas en Venezuela.";
+const META_TITLE = "Servicios Legales en Caracas | Marinela Masri Kasrin";
+const META_DESC  = "Conoce los servicios legales de Marinela Masri Kasrin en Caracas, con asesoría en derecho civil, mercantil, laboral, familia, inmuebles y contratos.";
 
 const services = [
   {
@@ -66,7 +66,7 @@ export default function ServiciosPage() {
             <span className="font-['Schibsted_Grotesk',sans-serif] text-[#c9a84c] text-[12px]">Servicios</span>
           </nav>
           <h1 className="font-['Instrument_Serif',serif] text-white text-[32px] sm:text-[42px] md:text-[52px] leading-[1.1] mb-2">
-            Servicios Jurídicos en Caracas
+            Servicios Legales en Caracas
           </h1>
           <p className="font-['Instrument_Serif',serif] text-[#c9a84c] text-[22px] sm:text-[30px] md:text-[38px] leading-[1.1] mb-3">
             Abogada Marinela Masri Kasrin

@@ -16,7 +16,7 @@ function Hero() {
         transition={{ scaleX: { duration: 6, ease: "easeInOut", repeat: Infinity }, scaleY: { duration: 6, ease: "easeInOut", repeat: Infinity } }}
         style={{ transformOrigin: "50% 50%" }}
       >
-        <img alt="" role="presentation" className="absolute max-w-none object-cover size-full" src={imgHero} />
+        <img alt="" role="presentation" fetchpriority="high" width="2242" height="1250" className="absolute max-w-none object-cover size-full" src={imgHero} />
         <div className="absolute inset-0 bg-[rgba(26,43,74,0.70)]" />
       </motion.div>
 
@@ -26,9 +26,9 @@ function Hero() {
           animate={{ opacity: [0, 0, 1, 1], y: [30, 30, 0, 0] }}
           transition={{ duration: 6, times: [0, 0.05, 0.2, 1], repeat: Infinity }}
         >
-          <p className="font-['Instrument_Serif',serif] leading-[1.1] text-[#c9a84c] text-[26px] sm:text-[36px] md:text-[52px] lg:text-[72px]">
-            Servicios de Abogado en Caracas
-          </p>
+          <h1 className="font-['Instrument_Serif',serif] leading-[1.1] text-[#c9a84c] text-[26px] sm:text-[36px] md:text-[52px] lg:text-[72px]">
+            Abogado en Caracas, Venezuela
+          </h1>
           <p className="font-['Instrument_Serif',serif] leading-[1.1] text-white text-[28px] sm:text-[38px] md:text-[54px] lg:text-[72px]">
             Abogada Marinela Masri Kasrin
           </p>
@@ -129,7 +129,7 @@ function About() {
         <div className="flex gap-8 sm:gap-16 md:gap-24 items-center justify-center py-2">
           <Link to="/sobre-marinela-masri/" className="flex flex-col gap-3 items-center group">
             <div className="relative size-[88px] sm:size-[110px] md:size-[120px]">
-              <img alt="Quiénes Somos" loading="lazy" className="absolute inset-0 size-full object-contain" src={imgRect} />
+              <img alt="" loading="lazy" className="absolute inset-0 size-full object-contain" src={imgRect} />
             </div>
             <p className="font-['Schibsted_Grotesk',sans-serif] font-bold text-[#1a2b4a] text-[16px] sm:text-[20px] md:text-[24px] underline leading-[1.2] text-center group-hover:text-[#c9a84c] transition-colors">
               Quiénes Somos
@@ -137,7 +137,7 @@ function About() {
           </Link>
           <Link to="/servicios/" className="flex flex-col gap-3 items-center group">
             <div className="relative size-[88px] sm:size-[110px] md:size-[120px]">
-              <img alt="Qué Hacemos" loading="lazy" className="absolute inset-0 size-full object-contain" src={imgRect1} />
+              <img alt="" loading="lazy" className="absolute inset-0 size-full object-contain" src={imgRect1} />
             </div>
             <p className="font-['Schibsted_Grotesk',sans-serif] font-bold text-[#1a2b4a] text-[16px] sm:text-[20px] md:text-[24px] underline leading-[1.2] text-center group-hover:text-[#c9a84c] transition-colors">
               Qué Hacemos
@@ -147,8 +147,8 @@ function About() {
 
         <div className="flex flex-col sm:flex-row gap-3">
           {[
-            { value: "25+",          label: "Años Experiencia" },
-            { value: "6",               label: "Áreas de práctica" },
+            { value: "25+ Años",     label: "de Amplia Experiencia Jurídica" },
+            { value: "6",            label: "Áreas de ESPECIALIZACIÓN" },
             { value: "Caracas, VZLA",  label: "Ubicación" },
           ].map(s => (
             <div key={s.label} className="bg-[#1a2b4a] rounded-[8px] border border-[#c9a84c] flex-1">

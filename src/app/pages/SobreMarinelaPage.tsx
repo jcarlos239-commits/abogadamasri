@@ -1,8 +1,8 @@
 import { Link } from "react-router";
 import { usePageSEO, WA_BASE, MsgIcon, ContactCta, WhyTrust, SERVICE_ROUTES } from "../shared";
 
-const META_TITLE = "Abogada Marinela Masri Kasrin | Más de 25 Años de Experiencia";
-const META_DESC  = "Conoce a Marinela Masri Kasrin, abogada venezolana con más de 25 años de trayectoria en Derecho Civil, Laboral y Mercantil. Atención presencial en Caracas y asesoría en línea para toda Venezuela.";
+const META_TITLE = "Abogada en Caracas | Marinela Masri Kasrin | Trayectoria Jurídica";
+const META_DESC  = "Conoce a Marinela Masri Kasrin, abogada en Caracas con más de 25 años de trayectoria jurídica y experiencia en diversas áreas del derecho.";
 
 export default function SobreMarinelaPage() {
   usePageSEO(META_TITLE, META_DESC, "/sobre-marinela-masri/");
@@ -20,12 +20,9 @@ export default function SobreMarinelaPage() {
             <span className="text-white/30 text-[12px]">/</span>
             <span className="font-['Schibsted_Grotesk',sans-serif] text-[#c9a84c] text-[12px]">Sobre Mí</span>
           </nav>
-          <h1 className="font-['Instrument_Serif',serif] text-white text-[32px] sm:text-[42px] md:text-[52px] leading-[1.1] mb-2">
-            Servicios de Abogado en Caracas
+          <h1 className="font-['Instrument_Serif',serif] text-white text-[32px] sm:text-[42px] md:text-[52px] leading-[1.1] mb-4">
+            Marinela Masri Kasrin, Abogada en Caracas
           </h1>
-          <p className="font-['Instrument_Serif',serif] text-[#c9a84c] text-[22px] sm:text-[30px] md:text-[38px] leading-[1.1] mb-4">
-            Abogada Marinela Masri Kasrin
-          </p>
           <p className="font-['Schibsted_Grotesk',sans-serif] text-white/70 text-[15px] md:text-[18px] leading-[1.6] max-w-[600px]">
             Más de 25 años defendiendo los derechos de personas y empresas en Venezuela, con dedicación, ética y profesionalismo.
           </p>
@@ -40,7 +37,7 @@ export default function SobreMarinelaPage() {
           </h2>
           <div className="flex flex-col gap-4 font-['Schibsted_Grotesk',sans-serif] text-[#374151] text-[15px] md:text-[17px] leading-[1.75]">
             <p>
-              Marinela Masri Kasrin es abogada egresada de la Universidad Santa María (2002) con más de 25 años de experiencia en el ejercicio del derecho en Venezuela. Especializada en Derecho Civil, Laboral y Mercantil, ha dedicado su carrera a brindar asesoría legal integral tanto a personas naturales como jurídicas.
+              Marinela Masri Kasrin es abogada egresada de la Universidad Santa María (2002) con más de 25 años de experiencia en el ejercicio del derecho en Venezuela. Especializada en Derecho Civil, Mercantil, Laboral, Familia, Bienes Inmuebles y Contratos, ha dedicado su carrera a brindar asesoría legal integral tanto a personas naturales como jurídicas.
             </p>
             <p>
               Desde 2014 ejerce de forma independiente en Caracas, ofreciendo atención personalizada, ética profesional y un compromiso inquebrantable con la justicia y los intereses de sus clientes. Previamente se desempeñó como abogada en el Fondo Nacional de Ciencia, Tecnología e Innovación (FONACIT) entre 2006 y 2014.
@@ -60,13 +57,13 @@ export default function SobreMarinelaPage() {
         <div className="px-6 md:px-16 py-10 md:py-14">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-[860px] mx-auto">
             {[
-              { value: "25+",       label: "Años de Experiencia" },
-              { value: "2002",      label: "Año de Egreso USM" },
-              { value: "2014",      label: "Ejercicio Independiente" },
-              { value: "Nacional",  label: "Cobertura Online" },
+              { value: "25+ AÑOS",                    label: "DE TRAYECTORIA JURÍDICA" },
+              { value: "Atención en Venezuela",        label: "ONLINE Y PRESENCIAL" },
+              { value: "ASESORÍA Y REPRESENTACIÓN LEGAL", label: "Personas y Empresas" },
+              { value: "Asesoría Jurídica Integral",   label: "DIVERSAS ÁREAS DEL DERECHO" },
             ].map(s => (
               <div key={s.label} className="rounded-[10px] border border-[#c9a84c]/40 flex flex-col items-center text-center px-4 py-5">
-                <p className="font-['Instrument_Serif',serif] text-[#c9a84c] text-[22px] md:text-[28px] leading-none mb-1">{s.value}</p>
+                <p className="font-['Instrument_Serif',serif] text-[#c9a84c] text-[22px] md:text-[28px] leading-tight mb-1">{s.value}</p>
                 <p className="font-['Schibsted_Grotesk',sans-serif] text-white/60 text-[11px] md:text-[12px] uppercase tracking-wide leading-[1.4]">{s.label}</p>
               </div>
             ))}

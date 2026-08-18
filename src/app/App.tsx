@@ -16,7 +16,11 @@ import {
   DivorcioPage,
   CustodiaLopnnaPage,
   PoderNotarialPage,
+  CondominiosPage,
+  LegalizacionApostillaPage,
+  RegistroMercantilPage,
 } from "./pages/SubServicePage";
+import BlogPage from "./pages/BlogPage";
 
 function NotFound() {
   return (
@@ -67,6 +71,14 @@ export default function App() {
             <Route path="/derecho-familia-divorcios/custodia-lopnna/"        element={<CustodiaLopnnaPage />} />
             <Route path="/contratos-documentos/poder-notarial"               element={<PoderNotarialPage />} />
             <Route path="/contratos-documentos/poder-notarial/"              element={<PoderNotarialPage />} />
+            <Route path="/bienes-inmuebles/condominios"                      element={<CondominiosPage />} />
+            <Route path="/bienes-inmuebles/condominios/"                     element={<CondominiosPage />} />
+            <Route path="/derecho-civil/legalizacion-apostilla"              element={<LegalizacionApostillaPage />} />
+            <Route path="/derecho-civil/legalizacion-apostilla/"             element={<LegalizacionApostillaPage />} />
+            <Route path="/derecho-mercantil/registro-mercantil"              element={<RegistroMercantilPage />} />
+            <Route path="/derecho-mercantil/registro-mercantil/"             element={<RegistroMercantilPage />} />
+            <Route path="/blog"                                              element={<BlogPage />} />
+            <Route path="/blog/"                                             element={<BlogPage />} />
             <Route path="*"                                                  element={<NotFound />} />
           </Routes>
         </main>

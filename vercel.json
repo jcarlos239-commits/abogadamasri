@@ -17,6 +17,18 @@
     {
       "source": "/contratos-documentos/poder-notarial/",
       "destination": "/contratos-documentos/poder-notarial/index.html"
+    },
+    {
+      "source": "/bienes-inmuebles/condominios/",
+      "destination": "/bienes-inmuebles/condominios/index.html"
+    },
+    {
+      "source": "/derecho-civil/legalizacion-apostilla/",
+      "destination": "/derecho-civil/legalizacion-apostilla/index.html"
+    },
+    {
+      "source": "/derecho-mercantil/registro-mercantil/",
+      "destination": "/derecho-mercantil/registro-mercantil/index.html"
     }
   ]
 }
