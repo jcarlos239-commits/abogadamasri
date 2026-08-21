@@ -29,6 +29,10 @@
     {
       "source": "/derecho-mercantil/registro-mercantil/",
       "destination": "/derecho-mercantil/registro-mercantil/index.html"
+    },
+    {
+      "source": "/blog/:slug/",
+      "destination": "/blog/:slug/index.html"
     }
   ]
 }

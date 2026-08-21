@@ -1,8 +1,8 @@
 import { Link } from "react-router";
-import { usePageSEO, WA_BASE, MsgIcon, ContactCta, WhyTrust, SERVICE_ROUTES } from "../shared";
+import { usePageSEO, WA_BASE, MsgIcon, WaButton, ContactCta, WhyTrust, SERVICE_ROUTES } from "../shared";
 
-const META_TITLE = "Abogada en Caracas | Marinela Masri Kasrin | Trayectoria Jurídica";
-const META_DESC  = "Conoce a Marinela Masri Kasrin, abogada en Caracas con más de 25 años de trayectoria jurídica y experiencia en diversas áreas del derecho.";
+const META_TITLE = "Abogada en Caracas | Marinela Masri | Trayectoria Jurídica";
+const META_DESC  = "Conoce a Marinela Masri, abogada en Caracas con más de 25 años de trayectoria jurídica y experiencia en diversas áreas del derecho.";
 
 export default function SobreMarinelaPage() {
   usePageSEO(META_TITLE, META_DESC, "/sobre-marinela-masri/");
@@ -21,7 +21,7 @@ export default function SobreMarinelaPage() {
             <span className="font-['Schibsted_Grotesk',sans-serif] text-[#c9a84c] text-[12px]">Sobre Mí</span>
           </nav>
           <h1 className="font-['Instrument_Serif',serif] text-white text-[32px] sm:text-[42px] md:text-[52px] leading-[1.1] mb-4">
-            Marinela Masri Kasrin, Abogada en Caracas
+            Marinela Masri, Abogada en Caracas
           </h1>
           <p className="font-['Schibsted_Grotesk',sans-serif] text-white/70 text-[15px] md:text-[18px] leading-[1.6] max-w-[600px]">
             Más de 25 años defendiendo los derechos de personas y empresas en Venezuela, con dedicación, ética y profesionalismo.
@@ -37,7 +37,7 @@ export default function SobreMarinelaPage() {
           </h2>
           <div className="flex flex-col gap-4 font-['Schibsted_Grotesk',sans-serif] text-[#374151] text-[15px] md:text-[17px] leading-[1.75]">
             <p>
-              Marinela Masri Kasrin es abogada egresada de la Universidad Santa María (2002) con más de 25 años de experiencia en el ejercicio del derecho en Venezuela. Especializada en Derecho Civil, Mercantil, Laboral, Familia, Bienes Inmuebles y Contratos, ha dedicado su carrera a brindar asesoría legal integral tanto a personas naturales como jurídicas.
+              Marinela Masri es abogada egresada de la Universidad Santa María (2002) con más de 25 años de experiencia en el ejercicio del derecho en Venezuela. Especializada en Derecho Civil, Mercantil, Laboral, Familia, Bienes Inmuebles y Contratos, ha dedicado su carrera a brindar asesoría legal integral tanto a personas naturales como jurídicas.
             </p>
             <p>
               Desde 2014 ejerce de forma independiente en Caracas, ofreciendo atención personalizada, ética profesional y un compromiso inquebrantable con la justicia y los intereses de sus clientes. Previamente se desempeñó como abogada en el Fondo Nacional de Ciencia, Tecnología e Innovación (FONACIT) entre 2006 y 2014.
@@ -159,14 +159,13 @@ export default function SobreMarinelaPage() {
           <p className="font-['Schibsted_Grotesk',sans-serif] text-[#4b5563] text-[14px] md:text-[16px] leading-[1.6] max-w-[520px]">
             Contáctese directamente con Marinela Masri para consultar su caso. Atención presencial en Caracas y en línea para toda Venezuela.
           </p>
-          <a
-            href={`${WA_BASE}Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20consulta%20con%20la%20Abogada%20Marinela`}
-            target="_blank" rel="noopener noreferrer"
+          <WaButton
+            waText="Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20consulta%20con%20la%20Abogada%20Marinela"
             className="flex items-center justify-center gap-2 bg-[#25d366] text-white px-8 py-4 rounded-[8px] font-['Schibsted_Grotesk',sans-serif] font-bold text-[15px] md:text-[17px] shadow-[0_4px_6px_rgba(0,0,0,0.13)] hover:brightness-105 transition-all"
           >
             <MsgIcon />
             Consulta por WhatsApp
-          </a>
+          </WaButton>
         </div>
       </section>
 

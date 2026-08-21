@@ -2,6 +2,7 @@ import { motion } from "motion/react";
 import { useState, useEffect, useRef, type ReactNode } from "react";
 import { Link, useLocation } from "react-router";
 import { Menu, X, ChevronDown } from "lucide-react";
+import * as Dialog from "@radix-ui/react-dialog";
 import svgPaths from "@/imports/Root/svg-72i1clds9c";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -35,8 +36,8 @@ function setCanonical(href: string) {
   el.href = href;
 }
 
-const HOME_TITLE = "Abogado en Caracas | Marinela Masri Kasrin | Asesoría Legal";
-const HOME_DESC  = "Abogado en Caracas, Venezuela. Marinela Masri Kasrin ofrece asesoría legal en derecho civil, mercantil, laboral, familia, bienes inmuebles y contratos.";
+const HOME_TITLE = "Abogados en Caracas | Marinela Masri | Asesoría Legal";
+const HOME_DESC  = "Abogados en Caracas, Venezuela. Marinela Masri ofrece asesoría legal en Derecho Civil, Mercantil, Laboral, Familia, Bienes Inmuebles y Contratos.";
 const SITE_URL   = "https://www.abogadamasri.com";
 
 export function usePageSEO(title: string, description: string, path: string) {
@@ -219,14 +220,13 @@ export function Navbar() {
             <Link to="/blog/" className="font-['Schibsted_Grotesk',sans-serif] font-medium text-[#1a2b4a] text-[15px] hover:text-[#c9a84c] transition-colors">
               Blog
             </Link>
-            <a
-              href={`${WA_BASE}Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20consulta`}
-              target="_blank" rel="noopener noreferrer"
+            <WaButton
+              waText="Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20consulta"
               className="flex items-center gap-2 bg-[#25d366] text-white px-5 py-[10px] rounded-[8px] font-['Schibsted_Grotesk',sans-serif] font-bold text-[14px] shadow-[0_4px_6px_rgba(0,0,0,0.13)] hover:brightness-105 transition-all"
             >
               <MsgIcon />
               Consulta
-            </a>
+            </WaButton>
           </div>
 
           {/* Hamburger */}
@@ -280,14 +280,13 @@ export function Navbar() {
           <Link to="/blog/" className="font-['Schibsted_Grotesk',sans-serif] font-medium text-[#1a2b4a] text-[16px] py-3 border-b border-[#f3f4f6] active:text-[#c9a84c]">
             Blog
           </Link>
-          <a
-            href={`${WA_BASE}Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20consulta`}
-            target="_blank" rel="noopener noreferrer"
+          <WaButton
+            waText="Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20consulta"
             className="mt-3 flex items-center justify-center gap-2 bg-[#25d366] text-white px-5 py-3 rounded-[8px] font-['Schibsted_Grotesk',sans-serif] font-bold text-[15px]"
           >
             <MsgIcon />
             Consulta por WhatsApp
-          </a>
+          </WaButton>
         </div>
       </div>
     </>
@@ -309,20 +308,19 @@ export function ContactCta({ waText = "Hola%2C%20me%20gustar%C3%ADa%20agendar%20
           </p>
         </div>
 
-        <a
-          href={`${WA_BASE}${waText}`}
-          target="_blank" rel="noopener noreferrer"
+        <WaButton
+          waText={waText}
           className="flex items-center justify-center gap-2 bg-[#25d366] text-white px-8 py-4 rounded-[8px] font-['Schibsted_Grotesk',sans-serif] font-bold text-[15px] md:text-[18px] shadow-[0_4px_6px_rgba(0,0,0,0.13)] active:brightness-95"
         >
           <MsgIcon />
           Consulta por WhatsApp
-        </a>
+        </WaButton>
 
         {/* Map card */}
         <div className="w-full max-w-[680px] rounded-[16px] overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.18)]">
           <div className="relative w-full" style={{ height: 280 }}>
             <iframe
-              title="Ubicación Abogada Marinela Masri Kasrin"
+              title="Ubicación Abogada Marinela Masri"
               src={MAPS_EMBED}
               width="100%" height="100%"
               style={{ border: 0, display: "block" }}
@@ -443,7 +441,7 @@ export function Footer() {
         </div>
         <div className="border-t border-white/10 pt-6 flex flex-col gap-2 items-center text-center">
           <p className="font-['Schibsted_Grotesk',sans-serif] text-white/50 text-[12px] md:text-[14px]">
-            Abogada Marinela Masri Kasrin © 2026 · Caracas, Venezuela
+            Abogada Marinela Masri © 2026 · Caracas, Venezuela
           </p>
           <p className="font-['Schibsted_Grotesk',sans-serif] text-white/50 text-[10px] md:text-[12px] leading-[1.5] max-w-[600px]">
             Este sitio web es únicamente informativo y no constituye asesoría legal formal.
@@ -451,6 +449,102 @@ export function Footer() {
         </div>
       </div>
     </footer>
+  );
+}
+
+// ─── WaButton ─────────────────────────────────────────────────────────────────
+
+export function WaButton({
+  waText,
+  className,
+  ariaLabel,
+  children,
+}: {
+  waText: string;
+  className?: string;
+  ariaLabel?: string;
+  children: ReactNode;
+}) {
+  const [open, setOpen] = useState(false);
+  const url = `${WA_BASE}${waText}`;
+
+  function handleContinue() {
+    setOpen(false);
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
+  return (
+    <>
+      <button type="button" onClick={() => setOpen(true)} className={className} aria-label={ariaLabel}>
+        {children}
+      </button>
+
+      <Dialog.Root open={open} onOpenChange={setOpen}>
+        <Dialog.Portal>
+          <Dialog.Overlay className="fixed inset-0 z-[200] bg-black/50" />
+          <Dialog.Content
+            className="fixed left-1/2 top-1/2 z-[201] w-[calc(100%-2rem)] max-w-[360px] -translate-x-1/2 -translate-y-1/2 rounded-[12px] bg-white p-7 shadow-2xl focus:outline-none"
+            aria-describedby="wa-modal-desc"
+          >
+            <Dialog.Title className="font-['Instrument_Serif',serif] text-[#1a2b4a] text-[20px] leading-snug mb-3">
+              Aviso antes de continuar
+            </Dialog.Title>
+            <p
+              id="wa-modal-desc"
+              className="font-['Schibsted_Grotesk',sans-serif] text-[#374151] text-[14px] leading-[1.6] mb-6"
+            >
+              Consultas únicamente con cita previa y requieren honorarios.
+            </p>
+            <div className="flex flex-col gap-3">
+              <button
+                type="button"
+                onClick={handleContinue}
+                className="w-full bg-[#1a2b4a] text-white font-['Schibsted_Grotesk',sans-serif] font-semibold text-[14px] py-3 px-6 rounded-[8px] hover:bg-[#223560] transition-colors"
+              >
+                Continuar a WhatsApp
+              </button>
+              <Dialog.Close asChild>
+                <button
+                  type="button"
+                  className="w-full text-[#6b7280] font-['Schibsted_Grotesk',sans-serif] text-[13px] py-2 hover:text-[#1a2b4a] transition-colors"
+                >
+                  Cancelar
+                </button>
+              </Dialog.Close>
+            </div>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
+    </>
+  );
+}
+
+// ─── FloatingWaButton ─────────────────────────────────────────────────────────
+
+export function FloatingWaButton() {
+  return (
+    <WaButton
+      waText="Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20consulta"
+      ariaLabel="Contactar por WhatsApp"
+      className={[
+        "fixed bottom-5 right-5 md:bottom-8 md:right-8 z-[60]",
+        "flex items-center justify-center",
+        "size-12 md:size-14",
+        "bg-[#25d366] rounded-full",
+        "shadow-[0_4px_16px_rgba(37,211,102,0.45)]",
+        "hover:brightness-110 active:brightness-95 transition-all duration-200",
+        "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25d366]",
+      ].join(" ")}
+    >
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+        fill="white"
+        className="size-6 md:size-7 shrink-0"
+      >
+        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.867-2.031-.967-.272-.099-.47-.148-.669.15-.198.297-.768.967-.941 1.165-.173.198-.345.223-.643.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z" />
+      </svg>
+    </WaButton>
   );
 }
 

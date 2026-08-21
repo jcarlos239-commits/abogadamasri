@@ -265,7 +265,7 @@ CREATE:
 
 SEO TITLE:
 
-Divorcio en Venezuela | Abogada Marinela Masri Kasrin
+Divorcio en Venezuela | Abogada Marinela Masri
 
 H1:
 
@@ -968,7 +968,7 @@ URL:
 /derecho-familia-divorcios/divorcio/
 
 Title:
-Divorcio en Venezuela | Abogada Marinela Masri Kasrin
+Divorcio en Venezuela | Abogada Marinela Masri
 
 H1:
 Divorcio en Venezuela

@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router";
-import { Navbar, Footer } from "./shared";
+import { Navbar, Footer, FloatingWaButton } from "./shared";
 import HomePage from "./pages/HomePage";
 import SobreMarinelaPage from "./pages/SobreMarinelaPage";
 import ServiciosPage from "./pages/ServiciosPage";
@@ -21,6 +21,7 @@ import {
   RegistroMercantilPage,
 } from "./pages/SubServicePage";
 import BlogPage from "./pages/BlogPage";
+import BlogArticlePage from "./pages/BlogArticlePage";
 
 function NotFound() {
   return (
@@ -79,10 +80,13 @@ export default function App() {
             <Route path="/derecho-mercantil/registro-mercantil/"             element={<RegistroMercantilPage />} />
             <Route path="/blog"                                              element={<BlogPage />} />
             <Route path="/blog/"                                             element={<BlogPage />} />
+            <Route path="/blog/:slug"                                        element={<BlogArticlePage />} />
+            <Route path="/blog/:slug/"                                       element={<BlogArticlePage />} />
             <Route path="*"                                                  element={<NotFound />} />
           </Routes>
         </main>
         <Footer />
+        <FloatingWaButton />
       </div>
     </BrowserRouter>
   );

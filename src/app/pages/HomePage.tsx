@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import imgHero     from "@/imports/Root/c1070124e5afc89bd68e1e4d92caeb5306ab5160.png";
 import imgRect     from "@/imports/Root/db574d06762a18763fd34165d99983ad364d4047.png";
 import imgRect1    from "@/imports/Root/f23974d1c6001db55b9b2363a3521dae87c918e7.png";
-import { NAV_H, WA_BASE, MsgIcon, ContactCta, WhyTrust } from "../shared";
+import { NAV_H, WA_BASE, MsgIcon, WaButton, ContactCta, WhyTrust } from "../shared";
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
@@ -27,10 +27,10 @@ function Hero() {
           transition={{ duration: 6, times: [0, 0.05, 0.2, 1], repeat: Infinity }}
         >
           <h1 className="font-['Instrument_Serif',serif] leading-[1.1] text-[#c9a84c] text-[26px] sm:text-[36px] md:text-[52px] lg:text-[72px]">
-            Abogado en Caracas, Venezuela
+            Abogados en Caracas, Venezuela
           </h1>
           <p className="font-['Instrument_Serif',serif] leading-[1.1] text-white text-[28px] sm:text-[38px] md:text-[54px] lg:text-[72px]">
-            Abogada Marinela Masri Kasrin
+            Abogada Marinela Masri
           </p>
           <p className="font-['Schibsted_Grotesk',sans-serif] font-semibold text-[#c9a84c] text-[13px] sm:text-[15px] md:text-[18px] lg:text-[24px]">
             Asesoría legal con dedicación, ética y resultados comprobados
@@ -45,14 +45,13 @@ function Hero() {
           animate={{ opacity: [0, 0, 1, 1], y: [20, 20, 0, 0] }}
           transition={{ duration: 6, times: [0, 0.1333, 0.2667, 1], repeat: Infinity }}
         >
-          <a
-            href={`${WA_BASE}Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20consulta`}
-            target="_blank" rel="noopener noreferrer"
+          <WaButton
+            waText="Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20consulta"
             className="flex-1 flex items-center justify-center gap-2 bg-[#25d366] text-white px-5 py-3.5 rounded-[8px] font-['Schibsted_Grotesk',sans-serif] font-bold text-[14px] md:text-[16px] shadow-[0_4px_6px_rgba(0,0,0,0.13)]"
           >
             <MsgIcon />
             Escríbeme por WhatsApp
-          </a>
+          </WaButton>
           <a
             href="tel:+584141700773"
             className="flex-1 flex items-center justify-center border border-white text-white px-5 py-3.5 rounded-[8px] font-['Schibsted_Grotesk',sans-serif] font-semibold text-[13px] md:text-[15px]"
@@ -119,7 +118,7 @@ function About() {
       <div className="flex flex-col gap-6 py-10 md:py-16 px-6 md:px-16">
         <div className="flex flex-col gap-2 text-center w-full">
           <p className="font-['Instrument_Serif',serif] leading-[1.1] text-[#1a2b4a] text-[26px] sm:text-[36px] md:text-[52px] lg:text-[72px]">
-            Abogada Marinela Masri Kasrin
+            Abogada Marinela Masri
           </p>
           <p className="font-['Schibsted_Grotesk',sans-serif] font-semibold text-[#c9a84c] text-[14px] sm:text-[17px] md:text-[20px] lg:text-[24px]">
             Más de 25 años defendiendo sus derechos

@@ -199,7 +199,7 @@ Identify exactly what schema exists and what is missing.
 Audit the site for professional trust signals.
 
 Verify that the website clearly communicates supported information about:
-- Marinela Masri Kasrin
+- Marinela Masri
 - Professional identity
 - 25+ years of legal experience
 - Professional background

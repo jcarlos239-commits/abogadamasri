@@ -9,7 +9,7 @@ IMPORTANT: These must be real, indexable pages using the same Vite Multi-Page Ap
 PAGE 1 — /sobre-marinela-masri/
 ==================================================
 
-Create a complete standalone page about Abogada Marinela Masri Kasrin.
+Create a complete standalone page about Abogada Marinela Masri.
 
 Purpose:
 This page should explain who Marinela Masri is, her professional experience, background, areas of practice, professional approach, location, and why potential clients can trust her.
@@ -17,12 +17,12 @@ This page should explain who Marinela Masri is, her professional experience, bac
 Create genuinely useful, original content rather than simply copying the homepage.
 
 Suggested SEO title:
-"Abogada Marinela Masri Kasrin | Más de 25 Años de Experiencia"
+"Abogada Marinela Masri | Más de 25 Años de Experiencia"
 
 Create a compelling, natural meta description describing Marinela's legal experience and services in Venezuela/Caracas.
 
 Use:
-H1: "Abogada Marinela Masri Kasrin"
+H1: "Abogada Marinela Masri"
 
 Include appropriate sections such as:
 

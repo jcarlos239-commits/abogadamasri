@@ -7,7 +7,7 @@ import imgRectangle1 from "./f23974d1c6001db55b9b2363a3521dae87c918e7.png";
 function Frame1() {
   return (
     <motion.div className="[word-break:break-word] content-stretch flex flex-col gap-[16px] items-center relative shrink-0 text-center w-full" data-name="Frame">
-      <p className="font-['Instrument_Serif:Regular',sans-serif] leading-[1.1] not-italic relative shrink-0 text-[#c9a84c] text-[32px] w-full">Abogada Marinela Masri Kasrin</p>
+      <p className="font-['Instrument_Serif:Regular',sans-serif] leading-[1.1] not-italic relative shrink-0 text-[#c9a84c] text-[32px] w-full">Abogada Marinela Masri</p>
       <p className="font-['Instrument_Serif:Regular',sans-serif] leading-[1.1] not-italic relative shrink-0 text-[40px] text-white w-full">Asesoría Legal Profesional en Venezuela</p>
       <p className="font-['Schibsted_Grotesk:SemiBold',sans-serif] font-semibold leading-[normal] relative shrink-0 text-[#c9a84c] text-[18px] w-full">Más de 25 años de experiencia al servicio de sus derechos</p>
       <p className="font-['Schibsted_Grotesk:Regular',sans-serif] font-normal leading-[1.6] opacity-80 relative shrink-0 text-[16px] text-white w-full">Especialista en Derecho Civil, Laboral y Mercantil. Representación legal con dedicación, ética y resultados.</p>
@@ -288,7 +288,7 @@ function Areas() {
 function Frame4() {
   return (
     <div className="[word-break:break-word] content-stretch flex flex-col gap-[12px] items-center justify-center leading-[normal] relative shrink-0 w-full" data-name="Frame">
-      <p className="font-['Instrument_Serif:Regular',sans-serif] not-italic relative shrink-0 text-[#1a2b4a] text-[32px] w-full">Abogada Marinela Masri Kasrin</p>
+      <p className="font-['Instrument_Serif:Regular',sans-serif] not-italic relative shrink-0 text-[#1a2b4a] text-[32px] w-full">Abogada Marinela Masri</p>
       <p className="font-['Schibsted_Grotesk:SemiBold',sans-serif] font-semibold relative shrink-0 text-[#c9a84c] text-[18px] text-center w-full">Más de 25 años defendiendo sus derechos</p>
     </div>
   );
@@ -847,7 +847,7 @@ function Frame41() {
 function Frame47() {
   return (
     <div className="[word-break:break-word] content-stretch flex flex-col font-['Schibsted_Grotesk:Regular',sans-serif] font-normal gap-[8px] items-center relative shrink-0 text-center text-white w-full" data-name="Frame">
-      <p className="leading-[normal] opacity-50 relative shrink-0 text-[12px] w-full">Abogada Marinela Masri Kasrin © 2026 - Caracas, Venezuela</p>
+      <p className="leading-[normal] opacity-50 relative shrink-0 text-[12px] w-full">Abogada Marinela Masri © 2026 - Caracas, Venezuela</p>
       <p className="leading-[1.4] opacity-30 relative shrink-0 text-[10px] w-full">Este sitio web es únicamente informativo y no constituye asesoría legal formal.</p>
     </div>
   );

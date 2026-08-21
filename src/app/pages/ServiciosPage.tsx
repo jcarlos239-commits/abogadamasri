@@ -1,8 +1,8 @@
 import { Link } from "react-router";
-import { usePageSEO, WA_BASE, MsgIcon, ContactCta, WhyTrust } from "../shared";
+import { usePageSEO, WA_BASE, MsgIcon, WaButton, ContactCta, WhyTrust } from "../shared";
 
-const META_TITLE = "Servicios Legales en Caracas | Marinela Masri Kasrin";
-const META_DESC  = "Conoce los servicios legales de Marinela Masri Kasrin en Caracas, con asesoría en derecho civil, mercantil, laboral, familia, inmuebles y contratos.";
+const META_TITLE = "Servicios Legales en Caracas | Marinela Masri";
+const META_DESC  = "Conoce los servicios legales de Marinela Masri en Caracas, con asesoría en derecho civil, mercantil, laboral, familia, inmuebles y contratos.";
 
 const services = [
   {
@@ -69,7 +69,7 @@ export default function ServiciosPage() {
             Servicios Legales en Caracas
           </h1>
           <p className="font-['Instrument_Serif',serif] text-[#c9a84c] text-[22px] sm:text-[30px] md:text-[38px] leading-[1.1] mb-3">
-            Abogada Marinela Masri Kasrin
+            Abogada Marinela Masri
           </p>
           <p className="font-['Schibsted_Grotesk',sans-serif] font-semibold text-white/90 text-[14px] md:text-[17px] leading-[1.5] max-w-[640px] mb-2">
             Asesoría legal con dedicación, ética y resultados comprobados
@@ -84,7 +84,7 @@ export default function ServiciosPage() {
       <section className="bg-white w-full">
         <div className="px-6 md:px-16 py-10 md:py-14 max-w-[860px] mx-auto">
           <p className="font-['Schibsted_Grotesk',sans-serif] text-[#374151] text-[15px] md:text-[17px] leading-[1.75] mb-4">
-            Marinela Masri Kasrin ofrece asesoría jurídica completa en las principales áreas del derecho venezolano, tanto para personas naturales como para empresas y comerciantes. Cada cliente recibe atención directa y personalizada: consultas presenciales en Caracas y atención en línea disponible para clientes en todo el territorio venezolano.
+            Marinela Masri ofrece asesoría jurídica completa en las principales áreas del derecho venezolano, tanto para personas naturales como para empresas y comerciantes. Cada cliente recibe atención directa y personalizada: consultas presenciales en Caracas y atención en línea disponible para clientes en todo el territorio venezolano.
           </p>
           <p className="font-['Schibsted_Grotesk',sans-serif] text-[#374151] text-[15px] md:text-[17px] leading-[1.75]">
             Explore cada área de práctica para conocer en detalle los servicios disponibles, los trámites específicos del sistema legal venezolano, cuándo es el momento correcto para buscar asesoría y respuestas a las preguntas más frecuentes que enfrentan los clientes.
@@ -151,14 +151,13 @@ export default function ServiciosPage() {
             </a>
           </div>
           <div className="flex flex-col gap-4 w-full md:w-auto">
-            <a
-              href={`${WA_BASE}Hola%2C%20me%20gustar%C3%ADa%20consultar%20sobre%20sus%20servicios`}
-              target="_blank" rel="noopener noreferrer"
+            <WaButton
+              waText="Hola%2C%20me%20gustar%C3%ADa%20consultar%20sobre%20sus%20servicios"
               className="flex items-center justify-center gap-2 bg-[#25d366] text-white px-7 py-3.5 rounded-[8px] font-['Schibsted_Grotesk',sans-serif] font-bold text-[15px] shadow-[0_4px_6px_rgba(0,0,0,0.13)] hover:brightness-105 transition-all"
             >
               <MsgIcon />
               Consulta por WhatsApp
-            </a>
+            </WaButton>
             <a
               href="tel:+584141700773"
               className="flex items-center justify-center border border-[#1a2b4a] text-[#1a2b4a] px-7 py-3.5 rounded-[8px] font-['Schibsted_Grotesk',sans-serif] font-semibold text-[14px] hover:bg-[#1a2b4a] hover:text-white transition-all"

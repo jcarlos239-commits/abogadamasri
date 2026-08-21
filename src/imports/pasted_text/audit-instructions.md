@@ -9,7 +9,7 @@ DO NOT CHANGE:
 - Do NOT restore FAQ sections that were previously removed.
 - Do NOT modify the existing meta keywords tags.
 - Do NOT change or remove the existing "Resultados Reales" / trust claim.
-- Do NOT abbreviate Marinela Masri Kasrin as "M. Masri" or otherwise shorten her name in titles.
+- Do NOT abbreviate Marinela Masri as "M. Masri" or otherwise shorten her name in titles.
 
 1. REMOVE FAQ CONTENT COMPLETELY
 
@@ -42,23 +42,23 @@ Make sure there are no outdated descriptions containing:
 
 Review all 13 page titles.
 
-Keep the full brand name "Marinela Masri Kasrin" whenever it appears.
+Keep the full brand name "Marinela Masri" whenever it appears.
 
-Do NOT use "M. Masri", "M. Kasrin", or any other abbreviation.
+Do NOT use "M. Masri", "M.", or any other abbreviation.
 
 Do NOT shorten a title merely because it exceeds 60 characters. Character count is a guideline, not a hard SEO requirement.
 
 Only make a title change if it materially improves its SEO effectiveness while preserving:
 - the primary keyword
 - Caracas/Venezuela geographic targeting where appropriate
-- Marinela Masri Kasrin's full name
+- Marinela Masri's full name
 - natural Spanish
 
 Do not unnecessarily alter titles that are already strong.
 
 The approved homepage title remains:
 
-"Abogado en Caracas | Marinela Masri Kasrin | Asesoría Legal"
+"Abogado en Caracas | Marinela Masri | Asesoría Legal"
 
 The approved commercial/service-page keyword strategy remains based on "abogado", not "abogada".
 
@@ -73,7 +73,7 @@ Where a description is unnecessarily longer than approximately 160 characters, m
 Preserve:
 - the primary keyword
 - Caracas/Venezuela targeting
-- Marinela Masri Kasrin where appropriate
+- Marinela Masri where appropriate
 - the actual services offered
 - natural Spanish
 
@@ -156,7 +156,7 @@ After making the changes, run a production build and verify:
 - No FAQPage JSON-LD exists anywhere.
 - All 10 LegalService JSON-LD descriptions exactly match their corresponding meta descriptions.
 - No "M. Masri" abbreviation was introduced anywhere.
-- Marinela Masri Kasrin remains written in full wherever her name is used in SEO titles.
+- Marinela Masri remains written in full wherever her name is used in SEO titles.
 - The new favicon is correctly referenced.
 - The two decorative images use alt="".
 - The footer disclaimer has improved contrast.

@@ -7,7 +7,7 @@ Do NOT create thin pages that simply repeat the same text with different keyword
 The goal is to create genuinely useful, distinct pages for each major legal practice area.
 
 CURRENT BUSINESS:
-Abogada Marinela Masri Kasrin
+Abogada Marinela Masri
 Website: www.abogadamasri.com
 Location: Caracas, Venezuela
 Experience: More than 25 years

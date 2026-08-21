@@ -68,6 +68,8 @@
   "devDependencies": {
     "@tailwindcss/vite": "4.1.12",
     "@vitejs/plugin-react": "4.7.0",
+    "gray-matter": "^4.0.3",
+    "marked": "^18.0.10",
     "tailwindcss": "4.1.12",
     "vite": "6.3.5"
   },

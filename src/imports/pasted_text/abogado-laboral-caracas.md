@@ -22,10 +22,10 @@ URL:
 /
 
 TITLE:
-Abogado en Caracas | Marinela Masri Kasrin | Asesoría Legal
+Abogado en Caracas | Marinela Masri | Asesoría Legal
 
 META DESCRIPTION:
-Abogado en Caracas, Venezuela. Marinela Masri Kasrin ofrece asesoría y representación legal en derecho civil, mercantil, laboral, familia, bienes inmuebles y contratos.
+Abogado en Caracas, Venezuela. Marinela Masri ofrece asesoría y representación legal en derecho civil, mercantil, laboral, familia, bienes inmuebles y contratos.
 
 H1:
 Abogado en Caracas, Venezuela
@@ -38,7 +38,7 @@ abogado en Venezuela
 asesoría legal en Caracas
 representación legal en Venezuela
 servicios legales en Caracas
-Marinela Masri Kasrin
+Marinela Masri
 
 Ensure the primary keyword and related terms appear naturally in the visible content.
 
@@ -50,16 +50,16 @@ URL:
 Keep the existing About/Sobre Marinela URL.
 
 TITLE:
-Abogada en Caracas | Marinela Masri Kasrin | Trayectoria Jurídica
+Abogada en Caracas | Marinela Masri | Trayectoria Jurídica
 
 META DESCRIPTION:
-Conoce a Marinela Masri Kasrin, abogada en Caracas con más de 25 años de trayectoria jurídica y experiencia en diversas áreas del derecho.
+Conoce a Marinela Masri, abogada en Caracas con más de 25 años de trayectoria jurídica y experiencia en diversas áreas del derecho.
 
 H1:
-Marinela Masri Kasrin, Abogada en Caracas
+Marinela Masri, Abogada en Caracas
 
 PRIMARY KEYWORD:
-Marinela Masri Kasrin
+Marinela Masri
 
 SECONDARY KEYWORDS:
 abogada en Caracas
@@ -81,10 +81,10 @@ URL:
 Keep the existing Servicios URL.
 
 TITLE:
-Servicios Legales en Caracas | Marinela Masri Kasrin
+Servicios Legales en Caracas | Marinela Masri
 
 META DESCRIPTION:
-Conoce los servicios legales de Marinela Masri Kasrin en Caracas, con asesoría y representación en derecho civil, mercantil, laboral, familia, inmuebles y contratos.
+Conoce los servicios legales de Marinela Masri en Caracas, con asesoría y representación en derecho civil, mercantil, laboral, familia, inmuebles y contratos.
 
 H1:
 Servicios Legales en Caracas
@@ -109,10 +109,10 @@ This page should function as the central hub linking clearly to the relevant ser
 ==================================================
 
 TITLE:
-Abogado de Derecho Civil en Caracas | Marinela Masri Kasrin
+Abogado de Derecho Civil en Caracas | Marinela Masri
 
 META DESCRIPTION:
-Abogado civil en Caracas, Venezuela. Marinela Masri Kasrin ofrece asesoría y representación legal en asuntos de derecho civil, obligaciones, sucesiones y herencias.
+Abogado civil en Caracas, Venezuela. Marinela Masri ofrece asesoría y representación legal en asuntos de derecho civil, obligaciones, sucesiones y herencias.
 
 H1:
 Abogado de Derecho Civil en Caracas
@@ -133,7 +133,7 @@ herencias y sucesiones
 ==================================================
 
 TITLE:
-Abogado Mercantil en Caracas | Marinela Masri Kasrin
+Abogado Mercantil en Caracas | Marinela Masri
 
 META DESCRIPTION:
 Abogado mercantil en Caracas, Venezuela. Asesoría y representación legal para empresas, sociedades mercantiles, contratos y asuntos de derecho comercial.
@@ -157,7 +157,7 @@ asesoría empresarial
 ==================================================
 
 TITLE:
-Abogado Laboral en Caracas | Marinela Masri Kasrin
+Abogado Laboral en Caracas | Marinela Masri
 
 META DESCRIPTION:
 Abogado laboral en Caracas, Venezuela. Asesoría y representación en despidos, prestaciones sociales, contratos de trabajo, reclamos y conflictos laborales.
@@ -181,7 +181,7 @@ conflictos laborales
 ==================================================
 
 TITLE:
-Abogado de Familia y Divorcios en Caracas | Marinela Masri Kasrin
+Abogado de Familia y Divorcios en Caracas | Marinela Masri
 
 META DESCRIPTION:
 Abogado de familia en Caracas, Venezuela. Asesoría legal en divorcios, custodia, LOPNNA, patria potestad y otros asuntos de derecho de familia.
@@ -207,7 +207,7 @@ Link prominently to the specialized Divorcio and Custodia/LOPNNA pages.
 ==================================================
 
 TITLE:
-Abogado Inmobiliario en Caracas | Marinela Masri Kasrin
+Abogado Inmobiliario en Caracas | Marinela Masri
 
 META DESCRIPTION:
 Abogado inmobiliario en Caracas, Venezuela. Asesoría legal en compraventa, arrendamientos, documentos, propiedad y otros asuntos relacionados con bienes inmuebles.
@@ -231,7 +231,7 @@ documentos inmobiliarios
 ==================================================
 
 TITLE:
-Abogado de Contratos en Caracas | Marinela Masri Kasrin
+Abogado de Contratos en Caracas | Marinela Masri
 
 META DESCRIPTION:
 Abogado de contratos en Caracas, Venezuela. Asesoría y redacción de contratos, documentos legales, poderes notariales y otros trámites jurídicos.
@@ -257,7 +257,7 @@ Link prominently to the specialized Poder Notarial page.
 ==================================================
 
 TITLE:
-Abogado de Herencias y Sucesiones en Caracas | Marinela Masri Kasrin
+Abogado de Herencias y Sucesiones en Caracas | Marinela Masri
 
 META DESCRIPTION:
 Abogado de herencias y sucesiones en Caracas, Venezuela. Asesoría legal en declaraciones sucesorales, herencias, testamentos, particiones y derechos hereditarios.
@@ -281,10 +281,10 @@ derechos hereditarios
 ==================================================
 
 TITLE:
-Abogado de Divorcio en Venezuela | Marinela Masri Kasrin
+Abogado de Divorcio en Venezuela | Marinela Masri
 
 META DESCRIPTION:
-Abogado de divorcio en Venezuela. Marinela Masri Kasrin ofrece asesoría y representación legal en procesos de divorcio y asuntos relacionados con la separación.
+Abogado de divorcio en Venezuela. Marinela Masri ofrece asesoría y representación legal en procesos de divorcio y asuntos relacionados con la separación.
 
 H1:
 Abogado de Divorcio en Venezuela
@@ -306,7 +306,7 @@ Link back to the main Familia y Divorcios page.
 ==================================================
 
 TITLE:
-Abogado de Custodia y LOPNNA en Caracas | Marinela Masri Kasrin
+Abogado de Custodia y LOPNNA en Caracas | Marinela Masri
 
 META DESCRIPTION:
 Abogado de custodia y LOPNNA en Caracas, Venezuela. Asesoría legal sobre guarda y custodia, patria potestad, régimen de convivencia y derechos de niños y adolescentes.
@@ -332,7 +332,7 @@ Link back to the main Familia y Divorcios page.
 ==================================================
 
 TITLE:
-Abogado de Poder Notarial en Venezuela | Marinela Masri Kasrin
+Abogado de Poder Notarial en Venezuela | Marinela Masri
 
 META DESCRIPTION:
 Abogado de poder notarial en Venezuela. Asesoría para la elaboración y formalización de poderes, documentos notariales y representación legal.
@@ -450,7 +450,7 @@ Validate that the generated JSON-LD is syntactically valid.
 
 10. E-E-A-T
 Strengthen professional trust signals using information already present on the website:
-- Marinela Masri Kasrin's name
+- Marinela Masri's name
 - Professional identity
 - 25+ years of legal experience
 - Professional background already stated on the site
