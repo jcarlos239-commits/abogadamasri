@@ -493,7 +493,7 @@ export function WaButton({
               id="wa-modal-desc"
               className="font-['Schibsted_Grotesk',sans-serif] text-[#374151] text-[14px] leading-[1.6] mb-6"
             >
-              Consultas únicamente con cita previa y requieren honorarios.
+              Agende su cita para una consulta (sujeta a honorarios profesionales).
             </p>
             <div className="flex flex-col gap-3">
               <button
