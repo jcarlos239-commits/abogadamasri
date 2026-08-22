@@ -2,6 +2,7 @@
 title: "Nueva Ley de Arrendamiento en Venezuela 2026 | Marinela Masri"
 description: "Nueva Ley de Arrendamiento en Venezuela 2026: principales cambios para propietarios e inquilinos de viviendas, contratos, canon, garantías y terminación."
 slug: "nueva-ley-arrendamiento-venezuela-2026"
+Date: "17-08-2026"
 updated: "Agosto de 2026"
 ---
 
