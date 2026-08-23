@@ -1,5 +1,5 @@
 ---
-title: "Apostilla en Venezuela 2026: ¿Qué documentos se pueden tramitar en línea?"
+title: "Apostilla en Venezuela 2026: ¿Qué documentos se pueden tramitar en línea?| Marinela Masri"
 description: "Conozca qué cambió en la apostilla en Venezuela en 2026, qué documentos SAREN pueden tramitarse en línea y qué trámites continúan bajo otras modalidades."
 date: "2026-08-21"
 author: "Marinela Masri"
