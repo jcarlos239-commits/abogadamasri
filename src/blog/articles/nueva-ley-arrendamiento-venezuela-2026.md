@@ -5,6 +5,9 @@ date: "2026-08-17"
 author: "Marinela Masri"
 slug: "nueva-ley-arrendamiento-venezuela-2026"
 updated: "Agosto de 2026"
+category: "Bienes Inmuebles"
+featuredImage: ""
+published: true
 ---
 
 # Nueva Ley de Arrendamiento en Venezuela 2026: Cambios para Propietarios e Inquilinos
