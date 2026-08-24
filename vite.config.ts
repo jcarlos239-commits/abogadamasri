@@ -210,7 +210,7 @@ async function prerenderPages(distOut: string): Promise<void> {
     logLevel: 'warn',
     resolve: { alias: { '@': path.resolve(__dirname, 'src') } },
     plugins: [
-    figmaAssetResolver(),react()],
+    figmaAssetResolver(),react(), mdTransformPlugin()],
     build: {
       ssr: path.resolve(__dirname, 'src/entry-server.tsx'),
       outDir: ssrTempDir,
@@ -246,6 +246,24 @@ async function prerenderPages(distOut: string): Promise<void> {
 
   // Remove the temporary SSR bundle
   fs.rmSync(ssrTempDir, { recursive: true, force: true })
+}
+
+// Standalone .md → JS transform plugin used by both the main build and the
+// SSR sub-build. Without it in the SSR build, import.meta.glob('*.md') causes
+// Vite's build-import-analysis to receive raw Markdown instead of valid JS.
+function mdTransformPlugin(): Plugin {
+  return {
+    name: 'md-transform',
+    transform(code, id) {
+      if (!id.endsWith('.md')) return null
+      const { data: frontmatter, content } = matter(code)
+      const html = marked.parse(content) as string
+      return {
+        code: `export default ${JSON.stringify({ frontmatter, html })}`,
+        map: null,
+      }
+    },
+  }
 }
 
 function blogPlugin(): Plugin {
