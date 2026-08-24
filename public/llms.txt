@@ -1,0 +1,30 @@
+# Abogada Marinela Masri
+
+> Sitio web de la abogada Marinela Masri, con sede en Caracas, Venezuela, que ofrece asesoría y servicios legales para personas y empresas en distintas áreas del derecho venezolano.
+
+## Servicios Legales
+
+- [Derecho Civil](https://www.abogadamasri.com/derecho-civil/)
+- [Derecho Mercantil](https://www.abogadamasri.com/derecho-mercantil/)
+- [Derecho Laboral](https://www.abogadamasri.com/derecho-laboral/)
+- [Divorcios y Familia](https://www.abogadamasri.com/derecho-familia-divorcios/)
+- [Bienes Inmuebles](https://www.abogadamasri.com/bienes-inmuebles/)
+- [Contratos y Documentos](https://www.abogadamasri.com/contratos-documentos/)
+
+## Servicios y Trámites Específicos
+
+- [Herencias y Sucesiones](https://www.abogadamasri.com/derecho-civil/herencias-sucesiones/)
+- [Divorcio](https://www.abogadamasri.com/derecho-familia-divorcios/divorcio/)
+- [Custodia y LOPNNA](https://www.abogadamasri.com/derecho-familia-divorcios/custodia-lopnna/)
+- [Poderes Notariales](https://www.abogadamasri.com/contratos-documentos/poder-notarial/)
+- [Condominios](https://www.abogadamasri.com/bienes-inmuebles/condominios/)
+- [Legalización y Apostilla](https://www.abogadamasri.com/derecho-civil/legalizacion-apostilla/)
+- [Registro Mercantil](https://www.abogadamasri.com/derecho-mercantil/registro-mercantil/)
+
+## Sobre Marinela
+
+- [Marinela Masri — Perfil profesional y trayectoria](https://www.abogadamasri.com/sobre-marinela-masri/)
+
+## Blog Jurídico
+
+- [Blog Jurídico](https://www.abogadamasri.com/blog/) — Colección de artículos sobre derecho venezolano y los temas legales cubiertos por el sitio.

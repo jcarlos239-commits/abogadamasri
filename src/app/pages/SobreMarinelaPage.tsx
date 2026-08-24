@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { usePageSEO, WA_BASE, MsgIcon, WaButton, ContactCta, WhyTrust, SERVICE_ROUTES } from "../shared";
+import { usePageSEO, ContactCta, WhyTrust, SERVICE_ROUTES } from "../shared";
 
 const META_TITLE = "Abogada en Caracas | Marinela Masri | Trayectoria Jurídica";
 const META_DESC  = "Conoce a Marinela Masri, abogada en Caracas con más de 25 años de trayectoria jurídica y experiencia en diversas áreas del derecho.";
@@ -33,7 +33,7 @@ export default function SobreMarinelaPage() {
       <section className="bg-white w-full">
         <div className="px-6 md:px-16 py-10 md:py-14 max-w-[860px] mx-auto">
           <h2 className="font-['Instrument_Serif',serif] text-[#c9a84c] text-[24px] md:text-[32px] mb-6">
-            Perfil Profesional
+            Perfil profesional y trayectoria de Marinela Masri
           </h2>
           <div className="flex flex-col gap-4 font-['Schibsted_Grotesk',sans-serif] text-[#374151] text-[15px] md:text-[17px] leading-[1.75]">
             <p>
@@ -75,7 +75,7 @@ export default function SobreMarinelaPage() {
       <section className="bg-[#f5f5f5] w-full">
         <div className="px-6 md:px-16 py-10 md:py-14 max-w-[860px] mx-auto">
           <h2 className="font-['Instrument_Serif',serif] text-[#1a2b4a] text-[24px] md:text-[32px] mb-6">
-            Enfoque y Compromiso
+            Enfoque y compromiso con sus clientes
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[
@@ -118,7 +118,7 @@ export default function SobreMarinelaPage() {
       <section className="bg-white w-full">
         <div className="px-6 md:px-16 py-10 md:py-14 max-w-[860px] mx-auto">
           <h2 className="font-['Instrument_Serif',serif] text-[#c9a84c] text-[24px] md:text-[32px] mb-3">
-            Áreas de Práctica
+            Áreas del Derecho que ejerce
           </h2>
           <p className="font-['Schibsted_Grotesk',sans-serif] text-[#4b5563] text-[14px] md:text-[16px] leading-[1.6] mb-7">
             Marinela Masri ofrece asesoría legal en seis áreas del derecho venezolano, cubriendo las necesidades jurídicas más frecuentes de personas y empresas.
@@ -147,25 +147,6 @@ export default function SobreMarinelaPage() {
               Ver todos los servicios jurídicos →
             </a>
           </div>
-        </div>
-      </section>
-
-      {/* Contacto */}
-      <section className="bg-[#f5f5f5] w-full">
-        <div className="px-6 md:px-16 py-10 md:py-14 max-w-[860px] mx-auto flex flex-col items-center text-center gap-6">
-          <h2 className="font-['Instrument_Serif',serif] text-[#1a2b4a] text-[26px] md:text-[36px] leading-tight">
-            ¿Necesita Asesoría Legal?
-          </h2>
-          <p className="font-['Schibsted_Grotesk',sans-serif] text-[#4b5563] text-[14px] md:text-[16px] leading-[1.6] max-w-[520px]">
-            Contáctese directamente con Marinela Masri para consultar su caso. Atención presencial en Caracas y en línea para toda Venezuela.
-          </p>
-          <WaButton
-            waText="Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20consulta%20con%20la%20Abogada%20Marinela"
-            className="flex items-center justify-center gap-2 bg-[#25d366] text-white px-8 py-4 rounded-[8px] font-['Schibsted_Grotesk',sans-serif] font-bold text-[15px] md:text-[17px] shadow-[0_4px_6px_rgba(0,0,0,0.13)] hover:brightness-105 transition-all"
-          >
-            <MsgIcon />
-            Consulta por WhatsApp
-          </WaButton>
         </div>
       </section>
 

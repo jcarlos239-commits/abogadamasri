@@ -40,54 +40,60 @@ function NotFound() {
   );
 }
 
+export function AppRoutes() {
+  return (
+    <div className="bg-white min-h-screen w-full overflow-x-hidden flex flex-col">
+      <Navbar />
+      <main className="flex-1">
+        <Routes>
+          <Route path="/"                            element={<HomePage />} />
+          <Route path="/sobre-marinela-masri"        element={<SobreMarinelaPage />} />
+          <Route path="/sobre-marinela-masri/"       element={<SobreMarinelaPage />} />
+          <Route path="/servicios"                   element={<ServiciosPage />} />
+          <Route path="/servicios/"                  element={<ServiciosPage />} />
+          <Route path="/derecho-civil"                element={<DerechoCivilPage />} />
+          <Route path="/derecho-civil/"               element={<DerechoCivilPage />} />
+          <Route path="/derecho-mercantil"            element={<DerechoMercantilPage />} />
+          <Route path="/derecho-mercantil/"           element={<DerechoMercantilPage />} />
+          <Route path="/derecho-laboral"              element={<DerechoLaboralPage />} />
+          <Route path="/derecho-laboral/"             element={<DerechoLaboralPage />} />
+          <Route path="/derecho-familia-divorcios"    element={<DerechoFamiliaPage />} />
+          <Route path="/derecho-familia-divorcios/"   element={<DerechoFamiliaPage />} />
+          <Route path="/bienes-inmuebles"             element={<BienesInmueblesPage />} />
+          <Route path="/bienes-inmuebles/"            element={<BienesInmueblesPage />} />
+          <Route path="/contratos-documentos"                              element={<ContratosDocumentosPage />} />
+          <Route path="/contratos-documentos/"                             element={<ContratosDocumentosPage />} />
+          <Route path="/derecho-civil/herencias-sucesiones"                element={<HerenciasSucesionesPage />} />
+          <Route path="/derecho-civil/herencias-sucesiones/"               element={<HerenciasSucesionesPage />} />
+          <Route path="/derecho-familia-divorcios/divorcio"                element={<DivorcioPage />} />
+          <Route path="/derecho-familia-divorcios/divorcio/"               element={<DivorcioPage />} />
+          <Route path="/derecho-familia-divorcios/custodia-lopnna"         element={<CustodiaLopnnaPage />} />
+          <Route path="/derecho-familia-divorcios/custodia-lopnna/"        element={<CustodiaLopnnaPage />} />
+          <Route path="/contratos-documentos/poder-notarial"               element={<PoderNotarialPage />} />
+          <Route path="/contratos-documentos/poder-notarial/"              element={<PoderNotarialPage />} />
+          <Route path="/bienes-inmuebles/condominios"                      element={<CondominiosPage />} />
+          <Route path="/bienes-inmuebles/condominios/"                     element={<CondominiosPage />} />
+          <Route path="/derecho-civil/legalizacion-apostilla"              element={<LegalizacionApostillaPage />} />
+          <Route path="/derecho-civil/legalizacion-apostilla/"             element={<LegalizacionApostillaPage />} />
+          <Route path="/derecho-mercantil/registro-mercantil"              element={<RegistroMercantilPage />} />
+          <Route path="/derecho-mercantil/registro-mercantil/"             element={<RegistroMercantilPage />} />
+          <Route path="/blog"                                              element={<BlogPage />} />
+          <Route path="/blog/"                                             element={<BlogPage />} />
+          <Route path="/blog/:slug"                                        element={<BlogArticlePage />} />
+          <Route path="/blog/:slug/"                                       element={<BlogArticlePage />} />
+          <Route path="*"                                                  element={<NotFound />} />
+        </Routes>
+      </main>
+      <Footer />
+      <FloatingWaButton />
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="bg-white min-h-screen w-full overflow-x-hidden flex flex-col">
-        <Navbar />
-        <main className="flex-1">
-          <Routes>
-            <Route path="/"                            element={<HomePage />} />
-            <Route path="/sobre-marinela-masri"        element={<SobreMarinelaPage />} />
-            <Route path="/sobre-marinela-masri/"       element={<SobreMarinelaPage />} />
-            <Route path="/servicios"                   element={<ServiciosPage />} />
-            <Route path="/servicios/"                  element={<ServiciosPage />} />
-            <Route path="/derecho-civil"                element={<DerechoCivilPage />} />
-            <Route path="/derecho-civil/"               element={<DerechoCivilPage />} />
-            <Route path="/derecho-mercantil"            element={<DerechoMercantilPage />} />
-            <Route path="/derecho-mercantil/"           element={<DerechoMercantilPage />} />
-            <Route path="/derecho-laboral"              element={<DerechoLaboralPage />} />
-            <Route path="/derecho-laboral/"             element={<DerechoLaboralPage />} />
-            <Route path="/derecho-familia-divorcios"    element={<DerechoFamiliaPage />} />
-            <Route path="/derecho-familia-divorcios/"   element={<DerechoFamiliaPage />} />
-            <Route path="/bienes-inmuebles"             element={<BienesInmueblesPage />} />
-            <Route path="/bienes-inmuebles/"            element={<BienesInmueblesPage />} />
-            <Route path="/contratos-documentos"                              element={<ContratosDocumentosPage />} />
-            <Route path="/contratos-documentos/"                             element={<ContratosDocumentosPage />} />
-            <Route path="/derecho-civil/herencias-sucesiones"                element={<HerenciasSucesionesPage />} />
-            <Route path="/derecho-civil/herencias-sucesiones/"               element={<HerenciasSucesionesPage />} />
-            <Route path="/derecho-familia-divorcios/divorcio"                element={<DivorcioPage />} />
-            <Route path="/derecho-familia-divorcios/divorcio/"               element={<DivorcioPage />} />
-            <Route path="/derecho-familia-divorcios/custodia-lopnna"         element={<CustodiaLopnnaPage />} />
-            <Route path="/derecho-familia-divorcios/custodia-lopnna/"        element={<CustodiaLopnnaPage />} />
-            <Route path="/contratos-documentos/poder-notarial"               element={<PoderNotarialPage />} />
-            <Route path="/contratos-documentos/poder-notarial/"              element={<PoderNotarialPage />} />
-            <Route path="/bienes-inmuebles/condominios"                      element={<CondominiosPage />} />
-            <Route path="/bienes-inmuebles/condominios/"                     element={<CondominiosPage />} />
-            <Route path="/derecho-civil/legalizacion-apostilla"              element={<LegalizacionApostillaPage />} />
-            <Route path="/derecho-civil/legalizacion-apostilla/"             element={<LegalizacionApostillaPage />} />
-            <Route path="/derecho-mercantil/registro-mercantil"              element={<RegistroMercantilPage />} />
-            <Route path="/derecho-mercantil/registro-mercantil/"             element={<RegistroMercantilPage />} />
-            <Route path="/blog"                                              element={<BlogPage />} />
-            <Route path="/blog/"                                             element={<BlogPage />} />
-            <Route path="/blog/:slug"                                        element={<BlogArticlePage />} />
-            <Route path="/blog/:slug/"                                       element={<BlogArticlePage />} />
-            <Route path="*"                                                  element={<NotFound />} />
-          </Routes>
-        </main>
-        <Footer />
-        <FloatingWaButton />
-      </div>
+      <AppRoutes />
     </BrowserRouter>
   );
 }

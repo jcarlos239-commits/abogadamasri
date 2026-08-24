@@ -4,18 +4,21 @@ import { usePageSEO, WA_BASE, SERVICE_ROUTES, MsgIcon, ContactCta, WhyTrust } fr
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export interface ServiceData {
-  slug:       string;
-  icon:       string;
-  title:      string;
-  h1?:        string;
-  metaTitle:  string;
-  metaDesc:   string;
-  heroDesc:   string;
-  intro:      string;
-  items:      string[];
-  whenToSeek: string[];
-  related:    string[];
-  waText:     string;
+  slug:           string;
+  icon:           string;
+  title:          string;
+  h1?:            string;
+  metaTitle:      string;
+  metaDesc:       string;
+  heroDesc:       string;
+  intro:          string;
+  introHeading?:  string;
+  servicesHeading: string;
+  relatedHeading:  string;
+  items:          string[];
+  whenToSeek:     string[];
+  related:        string[];
+  waText:         string;
   subTopics?: { slug: string; icon: string; label: string; desc: string }[];
 }
 
@@ -50,6 +53,9 @@ const allServices: ServiceData[] = [
       "Cuando necesita autenticar un documento ante Notaría o Registro Público",
       "Cuando un familiar ha fallecido y los bienes deben ser transferidos a los herederos",
     ],
+    introHeading:    "Asesoría legal en Derecho Civil en Caracas",
+    servicesHeading: "Servicios de Derecho Civil",
+    relatedHeading:  "Áreas relacionadas con el Derecho Civil",
     related:   ["/bienes-inmuebles/", "/contratos-documentos/", "/derecho-familia-divorcios/"],
     waText:    "Hola%2C%20necesito%20asesor%C3%ADa%20en%20Derecho%20Civil",
     subTopics: [
@@ -100,6 +106,9 @@ const allServices: ServiceData[] = [
       "Cuando necesita disolver o liquidar una empresa",
       "Cuando necesita revisar contratos comerciales con clientes o proveedores",
     ],
+    introHeading:    "Orientación jurídica para empresas y comerciantes en Caracas",
+    servicesHeading: "Servicios de Derecho Mercantil",
+    relatedHeading:  "Áreas relacionadas con el Derecho Mercantil",
     related: ["/contratos-documentos/", "/derecho-laboral/", "/derecho-civil/"],
     waText:  "Hola%2C%20necesito%20asesor%C3%ADa%20en%20Derecho%20Mercantil",
     subTopics: [
@@ -137,6 +146,9 @@ const allServices: ServiceData[] = [
       "Cuando necesita orientación sobre obligaciones laborales de su empresa",
       "Cuando necesita revisar o redactar contratos de trabajo conforme a la LOTTT",
     ],
+    introHeading:    "Defensa y asesoría en materia laboral en Venezuela",
+    servicesHeading: "Servicios de Derecho Laboral",
+    relatedHeading:  "Áreas relacionadas con el Derecho Laboral",
     related: ["/contratos-documentos/", "/derecho-mercantil/", "/derecho-civil/"],
     waText:  "Hola%2C%20necesito%20asesor%C3%ADa%20en%20Derecho%20Laboral",
   },
@@ -169,6 +181,9 @@ const allServices: ServiceData[] = [
       "Cuando necesita resolver la partición de bienes conyugales",
       "Cuando necesita formalizar o impugnar el reconocimiento de un hijo",
     ],
+    introHeading:    "Acompañamiento legal en asuntos de familia y divorcio",
+    servicesHeading: "Servicios de Derecho de Familia",
+    relatedHeading:  "Áreas relacionadas con el Derecho de Familia",
     related:   ["/derecho-civil/", "/contratos-documentos/", "/bienes-inmuebles/"],
     waText:    "Hola%2C%20necesito%20asesor%C3%ADa%20en%20Derecho%20de%20Familia",
     subTopics: [
@@ -214,6 +229,9 @@ const allServices: ServiceData[] = [
       "Cuando necesita revisar los documentos de propiedad de un inmueble",
       "Cuando necesita recuperar un inmueble entregado en comodato o sin contrato formalizado",
     ],
+    introHeading:    "Asesoría legal en compraventa, arrendamientos y condominios",
+    servicesHeading: "Servicios de Derecho Inmobiliario",
+    relatedHeading:  "Áreas relacionadas con los bienes inmuebles",
     related: ["/derecho-civil/", "/contratos-documentos/", "/derecho-mercantil/"],
     waText:  "Hola%2C%20necesito%20asesor%C3%ADa%20sobre%20Bienes%20Inmuebles",
     subTopics: [
@@ -252,6 +270,9 @@ const allServices: ServiceData[] = [
       "Cuando quiere redactar un acuerdo o convenio entre particulares",
       "Cuando necesita preparar documentos para uso en el extranjero con apostilla",
     ],
+    introHeading:    "Asesoría en contratos, poderes notariales y documentos legales",
+    servicesHeading: "Servicios de contratos y documentos legales",
+    relatedHeading:  "Áreas relacionadas con contratos y documentos",
     related:   ["/derecho-civil/", "/derecho-mercantil/", "/bienes-inmuebles/"],
     waText:    "Hola%2C%20necesito%20asesor%C3%ADa%20sobre%20Contratos%20y%20Documentos",
     subTopics: [
@@ -318,6 +339,11 @@ function ServicePageLayout({ data }: { data: ServiceData }) {
       {/* Intro */}
       <section className="bg-white w-full">
         <div className="px-6 md:px-16 py-10 md:py-14 max-w-[860px] mx-auto flex flex-col gap-4">
+          {!data.subTopics && data.introHeading && (
+            <h2 className="font-['Instrument_Serif',serif] text-[#1a2b4a] text-[20px] md:text-[26px] mb-2">
+              {data.introHeading}
+            </h2>
+          )}
           {data.intro.split("\n\n").map((para, i) => (
             <p key={i} className="font-['Schibsted_Grotesk',sans-serif] text-[#374151] text-[15px] md:text-[17px] leading-[1.75]">
               {para}
@@ -336,7 +362,7 @@ function ServicePageLayout({ data }: { data: ServiceData }) {
         <section className="bg-[#eef2f7] w-full">
           <div className="px-6 md:px-16 py-8 md:py-10 max-w-[860px] mx-auto">
             <h2 className="font-['Instrument_Serif',serif] text-[#1a2b4a] text-[20px] md:text-[26px] mb-5">
-              Temas relacionados
+              {data.introHeading ?? "Temas relacionados"}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {data.subTopics.map(t => (
@@ -364,7 +390,7 @@ function ServicePageLayout({ data }: { data: ServiceData }) {
       <section className="bg-[#f5f5f5] w-full">
         <div className="px-6 md:px-16 py-10 md:py-14 max-w-[860px] mx-auto">
           <h2 className="font-['Instrument_Serif',serif] text-[#c9a84c] text-[24px] md:text-[32px] mb-6">
-            Servicios que incluye esta área
+            {data.servicesHeading}
           </h2>
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {data.items.map(item => (
@@ -381,7 +407,7 @@ function ServicePageLayout({ data }: { data: ServiceData }) {
         <section className="bg-[#1a2b4a] w-full">
           <div className="px-6 md:px-16 py-10 md:py-14">
             <h2 className="font-['Instrument_Serif',serif] text-[#c9a84c] text-[24px] md:text-[32px] mb-6 text-center">
-              Áreas relacionadas
+              {data.relatedHeading}
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-[700px] mx-auto">
               {related.map(r => (

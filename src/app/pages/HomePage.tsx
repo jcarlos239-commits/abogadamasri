@@ -80,9 +80,9 @@ function Services() {
     <section id="servicios" className="bg-white w-full">
       <div className="flex flex-col gap-8 md:gap-12 py-12 md:py-16 px-6 md:px-16">
         <div className="flex flex-col gap-3 items-center text-center">
-          <p className="font-['Instrument_Serif',serif] text-[#c9a84c] text-[28px] sm:text-[36px] md:text-[48px] leading-tight">
-            Áreas de Práctica
-          </p>
+          <h2 className="font-['Instrument_Serif',serif] text-[#c9a84c] text-[28px] sm:text-[36px] md:text-[48px] leading-tight">
+            Servicios Legales en Caracas
+          </h2>
           <p className="font-['Schibsted_Grotesk',sans-serif] text-[#4b5563] text-[14px] md:text-[18px] leading-[1.5] max-w-[600px]">
             Soluciones jurídicas integrales para personas y empresas en Venezuela
           </p>
@@ -117,9 +117,9 @@ function About() {
     <section id="sobre-mi" className="bg-[#f5f5f5] w-full">
       <div className="flex flex-col gap-6 py-10 md:py-16 px-6 md:px-16">
         <div className="flex flex-col gap-2 text-center w-full">
-          <p className="font-['Instrument_Serif',serif] leading-[1.1] text-[#1a2b4a] text-[26px] sm:text-[36px] md:text-[52px] lg:text-[72px]">
+          <h2 className="font-['Instrument_Serif',serif] leading-[1.1] text-[#1a2b4a] text-[26px] sm:text-[36px] md:text-[52px] lg:text-[72px]">
             Abogada Marinela Masri
-          </p>
+          </h2>
           <p className="font-['Schibsted_Grotesk',sans-serif] font-semibold text-[#c9a84c] text-[14px] sm:text-[17px] md:text-[20px] lg:text-[24px]">
             Más de 25 años defendiendo sus derechos
           </p>

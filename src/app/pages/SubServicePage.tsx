@@ -5,20 +5,24 @@ import { serviceMap } from "./ServicePage";
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 interface SubServiceData {
-  slug:        string;
-  parentSlug:  string;
-  parentLabel: string;
-  icon:        string;
-  title:       string;
-  h1?:         string;
-  metaTitle:   string;
-  metaDesc:    string;
-  heroDesc:    string;
-  intro:       string;
-  items:       string[];
-  whenToSeek:  string[];
-  related:     string[];
-  waText:      string;
+  slug:            string;
+  parentSlug:      string;
+  parentLabel:     string;
+  icon:            string;
+  title:           string;
+  h1?:             string;
+  metaTitle:       string;
+  metaDesc:        string;
+  heroDesc:        string;
+  intro:           string;
+  introHeading:    string;
+  introHeading2?:  string;
+  servicesHeading: string;
+  relatedHeading:  string;
+  items:           string[];
+  whenToSeek:      string[];
+  related:         string[];
+  waText:          string;
 }
 
 // ─── Sub-service data ─────────────────────────────────────────────────────────
@@ -52,6 +56,9 @@ const allSubServices: SubServiceData[] = [
       "Cuando los documentos de propiedad del causante presentan irregularidades o están incompletos",
       "Cuando necesita formalizar la transferencia de un inmueble a nombre de los herederos",
     ],
+    introHeading:    "Asesoría legal en herencias y sucesiones en Venezuela",
+    servicesHeading: "Servicios de herencias y sucesiones",
+    relatedHeading:  "Áreas relacionadas con herencias y sucesiones",
     related: ["/derecho-civil/", "/bienes-inmuebles/", "/contratos-documentos/"],
     waText:  "Hola%2C%20necesito%20asesor%C3%ADa%20sobre%20herencias%20y%20sucesiones",
   },
@@ -81,6 +88,9 @@ const allSubServices: SubServiceData[] = [
       "Cuando hay bienes conyugales que deben ser distribuidos",
       "Cuando su cónyuge se encuentra en el extranjero y necesita orientación sobre el proceso",
     ],
+    introHeading:    "Asesoría y representación legal en procesos de divorcio",
+    servicesHeading: "Servicios relacionados con el divorcio",
+    relatedHeading:  "Áreas relacionadas con divorcio y familia",
     related: ["/derecho-familia-divorcios/", "/derecho-familia-divorcios/custodia-lopnna/", "/bienes-inmuebles/"],
     waText:  "Hola%2C%20necesito%20asesor%C3%ADa%20sobre%20un%20proceso%20de%20divorcio",
   },
@@ -111,6 +121,9 @@ const allSubServices: SubServiceData[] = [
       "Cuando enfrenta un proceso ante los tribunales de protección bajo la LOPNNA",
       "Cuando un progenitor ha incurrido en conductas que podrían justificar la privación de la patria potestad",
     ],
+    introHeading:    "Orientación legal en custodia, régimen de convivencia y manutención",
+    servicesHeading: "Servicios de custodia y protección bajo la LOPNNA",
+    relatedHeading:  "Áreas relacionadas con Derecho de Familia",
     related: ["/derecho-familia-divorcios/", "/derecho-familia-divorcios/divorcio/", "/derecho-civil/"],
     waText:  "Hola%2C%20necesito%20asesor%C3%ADa%20sobre%20custodia%20y%20LOPNNA",
   },
@@ -142,6 +155,9 @@ const allSubServices: SubServiceData[] = [
       "Cuando tiene un poder vigente que desea revocar",
       "Cuando necesita un poder con apostilla para que tenga validez en otro país",
     ],
+    introHeading:    "Preparación y asesoría en poderes notariales en Venezuela",
+    servicesHeading: "Tipos de poderes notariales y servicios relacionados",
+    relatedHeading:  "Áreas relacionadas con poderes y documentos legales",
     related: ["/contratos-documentos/", "/derecho-civil/", "/bienes-inmuebles/"],
     waText:  "Hola%2C%20necesito%20asesor%C3%ADa%20sobre%20un%20poder%20notarial",
   },
@@ -177,6 +193,9 @@ const allSubServices: SubServiceData[] = [
       "Cuando tiene dudas sobre los derechos y obligaciones como propietario",
       "Cuando la junta requiere apoyo legal para gestionar el edificio",
     ],
+    introHeading:    "Asesoría legal para condominios en Venezuela",
+    servicesHeading: "Servicios legales para juntas de condominio y propietarios",
+    relatedHeading:  "Áreas relacionadas con Derecho Inmobiliario",
     related: ["/bienes-inmuebles/", "/derecho-civil/", "/contratos-documentos/"],
     waText:  "Hola%2C%20necesito%20asesor%C3%ADa%20sobre%20condominios",
   },
@@ -211,6 +230,10 @@ const allSubServices: SubServiceData[] = [
       "Cuando un trámite migratorio, académico o laboral requiere documentos apostillados",
       "Cuando tiene dudas sobre los pasos previos necesarios para cada tipo de documento",
     ],
+    introHeading:    "Asesoría para la legalización y apostilla de documentos en Venezuela",
+    introHeading2:   "Orientación sobre el proceso para cada tipo de documento",
+    servicesHeading: "Servicios de legalización y apostilla",
+    relatedHeading:  "Áreas relacionadas con documentación y trámites legales",
     related: ["/derecho-civil/", "/contratos-documentos/", "/contratos-documentos/poder-notarial/"],
     waText:  "Hola%2C%20necesito%20asesor%C3%ADa%20sobre%20legalizaci%C3%B3n%20y%20apostilla",
   },
@@ -246,6 +269,9 @@ const allSubServices: SubServiceData[] = [
       "Cuando necesita gestionar trámites ante el Registro Mercantil o SAREN",
       "Cuando necesita registrar libros o documentos societarios",
     ],
+    introHeading:    "Asesoría legal para empresas ante el Registro Mercantil",
+    servicesHeading: "Servicios de Registro Mercantil",
+    relatedHeading:  "Áreas relacionadas con Derecho Mercantil",
     related: ["/derecho-mercantil/", "/contratos-documentos/", "/derecho-civil/"],
     waText:  "Hola%2C%20necesito%20asesor%C3%ADa%20sobre%20el%20Registro%20Mercantil",
   },
@@ -320,11 +346,37 @@ function SubServicePageLayout({ data }: { data: SubServiceData }) {
       {/* Intro */}
       <section className="bg-white w-full">
         <div className="px-6 md:px-16 py-10 md:py-14 max-w-[860px] mx-auto flex flex-col gap-4">
-          {data.intro.split("\n\n").map((para, i) => (
-            <p key={i} className="font-['Schibsted_Grotesk',sans-serif] text-[#374151] text-[15px] md:text-[17px] leading-[1.75]">
-              {para}
-            </p>
-          ))}
+          {data.introHeading2 ? (
+            <>
+              <h2 className="font-['Instrument_Serif',serif] text-[#1a2b4a] text-[20px] md:text-[26px] mb-2">
+                {data.introHeading}
+              </h2>
+              {data.intro.split("\n\n").slice(0, 1).map((para, i) => (
+                <p key={i} className="font-['Schibsted_Grotesk',sans-serif] text-[#374151] text-[15px] md:text-[17px] leading-[1.75]">
+                  {para}
+                </p>
+              ))}
+              <h2 className="font-['Instrument_Serif',serif] text-[#1a2b4a] text-[20px] md:text-[26px] mt-2 mb-2">
+                {data.introHeading2}
+              </h2>
+              {data.intro.split("\n\n").slice(1).map((para, i) => (
+                <p key={i} className="font-['Schibsted_Grotesk',sans-serif] text-[#374151] text-[15px] md:text-[17px] leading-[1.75]">
+                  {para}
+                </p>
+              ))}
+            </>
+          ) : (
+            <>
+              <h2 className="font-['Instrument_Serif',serif] text-[#1a2b4a] text-[20px] md:text-[26px] mb-2">
+                {data.introHeading}
+              </h2>
+              {data.intro.split("\n\n").map((para, i) => (
+                <p key={i} className="font-['Schibsted_Grotesk',sans-serif] text-[#374151] text-[15px] md:text-[17px] leading-[1.75]">
+                  {para}
+                </p>
+              ))}
+            </>
+          )}
           <p className="font-['Schibsted_Grotesk',sans-serif] text-[14px] md:text-[15px] mt-1">
             <Link to="/sobre-marinela-masri/" className="text-[#c9a84c] hover:text-[#1a2b4a] transition-colors font-medium">
               Conozca más sobre la trayectoria profesional de Marinela Masri →
@@ -337,7 +389,7 @@ function SubServicePageLayout({ data }: { data: SubServiceData }) {
       <section className="bg-[#f5f5f5] w-full">
         <div className="px-6 md:px-16 py-10 md:py-14 max-w-[860px] mx-auto">
           <h2 className="font-['Instrument_Serif',serif] text-[#c9a84c] text-[24px] md:text-[32px] mb-6">
-            Servicios que incluye esta área
+            {data.servicesHeading}
           </h2>
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {data.items.map(item => (
@@ -355,7 +407,7 @@ function SubServicePageLayout({ data }: { data: SubServiceData }) {
         <section className="bg-[#1a2b4a] w-full">
           <div className="px-6 md:px-16 py-10 md:py-14">
             <h2 className="font-['Instrument_Serif',serif] text-[#c9a84c] text-[24px] md:text-[32px] mb-6 text-center">
-              Áreas relacionadas
+              {data.relatedHeading}
             </h2>
             <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-[700px] mx-auto">
               {related.map(r => (

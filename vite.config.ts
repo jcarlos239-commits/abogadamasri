@@ -1,4 +1,4 @@
-import { defineConfig, type Plugin } from 'vite'
+import { defineConfig, build, type Plugin } from 'vite'
 import path from 'path'
 import fs from 'fs'
 import tailwindcss from '@tailwindcss/vite'
@@ -46,7 +46,7 @@ function getArticles(): Array<Record<string, unknown>> {
       const raw = fs.readFileSync(path.join(dir, f), 'utf-8')
       return matter(raw).data as Record<string, unknown>
     })
-    .filter(d => d.slug && d.title)
+    .filter(d => d.slug && d.title && d.published !== false)
 }
 
 function articleHtml(fm: Record<string, unknown>): string {
@@ -67,12 +67,8 @@ function articleHtml(fm: Record<string, unknown>): string {
     url: canonical,
     datePublished: rawDate,
     image: ogImage,
-    author: { '@type': 'Person', name: author },
-    publisher: {
-      '@type': 'LegalService',
-      name: 'Abogada Marinela Masri',
-      url: SITE,
-    },
+    author: { '@type': 'Person', '@id': `${SITE}/#marinela-masri`, name: author },
+    publisher: { '@type': 'LegalService', '@id': `${SITE}/#legal-practice`, name: 'Abogada Marinela Masri', url: SITE },
   })
 
   const ldBreadcrumb = safeJson({
@@ -156,6 +152,102 @@ ${ldBreadcrumb}
 `
 }
 
+// Source-of-truth lastmod dates for static pages. Update a page's date only
+// when its content or SEO metadata meaningfully changes.
+const STATIC_PAGES: Array<{
+  url:        string
+  lastmod:    string
+  priority:   string
+  changefreq: string
+}> = [
+  { url: '/',                                           lastmod: '2026-08-24', priority: '1.0', changefreq: 'monthly' },
+  { url: '/sobre-marinela-masri/',                      lastmod: '2026-08-24', priority: '0.9', changefreq: 'monthly' },
+  { url: '/servicios/',                                 lastmod: '2026-08-24', priority: '0.9', changefreq: 'monthly' },
+  { url: '/derecho-civil/',                             lastmod: '2026-08-24', priority: '0.9', changefreq: 'monthly' },
+  { url: '/derecho-mercantil/',                         lastmod: '2026-08-24', priority: '0.9', changefreq: 'monthly' },
+  { url: '/derecho-laboral/',                           lastmod: '2026-08-24', priority: '0.9', changefreq: 'monthly' },
+  { url: '/derecho-familia-divorcios/',                 lastmod: '2026-08-24', priority: '0.9', changefreq: 'monthly' },
+  { url: '/bienes-inmuebles/',                          lastmod: '2026-08-24', priority: '0.9', changefreq: 'monthly' },
+  { url: '/contratos-documentos/',                      lastmod: '2026-08-24', priority: '0.9', changefreq: 'monthly' },
+  { url: '/derecho-civil/herencias-sucesiones/',        lastmod: '2026-08-24', priority: '0.8', changefreq: 'monthly' },
+  { url: '/derecho-familia-divorcios/divorcio/',        lastmod: '2026-08-24', priority: '0.8', changefreq: 'monthly' },
+  { url: '/derecho-familia-divorcios/custodia-lopnna/', lastmod: '2026-08-24', priority: '0.8', changefreq: 'monthly' },
+  { url: '/contratos-documentos/poder-notarial/',       lastmod: '2026-08-24', priority: '0.8', changefreq: 'monthly' },
+  { url: '/bienes-inmuebles/condominios/',              lastmod: '2026-08-24', priority: '0.8', changefreq: 'monthly' },
+  { url: '/derecho-civil/legalizacion-apostilla/',      lastmod: '2026-08-24', priority: '0.8', changefreq: 'monthly' },
+  { url: '/derecho-mercantil/registro-mercantil/',      lastmod: '2026-08-24', priority: '0.8', changefreq: 'monthly' },
+  { url: '/blog/',                                      lastmod: '2026-08-24', priority: '0.8', changefreq: 'weekly'  },
+]
+
+// Static routes to prerender: each maps a URL to its dist HTML file.
+const PRERENDER_ROUTES: { url: string; file: string }[] = [
+  { url: '/',                                           file: 'index.html' },
+  { url: '/sobre-marinela-masri/',                      file: 'sobre-marinela-masri/index.html' },
+  { url: '/servicios/',                                 file: 'servicios/index.html' },
+  { url: '/derecho-civil/',                             file: 'derecho-civil/index.html' },
+  { url: '/derecho-mercantil/',                         file: 'derecho-mercantil/index.html' },
+  { url: '/derecho-laboral/',                           file: 'derecho-laboral/index.html' },
+  { url: '/derecho-familia-divorcios/',                 file: 'derecho-familia-divorcios/index.html' },
+  { url: '/bienes-inmuebles/',                          file: 'bienes-inmuebles/index.html' },
+  { url: '/contratos-documentos/',                      file: 'contratos-documentos/index.html' },
+  { url: '/derecho-civil/herencias-sucesiones/',        file: 'derecho-civil/herencias-sucesiones/index.html' },
+  { url: '/derecho-familia-divorcios/divorcio/',        file: 'derecho-familia-divorcios/divorcio/index.html' },
+  { url: '/derecho-familia-divorcios/custodia-lopnna/', file: 'derecho-familia-divorcios/custodia-lopnna/index.html' },
+  { url: '/contratos-documentos/poder-notarial/',       file: 'contratos-documentos/poder-notarial/index.html' },
+  { url: '/bienes-inmuebles/condominios/',              file: 'bienes-inmuebles/condominios/index.html' },
+  { url: '/derecho-civil/legalizacion-apostilla/',      file: 'derecho-civil/legalizacion-apostilla/index.html' },
+  { url: '/derecho-mercantil/registro-mercantil/',      file: 'derecho-mercantil/registro-mercantil/index.html' },
+  { url: '/blog/',                                      file: 'blog/index.html' },
+]
+
+async function prerenderPages(distOut: string): Promise<void> {
+  const ssrTempDir = path.resolve(distOut, 'ssr-temp')
+
+  // Build an isolated SSR bundle (configFile: false avoids re-triggering this config)
+  await build({
+    configFile: false,
+    root: __dirname,
+    logLevel: 'warn',
+    resolve: { alias: { '@': path.resolve(__dirname, 'src') } },
+    plugins: [
+    figmaAssetResolver(),react()],
+    build: {
+      ssr: path.resolve(__dirname, 'src/entry-server.tsx'),
+      outDir: ssrTempDir,
+      emptyOutDir: true,
+      rollupOptions: { output: { format: 'esm', entryFileNames: '[name].js' } },
+    },
+  })
+
+  // Load the SSR render function from the just-built bundle
+  const ssrEntry = path.join(ssrTempDir, 'entry-server.js')
+  const { render } = (await import(ssrEntry)) as { render: (url: string) => string }
+
+  // Build the full route list: static pages + any published articles
+  const routes = [...PRERENDER_ROUTES]
+  for (const fm of getArticles()) {
+    const slug = String(fm.slug)
+    routes.push({ url: `/blog/${slug}/`, file: `blog/${slug}/index.html` })
+  }
+
+  // Render each route and inject the HTML into <div id="root">
+  for (const { url, file } of routes) {
+    const htmlPath = path.join(distOut, file)
+    if (!fs.existsSync(htmlPath)) continue
+    try {
+      const template = fs.readFileSync(htmlPath, 'utf-8')
+      const appHtml = render(url)
+      const output = template.replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`)
+      fs.writeFileSync(htmlPath, output, 'utf-8')
+    } catch (e) {
+      process.stderr.write(`[prerender] ${url}: ${(e as Error).message}\n`)
+    }
+  }
+
+  // Remove the temporary SSR bundle
+  fs.rmSync(ssrTempDir, { recursive: true, force: true })
+}
+
 function blogPlugin(): Plugin {
   let outDir = 'dist'
 
@@ -192,42 +284,49 @@ function blogPlugin(): Plugin {
       return { build: { rollupOptions: { input: inputs } } }
     },
 
-    // Step 3: write dist/sitemap.xml = static URLs + article URLs
-    closeBundle() {
+    // Step 3: write dist/sitemap.xml and prerender all static pages
+    async closeBundle() {
       const out = path.resolve(__dirname, outDir)
       if (!fs.existsSync(out)) return
 
-      const staticSitemap = path.resolve(__dirname, 'public/sitemap.xml')
-      let staticContent = ''
-      if (fs.existsSync(staticSitemap)) {
-        staticContent = fs.readFileSync(staticSitemap, 'utf-8')
-      }
+      const today = new Date().toISOString().split('T')[0]
+
+      const staticEntries = STATIC_PAGES.map(({ url, lastmod, priority, changefreq }) => {
+        return `
+  <url>
+    <loc>${SITE}${url}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>${changefreq}</changefreq>
+    <priority>${priority}</priority>
+  </url>`
+      }).join('')
 
       const articles = getArticles()
-      if (articles.length === 0) return
-
-      const today = new Date().toISOString().split('T')[0]
-      const articleEntries = articles
-        .map(fm => {
-          const slug = String(fm.slug)
-          const date = fm.date
-            ? new Date(String(fm.date)).toISOString().split('T')[0]
-            : today
-          return `
+      const articleEntries = articles.map(fm => {
+        const slug = String(fm.slug)
+        const date = fm.date
+          ? new Date(String(fm.date)).toISOString().split('T')[0]
+          : today
+        return `
   <url>
     <loc>${SITE}/blog/${slug}/</loc>
     <lastmod>${date}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>`
-        })
-        .join('')
+      }).join('')
 
-      const merged = staticContent.includes('</urlset>')
-        ? staticContent.replace('</urlset>', `${articleEntries}\n</urlset>`)
-        : staticContent + articleEntries
+      const sitemap =
+        `<?xml version="1.0" encoding="UTF-8"?>\n` +
+        `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">` +
+        staticEntries +
+        articleEntries +
+        `\n</urlset>\n`
 
-      fs.writeFileSync(path.join(out, 'sitemap.xml'), merged, 'utf-8')
+      fs.writeFileSync(path.join(out, 'sitemap.xml'), sitemap, 'utf-8')
+
+      // Prerender: inject rendered HTML into every dist page
+      await prerenderPages(out)
     },
   }
 }
@@ -249,7 +348,6 @@ function figmaAssetResolver() {
 
 export default defineConfig({
   plugins: [
-    figmaAssetResolver(),
     // The React and Tailwind plugins are both required for Make, even if
     // Tailwind is not being actively used – do not remove them
     react(),

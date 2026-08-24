@@ -300,9 +300,9 @@ export function ContactCta({ waText = "Hola%2C%20me%20gustar%C3%ADa%20agendar%20
     <section id="contacto" className="bg-[#c9a84c] w-full">
       <div className="flex flex-col items-center gap-8 md:gap-12 py-12 md:py-16 px-6 md:px-16">
         <div className="flex flex-col gap-3 items-center text-center text-[#1a2b4a]">
-          <p className="font-['Instrument_Serif',serif] text-[28px] sm:text-[36px] md:text-[48px] lg:text-[56px] leading-tight">
+          <h2 className="font-['Instrument_Serif',serif] text-[28px] sm:text-[36px] md:text-[48px] lg:text-[56px] leading-tight">
             ¿Necesita Asesoría Legal?
-          </p>
+          </h2>
           <p className="font-['Schibsted_Grotesk',sans-serif] font-medium opacity-80 text-[14px] md:text-[22px]">
             Contácteme hoy mismo para una consulta
           </p>
@@ -390,9 +390,9 @@ export function WhyTrust() {
     <section className="bg-[#1a2b4a] w-full">
       <div className="flex flex-col gap-10 md:gap-16 py-12 md:py-16 px-6 md:px-16">
         <div className="flex flex-col gap-3 items-center text-center">
-          <p className="font-['Instrument_Serif',serif] text-[#c9a84c] text-[24px] sm:text-[32px] md:text-[42px] lg:text-[48px] leading-tight">
+          <h2 className="font-['Instrument_Serif',serif] text-[#c9a84c] text-[24px] sm:text-[32px] md:text-[42px] lg:text-[48px] leading-tight">
             ¿Por Qué Confiar en Marinela Masri?
-          </p>
+          </h2>
           <p className="font-['Schibsted_Grotesk',sans-serif] text-white text-[14px] md:text-[18px] leading-[1.5] max-w-[600px]">
             Compromiso inquebrantable con la justicia y sus intereses
           </p>

@@ -87,9 +87,9 @@ export default function BlogPage() {
       {featured && (
         <section className="bg-white w-full">
           <div className="px-6 md:px-16 py-10 md:py-14 max-w-[1000px] mx-auto">
-            <p className="font-['Schibsted_Grotesk',sans-serif] text-[11px] font-semibold uppercase tracking-widest text-[#c9a84c] mb-4">
-              Artículo destacado
-            </p>
+            <h2 className="font-['Instrument_Serif',serif] text-[#c9a84c] text-[24px] md:text-[32px] mb-6">
+              Artículos sobre Derecho Venezolano
+            </h2>
 
             <article className="bg-[#1a2b4a] rounded-[16px] overflow-hidden flex flex-col md:flex-row">
               <div className="flex flex-col gap-4 p-8 md:p-10 flex-1">
