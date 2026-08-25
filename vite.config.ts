@@ -1,6 +1,7 @@
 import { defineConfig, build, type Plugin } from 'vite'
 import path from 'path'
 import fs from 'fs'
+import sharpLib from 'sharp'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import matter from 'gray-matter'
@@ -22,6 +23,23 @@ import { marked } from 'marked'
 // The Vercel build picks it up automatically — no React edits needed.
 
 const SITE = 'https://www.abogadamasri.com'
+const FONTS_LINK = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Schibsted+Grotesk:wght@400;500;600;700&family=Inter:wght@400&display=swap" />'
+
+// Returns actual pixel dimensions for a site-hosted image by reading the file
+// with sharp at build time. Falls back to 1200×630 for remote or missing files.
+async function resolveOgDims(ogImageUrl: string): Promise<{ width: number; height: number }> {
+  const fallback = { width: 1200, height: 630 }
+  try {
+    if (!ogImageUrl.startsWith(SITE)) return fallback
+    const rel = ogImageUrl.slice(SITE.length).replace(/^\//, '')
+    const localPath = path.resolve(__dirname, 'public', rel)
+    if (!fs.existsSync(localPath)) return fallback
+    const { width, height } = await sharpLib(localPath).metadata()
+    return (width && height) ? { width, height } : fallback
+  } catch {
+    return fallback
+  }
+}
 
 function escAttr(s: string): string {
   return String(s)
@@ -44,18 +62,32 @@ function getArticles(): Array<Record<string, unknown>> {
     .filter(f => f.endsWith('.md'))
     .map(f => {
       const raw = fs.readFileSync(path.join(dir, f), 'utf-8')
-      return matter(raw).data as Record<string, unknown>
+      const data = matter(raw).data as Record<string, unknown>
+      if (data.slug && data.title && data.published !== false && !data.date) {
+        throw new Error(
+          `[blog] Article "${f}" is published but missing a required "date" frontmatter field. ` +
+          `Add a date (YYYY-MM-DD) or set published: false.`
+        )
+      }
+      return data
     })
     .filter(d => d.slug && d.title && d.published !== false)
 }
 
-function articleHtml(fm: Record<string, unknown>): string {
+function articleHtml(fm: Record<string, unknown>, ogDims: { width: number; height: number }): string {
   const title     = String(fm.title || '')
   const desc      = String(fm.description || '')
   const slug      = String(fm.slug)
   const author    = String(fm.author || 'Marinela Masri')
-  const rawDate   = fm.date ? new Date(String(fm.date)).toISOString() : new Date().toISOString()
-  const ogImage   = fm.featuredImage ? String(fm.featuredImage) : `${SITE}/og-image.jpg`
+  const rawDate   = new Date(String(fm.date)).toISOString()
+  const rawFeatured = fm.featuredImage ? String(fm.featuredImage) : null
+  const ogImage   = rawFeatured
+    ? (rawFeatured.startsWith('http') ? rawFeatured : `${SITE}${rawFeatured.startsWith('/') ? '' : '/'}${rawFeatured}`)
+    : `${SITE}/og-image.jpg`
+  const ogImageMime = ogImage.endsWith('.webp') ? 'image/webp'
+    : ogImage.endsWith('.png') ? 'image/png'
+    : ogImage.endsWith('.gif') ? 'image/gif'
+    : 'image/jpeg'
   const canonical = `${SITE}/blog/${slug}/`
   const metaTitle = `${title} | Marinela Masri`
 
@@ -100,7 +132,6 @@ function articleHtml(fm: Record<string, unknown>): string {
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/jpeg" href="/og-image.jpg" sizes="any" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="article" />
@@ -110,9 +141,9 @@ function articleHtml(fm: Record<string, unknown>): string {
     <meta property="og:description" content="${escAttr(desc)}" />
     <meta property="og:image" content="${escAttr(ogImage)}" />
     <meta property="og:image:secure_url" content="${escAttr(ogImage)}" />
-    <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="${ogImageMime}" />
+    <meta property="og:image:width" content="${ogDims.width}" />
+    <meta property="og:image:height" content="${ogDims.height}" />
     <meta property="og:locale" content="es_VE" />
     <meta property="article:published_time" content="${rawDate}" />
     <meta property="article:author" content="${escAttr(author)}" />
@@ -127,6 +158,7 @@ function articleHtml(fm: Record<string, unknown>): string {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://www.googletagmanager.com" />
+    ${FONTS_LINK}
 
     <!-- Google Analytics GA4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GM03DD1T2R"></script>
@@ -160,23 +192,23 @@ const STATIC_PAGES: Array<{
   priority:   string
   changefreq: string
 }> = [
-  { url: '/',                                           lastmod: '2026-08-24', priority: '1.0', changefreq: 'monthly' },
-  { url: '/sobre-marinela-masri/',                      lastmod: '2026-08-24', priority: '0.9', changefreq: 'monthly' },
-  { url: '/servicios/',                                 lastmod: '2026-08-24', priority: '0.9', changefreq: 'monthly' },
-  { url: '/derecho-civil/',                             lastmod: '2026-08-24', priority: '0.9', changefreq: 'monthly' },
-  { url: '/derecho-mercantil/',                         lastmod: '2026-08-24', priority: '0.9', changefreq: 'monthly' },
-  { url: '/derecho-laboral/',                           lastmod: '2026-08-24', priority: '0.9', changefreq: 'monthly' },
-  { url: '/derecho-familia-divorcios/',                 lastmod: '2026-08-24', priority: '0.9', changefreq: 'monthly' },
-  { url: '/bienes-inmuebles/',                          lastmod: '2026-08-24', priority: '0.9', changefreq: 'monthly' },
-  { url: '/contratos-documentos/',                      lastmod: '2026-08-24', priority: '0.9', changefreq: 'monthly' },
-  { url: '/derecho-civil/herencias-sucesiones/',        lastmod: '2026-08-24', priority: '0.8', changefreq: 'monthly' },
-  { url: '/derecho-familia-divorcios/divorcio/',        lastmod: '2026-08-24', priority: '0.8', changefreq: 'monthly' },
-  { url: '/derecho-familia-divorcios/custodia-lopnna/', lastmod: '2026-08-24', priority: '0.8', changefreq: 'monthly' },
-  { url: '/contratos-documentos/poder-notarial/',       lastmod: '2026-08-24', priority: '0.8', changefreq: 'monthly' },
-  { url: '/bienes-inmuebles/condominios/',              lastmod: '2026-08-24', priority: '0.8', changefreq: 'monthly' },
-  { url: '/derecho-civil/legalizacion-apostilla/',      lastmod: '2026-08-24', priority: '0.8', changefreq: 'monthly' },
-  { url: '/derecho-mercantil/registro-mercantil/',      lastmod: '2026-08-24', priority: '0.8', changefreq: 'monthly' },
-  { url: '/blog/',                                      lastmod: '2026-08-24', priority: '0.8', changefreq: 'weekly'  },
+  { url: '/',                                           lastmod: '2026-08-14', priority: '1.0', changefreq: 'monthly' },
+  { url: '/sobre-marinela-masri/',                      lastmod: '2026-08-14', priority: '0.9', changefreq: 'monthly' },
+  { url: '/servicios/',                                 lastmod: '2026-08-14', priority: '0.9', changefreq: 'monthly' },
+  { url: '/derecho-civil/',                             lastmod: '2026-08-14', priority: '0.9', changefreq: 'monthly' },
+  { url: '/derecho-mercantil/',                         lastmod: '2026-08-14', priority: '0.9', changefreq: 'monthly' },
+  { url: '/derecho-laboral/',                           lastmod: '2026-08-14', priority: '0.9', changefreq: 'monthly' },
+  { url: '/derecho-familia-divorcios/',                 lastmod: '2026-08-14', priority: '0.9', changefreq: 'monthly' },
+  { url: '/bienes-inmuebles/',                          lastmod: '2026-08-14', priority: '0.9', changefreq: 'monthly' },
+  { url: '/contratos-documentos/',                      lastmod: '2026-08-14', priority: '0.9', changefreq: 'monthly' },
+  { url: '/derecho-civil/herencias-sucesiones/',        lastmod: '2026-08-14', priority: '0.8', changefreq: 'monthly' },
+  { url: '/derecho-familia-divorcios/divorcio/',        lastmod: '2026-08-14', priority: '0.8', changefreq: 'monthly' },
+  { url: '/derecho-familia-divorcios/custodia-lopnna/', lastmod: '2026-08-14', priority: '0.8', changefreq: 'monthly' },
+  { url: '/contratos-documentos/poder-notarial/',       lastmod: '2026-08-14', priority: '0.8', changefreq: 'monthly' },
+  { url: '/bienes-inmuebles/condominios/',              lastmod: '2026-08-18', priority: '0.8', changefreq: 'monthly' },
+  { url: '/derecho-civil/legalizacion-apostilla/',      lastmod: '2026-08-18', priority: '0.8', changefreq: 'monthly' },
+  { url: '/derecho-mercantil/registro-mercantil/',      lastmod: '2026-08-18', priority: '0.8', changefreq: 'monthly' },
+  { url: '/blog/',                                      lastmod: '2026-08-18', priority: '0.8', changefreq: 'weekly'  },
 ]
 
 // Static routes to prerender: each maps a URL to its dist HTML file.
@@ -284,7 +316,7 @@ function blogPlugin(): Plugin {
     },
 
     // Step 2: generate per-article HTML files and add as Rollup inputs
-    config(cfg) {
+    async config(cfg) {
       outDir = cfg.build?.outDir ?? 'dist'
       const articles = getArticles()
       if (articles.length === 0) return {}
@@ -295,7 +327,12 @@ function blogPlugin(): Plugin {
         const dir  = path.resolve(__dirname, `blog/${slug}`)
         const html = path.join(dir, 'index.html')
         if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true })
-        fs.writeFileSync(html, articleHtml(fm), 'utf-8')
+        const rawFeatured = fm.featuredImage ? String(fm.featuredImage) : null
+        const ogImageUrl = rawFeatured
+          ? (rawFeatured.startsWith('http') ? rawFeatured : `${SITE}${rawFeatured.startsWith('/') ? '' : '/'}${rawFeatured}`)
+          : `${SITE}/og-image.jpg`
+        const ogDims = await resolveOgDims(ogImageUrl)
+        fs.writeFileSync(html, articleHtml(fm, ogDims), 'utf-8')
         inputs[`blog-${slug}`] = html
       }
 
@@ -306,8 +343,6 @@ function blogPlugin(): Plugin {
     async closeBundle() {
       const out = path.resolve(__dirname, outDir)
       if (!fs.existsSync(out)) return
-
-      const today = new Date().toISOString().split('T')[0]
 
       const staticEntries = STATIC_PAGES.map(({ url, lastmod, priority, changefreq }) => {
         return `
@@ -322,9 +357,7 @@ function blogPlugin(): Plugin {
       const articles = getArticles()
       const articleEntries = articles.map(fm => {
         const slug = String(fm.slug)
-        const date = fm.date
-          ? new Date(String(fm.date)).toISOString().split('T')[0]
-          : today
+        const date = new Date(String(fm.date)).toISOString().split('T')[0]
         return `
   <url>
     <loc>${SITE}/blog/${slug}/</loc>

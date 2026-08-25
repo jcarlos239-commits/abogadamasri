@@ -98,9 +98,9 @@ export default function BlogPage() {
                     {featured.frontmatter.category}
                   </span>
                 )}
-                <h2 className="font-['Instrument_Serif',serif] text-white text-[22px] md:text-[28px] leading-[1.2]">
+                <h3 className="font-['Instrument_Serif',serif] text-white text-[22px] md:text-[28px] leading-[1.2]">
                   {featured.frontmatter.title}
-                </h2>
+                </h3>
                 <p className="font-['Schibsted_Grotesk',sans-serif] text-white/70 text-[14px] md:text-[16px] leading-[1.7]">
                   {featured.frontmatter.description}
                 </p>

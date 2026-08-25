@@ -97,7 +97,7 @@ export default function BlogArticlePage() {
         <div className="w-full bg-[#f5f5f5]">
           <div className="max-w-[860px] mx-auto px-6 md:px-16 pt-8">
             <img
-              src={fm.featuredImage}
+              src={fm.featuredImage.startsWith('http') || fm.featuredImage.startsWith('/') ? fm.featuredImage : `/${fm.featuredImage}`}
               alt={fm.title}
               className="w-full rounded-[12px] object-cover max-h-[420px]"
             />

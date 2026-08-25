@@ -484,17 +484,13 @@ export function WaButton({
           <Dialog.Overlay className="fixed inset-0 z-[200] bg-black/50" />
           <Dialog.Content
             className="fixed left-1/2 top-1/2 z-[201] w-[calc(100%-2rem)] max-w-[360px] -translate-x-1/2 -translate-y-1/2 rounded-[12px] bg-white p-7 shadow-2xl focus:outline-none"
-            aria-describedby="wa-modal-desc"
           >
             <Dialog.Title className="font-['Instrument_Serif',serif] text-[#1a2b4a] text-[20px] leading-snug mb-3">
               Aviso antes de continuar
             </Dialog.Title>
-            <p
-              id="wa-modal-desc"
-              className="font-['Schibsted_Grotesk',sans-serif] text-[#374151] text-[14px] leading-[1.6] mb-6"
-            >
+            <Dialog.Description className="font-['Schibsted_Grotesk',sans-serif] text-[#374151] text-[14px] leading-[1.6] mb-6">
               Agende su cita para una consulta (sujeta a honorarios profesionales).
-            </p>
+            </Dialog.Description>
             <div className="flex flex-col gap-3">
               <button
                 type="button"

@@ -29,7 +29,7 @@ const modules = import.meta.glob('./articles/*.md', { eager: true }) as Record<s
 
 export const allArticles: Article[] = Object.values(modules)
   .map(m => m.default)
-  .filter(a => a?.frontmatter?.slug && a?.frontmatter?.title)
+  .filter(a => a?.frontmatter?.slug && a?.frontmatter?.title && a?.frontmatter?.published !== false)
   .sort((a, b) => {
     const da = new Date(a.frontmatter.date).getTime()
     const db = new Date(b.frontmatter.date).getTime()

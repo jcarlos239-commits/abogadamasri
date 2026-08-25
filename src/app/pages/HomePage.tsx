@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { Link } from "react-router";
-import imgHero     from "@/imports/Root/c1070124e5afc89bd68e1e4d92caeb5306ab5160.png";
+import imgHero     from "@/imports/Root/c1070124e5afc89bd68e1e4d92caeb5306ab5160.webp";
 import imgRect     from "@/imports/Root/db574d06762a18763fd34165d99983ad364d4047.png";
 import imgRect1    from "@/imports/Root/f23974d1c6001db55b9b2363a3521dae87c918e7.png";
 import { NAV_H, WA_BASE, MsgIcon, WaButton, ContactCta, WhyTrust } from "../shared";
@@ -97,7 +97,7 @@ function Services() {
               <div className="bg-[#1a2b4a] flex items-center justify-center rounded-[24px] size-[52px] shrink-0 group-hover:bg-[#c9a84c] transition-colors duration-200">
                 <span className="text-[26px] leading-none">{s.icon}</span>
               </div>
-              <p className="font-['Instrument_Serif',serif] leading-[1.2] text-[#1a2b4a] text-[16px] md:text-[22px]">{s.label}</p>
+              <h3 className="font-['Instrument_Serif',serif] leading-[1.2] text-[#1a2b4a] text-[16px] md:text-[22px]">{s.label}</h3>
               <p className="hidden md:block font-['Schibsted_Grotesk',sans-serif] text-[#4b5563] text-[13px] leading-[1.5] line-clamp-2">{s.desc}</p>
               <span className="text-[11px] font-['Schibsted_Grotesk',sans-serif] text-[#c9a84c] font-medium md:opacity-0 md:group-hover:opacity-100 transition-opacity">
                 Ver más →
