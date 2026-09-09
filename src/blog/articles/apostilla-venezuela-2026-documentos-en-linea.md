@@ -4,7 +4,7 @@ description: "Conozca qué cambió en la apostilla en Venezuela en 2026, qué do
 date: "2026-08-21"
 author: "Marinela Masri"
 slug: "apostilla-venezuela-2026-documentos-en-linea"
-category: "Apostilla y Legalización"
+category: "Derecho Civil"
 featuredImage: ""
 published: true
 ---

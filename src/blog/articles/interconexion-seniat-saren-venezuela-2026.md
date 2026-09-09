@@ -5,7 +5,7 @@ date: "2026-09-01"
 author: "Marinela Masri"
 slug: "interconexion-seniat-saren-venezuela-2026"
 updated: "Septiembre de 2026"
-category: "Derecho Tributario"
+category: "Derecho Mercantil"
 featuredImage: ""
 published: true
 ---
