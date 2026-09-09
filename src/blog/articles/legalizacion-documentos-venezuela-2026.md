@@ -1,5 +1,5 @@
 ---
-title: "Legalización de Documentos en Venezuela 2026"
+title: "Legalización de Documentos en Venezuela 2026 | Marinela Masri"
 description: "Guía práctica sobre el proceso de legalización y apostilla de documentos en Venezuela: requisitos, pasos ante el Ministerio de Relaciones Exteriores, y diferencias entre legalización consular y apostilla."
 slug: "legalizacion-documentos-venezuela-2026"
 date: "2026-08-24"
