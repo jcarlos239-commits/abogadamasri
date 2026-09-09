@@ -5,7 +5,7 @@ date: "2026-08-17"
 author: "Marinela Masri"
 slug: "nueva-ley-arrendamiento-venezuela-2026"
 updated: "Agosto de 2026"
-category: "Bienes Inmuebles"
+category: "Bienes e Inmuebles"
 featuredImage: ""
 published: true
 ---

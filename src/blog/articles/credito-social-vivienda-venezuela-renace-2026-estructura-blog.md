@@ -5,7 +5,7 @@ date: "2026-08-30"
 author: "Marinela Masri"
 slug: "credito-social-vivienda-venezuela-renace-2026"
 updated: "Agosto de 2026"
-category: "Bienes Inmuebles"
+category: "Bienes e Inmuebles"
 featuredImage: ""
 published: true
 ---
