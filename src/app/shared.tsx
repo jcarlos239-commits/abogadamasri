@@ -506,7 +506,7 @@ export function ContactCta({ waText = "Hola%2C%20me%20gustar%C3%ADa%20agendar%20
           <a href="tel:+584141700773" onClick={() => trackPhoneClick()} className="flex items-center gap-2.5 active:opacity-70">
             <PhoneIcon />
             <span className="font-['Schibsted_Grotesk',sans-serif] font-semibold text-[#1a2b4a] text-[13px] md:text-[16px]">
-              0414-170-0773
+              +58 414-170-0773
             </span>
           </a>
         </div>
