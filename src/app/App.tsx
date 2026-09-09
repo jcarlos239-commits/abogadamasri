@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 import { Navbar, Footer, FloatingWaButton } from "./shared";
+import { RouteAnalytics } from "./RouteAnalytics";
 import HomePage from "./pages/HomePage";
 import SobreMarinelaPage from "./pages/SobreMarinelaPage";
 import ServiciosPage from "./pages/ServiciosPage";
@@ -43,6 +44,7 @@ function NotFound() {
 export function AppRoutes() {
   return (
     <div className="bg-white min-h-screen w-full overflow-x-hidden flex flex-col">
+      <RouteAnalytics />
       <Navbar />
       <main className="flex-1">
         <Routes>

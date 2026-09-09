@@ -11,6 +11,67 @@ function formatDate(iso: string): string {
   return `${d.getUTCDate()} de ${months[d.getUTCMonth()]} de ${d.getUTCFullYear()}`;
 }
 
+const SITE_URL = "https://www.abogadamasri.com";
+
+// ── Related Articles ──────────────────────────────────────────────────────────
+
+function RelatedArticles({ currentSlug, category, relatedSlugs }: {
+  currentSlug: string;
+  category?: string;
+  relatedSlugs?: string[];
+}) {
+  let related = [];
+
+  if (relatedSlugs && relatedSlugs.length > 0) {
+    // Use explicit list from frontmatter — only include published articles, max 3
+    related = allArticles
+      .filter(a => relatedSlugs.includes(a.frontmatter.slug))
+      .slice(0, 3);
+  } else {
+    // Auto-recommend: same category first, then most recent; exclude current
+    const sameCategory = allArticles.filter(
+      a => a.frontmatter.slug !== currentSlug && a.frontmatter.category === category
+    );
+    const others = allArticles.filter(
+      a => a.frontmatter.slug !== currentSlug && a.frontmatter.category !== category
+    );
+    related = [...sameCategory, ...others].slice(0, 3);
+  }
+
+  if (related.length === 0) return null;
+
+  return (
+    <div className="mt-12 pt-8 border-t border-[#f0f0f0]">
+      <h2 className="font-['Instrument_Serif',serif] text-[#1a2b4a] text-[22px] md:text-[28px] mb-6">
+        Artículos Relacionados
+      </h2>
+      <div className="flex flex-col gap-5">
+        {related.map(a => (
+          <Link
+            key={a.frontmatter.slug}
+            to={`/blog/${a.frontmatter.slug}/`}
+            className="group flex flex-col gap-1.5 border border-[#f0f0f0] rounded-[10px] p-4 hover:border-[#c9a84c] transition-colors"
+          >
+            {a.frontmatter.category && (
+              <span className="font-['Schibsted_Grotesk',sans-serif] text-[10px] font-semibold uppercase tracking-widest text-[#c9a84c]">
+                {a.frontmatter.category}
+              </span>
+            )}
+            <span className="font-['Instrument_Serif',serif] text-[#1a2b4a] text-[17px] leading-snug group-hover:text-[#c9a84c] transition-colors">
+              {a.frontmatter.title}
+            </span>
+            <span className="font-['Schibsted_Grotesk',sans-serif] text-[#9ca3af] text-[12px]">
+              {formatDate(a.frontmatter.date)}
+            </span>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 export default function BlogArticlePage() {
   const { slug } = useParams<{ slug: string }>();
   const article = allArticles.find(a => a.frontmatter.slug === slug);
@@ -34,11 +95,35 @@ export default function BlogArticlePage() {
   }
 
   const { frontmatter: fm, html } = article;
-  const metaTitle = `${fm.title} | Marinela Masri`;
-  const canonicalPath = `/blog/${fm.slug}/`;
+
+  // Build SEO values using fallback chains from Task 14
+  const seoTitle       = fm.seoTitle ?? fm.title;
+  const seoDescription = fm.seoDescription ?? fm.description;
+  const metaTitle      = `${seoTitle} | Marinela Masri`;
+  const canonicalPath  = `/blog/${fm.slug}/`;
+  const canonical      = fm.canonical ?? `${SITE_URL}${canonicalPath}`;
+  const ogTitle        = fm.ogTitle ?? seoTitle;
+  const ogDescription  = fm.ogDescription ?? seoDescription;
+  const rawFeatured    = fm.ogImage ?? fm.featuredImage;
+  const ogImageUrl     = rawFeatured
+    ? (rawFeatured.startsWith("http") ? rawFeatured : `${SITE_URL}${rawFeatured.startsWith("/") ? "" : "/"}${rawFeatured}`)
+    : `${SITE_URL}/og-image.jpg`;
 
   // JS-side meta update (the static HTML already has these baked in at build time)
-  usePageSEO(metaTitle, fm.description, canonicalPath);
+  usePageSEO({
+    title: metaTitle,
+    description: ogDescription,
+    path: fm.canonical ? new URL(canonical).pathname : canonicalPath,
+    ogType: "article",
+    ogImage: ogImageUrl,
+    robots: fm.robots,
+    author: fm.author,
+    publishedTime: new Date(fm.date).toISOString(),
+    modifiedTime: fm.dateModified
+      ? new Date(fm.dateModified).toISOString()
+      : new Date(fm.date).toISOString(),
+    articleAuthor: fm.author,
+  });
 
   return (
     <div className="w-full">
@@ -98,7 +183,7 @@ export default function BlogArticlePage() {
           <div className="max-w-[860px] mx-auto px-6 md:px-16 pt-8">
             <img
               src={fm.featuredImage.startsWith('http') || fm.featuredImage.startsWith('/') ? fm.featuredImage : `/${fm.featuredImage}`}
-              alt={fm.title}
+              alt={fm.seoTitle ?? fm.title}
               className="w-full rounded-[12px] object-cover max-h-[420px]"
             />
           </div>
@@ -111,6 +196,13 @@ export default function BlogArticlePage() {
           <article
             className="prose-article"
             dangerouslySetInnerHTML={{ __html: html }}
+          />
+
+          {/* Related articles — Task 13 */}
+          <RelatedArticles
+            currentSlug={fm.slug}
+            category={fm.category}
+            relatedSlugs={fm.relatedArticles}
           />
 
           {/* Disclaimer */}

@@ -16,7 +16,12 @@ function Hero() {
         transition={{ scaleX: { duration: 6, ease: "easeInOut", repeat: Infinity }, scaleY: { duration: 6, ease: "easeInOut", repeat: Infinity } }}
         style={{ transformOrigin: "50% 50%" }}
       >
-        <img alt="" role="presentation" fetchpriority="high" width="2242" height="1250" className="absolute max-w-none object-cover size-full" src={imgHero} />
+        <picture>
+          {/* Serve a lightweight crop on narrow screens (mobile) */}
+          <source media="(max-width: 768px)" srcSet="/hero-mobile.webp" type="image/webp" />
+          {/* Desktop: Vite-imported WebP (hashed, fingerprinted) */}
+          <img alt="" role="presentation" fetchpriority="high" width="2242" height="1250" className="absolute max-w-none object-cover size-full" src={imgHero} />
+        </picture>
         <div className="absolute inset-0 bg-[rgba(26,43,74,0.70)]" />
       </motion.div>
 

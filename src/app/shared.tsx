@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router";
 import { Menu, X, ChevronDown } from "lucide-react";
 import * as Dialog from "@radix-ui/react-dialog";
 import svgPaths from "@/imports/Root/svg-72i1clds9c";
+import { trackWhatsAppClick, trackPhoneClick, trackEmailClick, trackContactCta } from "./RouteAnalytics";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -25,39 +26,140 @@ export const SERVICE_ROUTES = [
 
 // ─── Per-page SEO ─────────────────────────────────────────────────────────────
 
+/**
+ * Set or create a <meta name="..."> or <meta property="..."> tag.
+ * Creates at most one element per (attr, name) pair — no duplicates.
+ */
 function setMeta(name: string, content: string, attr: "name" | "property" = "name") {
-  let el = document.querySelector<HTMLMetaElement>(`meta[${attr}="${name}"]`);
-  if (!el) { el = document.createElement("meta"); el.setAttribute(attr, name); document.head.appendChild(el); }
+  let el = document.querySelector<HTMLMetaElement>(`meta[${attr}="${CSS.escape(name)}"]`);
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute(attr, name);
+    document.head.appendChild(el);
+  }
   el.setAttribute("content", content);
 }
+
+/** Remove a meta tag if it exists (used for optional tags like article:*). */
+function removeMeta(name: string, attr: "name" | "property" = "property") {
+  document.querySelector<HTMLMetaElement>(`meta[${attr}="${CSS.escape(name)}"]`)?.remove();
+}
+
 function setCanonical(href: string) {
   let el = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
-  if (!el) { el = document.createElement("link"); el.rel = "canonical"; document.head.appendChild(el); }
+  if (!el) {
+    el = document.createElement("link");
+    el.rel = "canonical";
+    document.head.appendChild(el);
+  }
   el.href = href;
 }
 
 const HOME_TITLE = "Abogados en Caracas | Marinela Masri | Asesoría Legal";
 const HOME_DESC  = "Abogados en Caracas, Venezuela. Marinela Masri ofrece asesoría legal en Derecho Civil, Mercantil, Laboral, Familia, Bienes Inmuebles y Contratos.";
 const SITE_URL   = "https://www.abogadamasri.com";
+const OG_IMAGE   = `${SITE_URL}/og-image.jpg`;
 
-export function usePageSEO(title: string, description: string, path: string) {
+export type PageSEOOptions = {
+  title: string;
+  description: string;
+  path: string;
+  ogType?: "website" | "article";
+  ogImage?: string;
+  ogImageWidth?: number;
+  ogImageHeight?: number;
+  robots?: string;
+  author?: string;
+  /** article:published_time — ISO 8601 string */
+  publishedTime?: string;
+  /** article:modified_time — ISO 8601 string */
+  modifiedTime?: string;
+  /** article:author */
+  articleAuthor?: string;
+};
+
+/** Update ALL SEO meta tags on client-side navigation without duplicates. */
+export function usePageSEO(options: PageSEOOptions | string, description?: string, path?: string) {
+  // Support legacy positional signature: usePageSEO(title, description, path)
+  const opts: PageSEOOptions =
+    typeof options === "string"
+      ? { title: options, description: description ?? "", path: path ?? "/" }
+      : options;
+
   useEffect(() => {
-    const canonical = SITE_URL + path;
-    document.title = title;
-    setMeta("description", description);
-    setMeta("og:title", title, "property");
-    setMeta("og:description", description, "property");
-    setMeta("og:url", canonical, "property");
+    const canonical = SITE_URL + opts.path;
+    const ogTitle = opts.title;
+    const ogDesc = opts.description;
+    const ogImage = opts.ogImage ?? OG_IMAGE;
+    const ogType = opts.ogType ?? "website";
+
+    document.title = opts.title;
+    setMeta("description", opts.description);
+    setMeta("author", opts.author ?? "Marinela Masri");
+    setMeta("robots", opts.robots ?? "index, follow");
     setCanonical(canonical);
+
+    // Open Graph
+    setMeta("og:type", ogType, "property");
+    setMeta("og:url", canonical, "property");
+    setMeta("og:site_name", "Abogada Marinela Masri", "property");
+    setMeta("og:title", ogTitle, "property");
+    setMeta("og:description", ogDesc, "property");
+    setMeta("og:image", ogImage, "property");
+    setMeta("og:image:secure_url", ogImage, "property");
+    setMeta("og:image:type", ogImage.endsWith(".webp") ? "image/webp" : ogImage.endsWith(".png") ? "image/png" : "image/jpeg", "property");
+    setMeta("og:image:width", String(opts.ogImageWidth ?? 1200), "property");
+    setMeta("og:image:height", String(opts.ogImageHeight ?? 630), "property");
+    setMeta("og:locale", "es_VE", "property");
+
+    // Article-specific tags (only when ogType === 'article')
+    if (ogType === "article") {
+      if (opts.publishedTime) setMeta("article:published_time", opts.publishedTime, "property");
+      if (opts.modifiedTime)  setMeta("article:modified_time", opts.modifiedTime, "property");
+      if (opts.articleAuthor) setMeta("article:author", opts.articleAuthor, "property");
+    } else {
+      // Remove article tags when navigating away from articles
+      removeMeta("article:published_time");
+      removeMeta("article:modified_time");
+      removeMeta("article:author");
+    }
+
+    // Twitter Card
+    setMeta("twitter:card", "summary_large_image");
+    setMeta("twitter:title", ogTitle);
+    setMeta("twitter:description", ogDesc);
+    setMeta("twitter:image", ogImage);
+
     return () => {
       document.title = HOME_TITLE;
       setMeta("description", HOME_DESC);
+      setMeta("author", "Marinela Masri");
+      setMeta("robots", "index, follow");
+      setCanonical(SITE_URL + "/");
+      setMeta("og:type", "website", "property");
+      setMeta("og:url", SITE_URL + "/", "property");
+      setMeta("og:site_name", "Abogada Marinela Masri", "property");
       setMeta("og:title", HOME_TITLE, "property");
       setMeta("og:description", HOME_DESC, "property");
-      setMeta("og:url", SITE_URL + "/", "property");
-      setCanonical(SITE_URL + "/");
+      setMeta("og:image", OG_IMAGE, "property");
+      setMeta("og:image:secure_url", OG_IMAGE, "property");
+      setMeta("og:image:type", "image/jpeg", "property");
+      setMeta("og:image:width", "1200", "property");
+      setMeta("og:image:height", "630", "property");
+      setMeta("og:locale", "es_VE", "property");
+      removeMeta("article:published_time");
+      removeMeta("article:modified_time");
+      removeMeta("article:author");
+      setMeta("twitter:card", "summary_large_image");
+      setMeta("twitter:title", HOME_TITLE);
+      setMeta("twitter:description", HOME_DESC);
+      setMeta("twitter:image", OG_IMAGE);
     };
-  }, [title, description, path]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    opts.title, opts.description, opts.path, opts.ogType, opts.ogImage,
+    opts.robots, opts.author, opts.publishedTime, opts.modifiedTime, opts.articleAuthor,
+  ]);
 }
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
@@ -293,6 +395,80 @@ export function Navbar() {
   );
 }
 
+// ─── MapCard — interaction-gated Google Maps embed ────────────────────────────
+// The iframe is only added to the DOM after the user clicks "Ver mapa".
+// Before interaction: ZERO Google Maps network requests (no iframe, no src).
+
+function MapCard() {
+  const [mapLoaded, setMapLoaded] = useState(false);
+
+  return (
+    <div className="w-full max-w-[680px] rounded-[16px] overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.18)]">
+      <div className="relative w-full" style={{ height: 280 }}>
+        {mapLoaded ? (
+          <>
+            <iframe
+              title="Ubicación Abogada Marinela Masri"
+              src={MAPS_EMBED}
+              width="100%" height="100%"
+              style={{ border: 0, display: "block" }}
+              allowFullScreen
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+            <a
+              href={MAPS_URL} target="_blank" rel="noopener noreferrer"
+              className="absolute top-3 left-3 flex items-center gap-1.5 bg-white text-[#1a73e8] font-['Schibsted_Grotesk',sans-serif] font-semibold text-[13px] px-3 py-1.5 rounded-[6px] shadow-md hover:bg-[#f0f4ff] transition-colors"
+            >
+              Abrir en Maps
+              <svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                <polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
+            </a>
+          </>
+        ) : (
+          <div
+            className="absolute inset-0 flex flex-col items-center justify-center gap-3"
+            style={{ background: "#1a2b4a" }}
+          >
+            <svg aria-hidden="true" width="36" height="36" viewBox="0 0 24 24" fill="#c9a84c">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+            <button
+              type="button"
+              onClick={() => setMapLoaded(true)}
+              aria-label="Ver ubicación en Google Maps"
+              className="flex items-center gap-2 bg-[#c9a84c] text-[#1a2b4a] font-['Schibsted_Grotesk',sans-serif] font-bold text-[14px] px-5 py-2.5 rounded-[8px] hover:brightness-105 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#c9a84c]"
+            >
+              Ver mapa
+            </button>
+            <p className="font-['Schibsted_Grotesk',sans-serif] text-white/50 text-[11px]">
+              El mapa se carga al hacer clic
+            </p>
+          </div>
+        )}
+      </div>
+      <a
+        href={MAPS_URL} target="_blank" rel="noopener noreferrer"
+        className="flex items-start gap-3 bg-[#1a2b4a] px-5 py-4 hover:bg-[#223560] transition-colors"
+      >
+        <div className="mt-0.5 shrink-0" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#c9a84c">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+          </svg>
+        </div>
+        <div>
+          <p className="font-['Schibsted_Grotesk',sans-serif] font-bold text-[#c9a84c] text-[11px] uppercase tracking-widest mb-0.5">Ubicación</p>
+          <p className="font-['Schibsted_Grotesk',sans-serif] text-white text-[13px] md:text-[14px] leading-[1.5]">
+            Centro Comercial City Market, Blvr. de Sabana Grande,<br />
+            Caracas 1050, Distrito Capital, Venezuela
+          </p>
+        </div>
+      </a>
+    </div>
+  );
+}
+
 // ─── ContactCta ───────────────────────────────────────────────────────────────
 
 export function ContactCta({ waText = "Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20consulta" }: { waText?: string }) {
@@ -311,60 +487,23 @@ export function ContactCta({ waText = "Hola%2C%20me%20gustar%C3%ADa%20agendar%20
         <WaButton
           waText={waText}
           className="flex items-center justify-center gap-2 bg-[#25d366] text-white px-8 py-4 rounded-[8px] font-['Schibsted_Grotesk',sans-serif] font-bold text-[15px] md:text-[18px] shadow-[0_4px_6px_rgba(0,0,0,0.13)] active:brightness-95"
+          onCtaClick={() => trackContactCta("contact_cta_section")}
         >
           <MsgIcon />
           Consulta por WhatsApp
         </WaButton>
 
         {/* Map card */}
-        <div className="w-full max-w-[680px] rounded-[16px] overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.18)]">
-          <div className="relative w-full" style={{ height: 280 }}>
-            <iframe
-              title="Ubicación Abogada Marinela Masri"
-              src={MAPS_EMBED}
-              width="100%" height="100%"
-              style={{ border: 0, display: "block" }}
-              allowFullScreen loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-            <a
-              href={MAPS_URL} target="_blank" rel="noopener noreferrer"
-              className="absolute top-3 left-3 flex items-center gap-1.5 bg-white text-[#1a73e8] font-['Schibsted_Grotesk',sans-serif] font-semibold text-[13px] px-3 py-1.5 rounded-[6px] shadow-md hover:bg-[#f0f4ff] transition-colors"
-            >
-              Abrir en Maps
-              <svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                <polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />
-              </svg>
-            </a>
-          </div>
-          <a
-            href={MAPS_URL} target="_blank" rel="noopener noreferrer"
-            className="flex items-start gap-3 bg-[#1a2b4a] px-5 py-4 hover:bg-[#223560] transition-colors"
-          >
-            <div className="mt-0.5 shrink-0" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="#c9a84c">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-              </svg>
-            </div>
-            <div>
-              <p className="font-['Schibsted_Grotesk',sans-serif] font-bold text-[#c9a84c] text-[11px] uppercase tracking-widest mb-0.5">Ubicación</p>
-              <p className="font-['Schibsted_Grotesk',sans-serif] text-white text-[13px] md:text-[14px] leading-[1.5]">
-                Centro Comercial City Market, Blvr. de Sabana Grande,<br />
-                Caracas 1050, Distrito Capital, Venezuela
-              </p>
-            </div>
-          </a>
-        </div>
+        <MapCard />
 
         <div className="flex flex-col sm:flex-row gap-5 sm:gap-12 items-center">
-          <a href="mailto:marinelamasri79@gmail.com" className="flex items-center gap-2.5 active:opacity-70">
+          <a href="mailto:marinelamasri79@gmail.com" onClick={() => trackEmailClick()} className="flex items-center gap-2.5 active:opacity-70">
             <MailIcon />
             <span className="font-['Schibsted_Grotesk',sans-serif] font-semibold text-[#1a2b4a] text-[13px] md:text-[16px] break-all">
               marinelamasri79@gmail.com
             </span>
           </a>
-          <a href="tel:+584141700773" className="flex items-center gap-2.5 active:opacity-70">
+          <a href="tel:+584141700773" onClick={() => trackPhoneClick()} className="flex items-center gap-2.5 active:opacity-70">
             <PhoneIcon />
             <span className="font-['Schibsted_Grotesk',sans-serif] font-semibold text-[#1a2b4a] text-[13px] md:text-[16px]">
               0414-170-0773
@@ -458,24 +597,32 @@ export function WaButton({
   waText,
   className,
   ariaLabel,
+  onCtaClick,
   children,
 }: {
   waText: string;
   className?: string;
   ariaLabel?: string;
+  onCtaClick?: () => void;
   children: ReactNode;
 }) {
   const [open, setOpen] = useState(false);
   const url = `${WA_BASE}${waText}`;
 
+  function handleOpen() {
+    if (onCtaClick) onCtaClick();
+    setOpen(true);
+  }
+
   function handleContinue() {
     setOpen(false);
+    trackWhatsAppClick(waText.slice(0, 60));
     window.open(url, "_blank", "noopener,noreferrer");
   }
 
   return (
     <>
-      <button type="button" onClick={() => setOpen(true)} className={className} aria-label={ariaLabel}>
+      <button type="button" onClick={handleOpen} className={className} aria-label={ariaLabel}>
         {children}
       </button>
 

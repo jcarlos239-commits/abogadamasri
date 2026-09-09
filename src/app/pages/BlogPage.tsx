@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { Link } from "react-router";
 import { usePageSEO, ContactCta } from "../shared";
-import { allArticles, type Article } from "../../blog/_articles";
+import { allArticles, OFFICIAL_CATEGORIES, type Article, type OfficialCategory } from "../../blog/_articles";
 
 const META_TITLE = "Blog Jurídico en Venezuela | Marinela Masri";
 const META_DESC  = "Blog jurídico con información, orientación y actualidad legal relevante para Venezuela. Derecho civil, mercantil, laboral, familia y más.";
@@ -52,13 +53,61 @@ function ArticleCard({ article }: { article: Article }) {
   );
 }
 
+// ── CategoryFilter ────────────────────────────────────────────────────────────
+
+function CategoryFilter({
+  selected,
+  onSelect,
+}: {
+  selected: OfficialCategory | null;
+  onSelect: (cat: OfficialCategory | null) => void;
+}) {
+  const pills: Array<{ label: string; value: OfficialCategory | null }> = [
+    { label: "Todos", value: null },
+    ...OFFICIAL_CATEGORIES.map(c => ({ label: c, value: c as OfficialCategory })),
+  ];
+
+  return (
+    <nav aria-label="Filtrar por área de práctica" className="w-full">
+      <ul className="flex flex-wrap gap-2" role="list">
+        {pills.map(({ label, value }) => {
+          const isActive = selected === value;
+          return (
+            <li key={label}>
+              <button
+                type="button"
+                onClick={() => onSelect(value)}
+                aria-pressed={isActive}
+                className={[
+                  "font-['Schibsted_Grotesk',sans-serif] text-[13px] font-semibold px-4 py-2 rounded-full border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a84c] focus-visible:ring-offset-2",
+                  isActive
+                    ? "bg-[#c9a84c] border-[#c9a84c] text-[#1a2b4a]"
+                    : "bg-white border-[#e8e8e8] text-[#4b5563] hover:border-[#c9a84c] hover:text-[#1a2b4a]",
+                ].join(" ")}
+              >
+                {label}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  );
+}
+
 // ── BlogPage ──────────────────────────────────────────────────────────────────
 
 export default function BlogPage() {
   usePageSEO(META_TITLE, META_DESC, SLUG);
 
-  const featured = allArticles[0] ?? null;
-  const rest      = allArticles.slice(1);
+  const [activeCategory, setActiveCategory] = useState<OfficialCategory | null>(null);
+
+  const filtered = activeCategory
+    ? allArticles.filter(a => a.frontmatter.category === activeCategory)
+    : allArticles;
+
+  const featured = filtered[0] ?? null;
+  const rest      = filtered.slice(1);
 
   return (
     <div className="w-full">
@@ -83,15 +132,30 @@ export default function BlogPage() {
         </div>
       </section>
 
-      {/* Featured article */}
-      {featured && (
-        <section className="bg-white w-full">
-          <div className="px-6 md:px-16 py-10 md:py-14 max-w-[1000px] mx-auto">
-            <h2 className="font-['Instrument_Serif',serif] text-[#c9a84c] text-[24px] md:text-[32px] mb-6">
-              Artículos sobre Derecho Venezolano
-            </h2>
+      {/* Category filter + article listing */}
+      <section className="bg-white w-full">
+        <div className="px-6 md:px-16 py-10 md:py-14 max-w-[1000px] mx-auto">
 
-            <article className="bg-[#1a2b4a] rounded-[16px] overflow-hidden flex flex-col md:flex-row">
+          {/* Filter bar */}
+          <div className="mb-8">
+            <CategoryFilter selected={activeCategory} onSelect={setActiveCategory} />
+          </div>
+
+          {/* Section heading */}
+          <h2 className="font-['Instrument_Serif',serif] text-[#c9a84c] text-[24px] md:text-[32px] mb-6">
+            {activeCategory ?? "Artículos sobre Derecho Venezolano"}
+          </h2>
+
+          {/* No articles in this category */}
+          {filtered.length === 0 && (
+            <p className="font-['Schibsted_Grotesk',sans-serif] text-[#9ca3af] text-[15px] py-8">
+              Aún no hay artículos en esta área.
+            </p>
+          )}
+
+          {/* Featured article */}
+          {featured && (
+            <article className="bg-[#1a2b4a] rounded-[16px] overflow-hidden flex flex-col md:flex-row mb-8">
               <div className="flex flex-col gap-4 p-8 md:p-10 flex-1">
                 {featured.frontmatter.category && (
                   <span className="inline-block font-['Schibsted_Grotesk',sans-serif] text-[11px] font-semibold uppercase tracking-widest text-[#c9a84c] bg-[#c9a84c]/15 rounded-full px-3 py-1 w-fit">
@@ -120,29 +184,22 @@ export default function BlogPage() {
                 </div>
               </div>
             </article>
-          </div>
-        </section>
-      )}
+          )}
 
-      {/* Article grid */}
-      {rest.length > 0 && (
-        <section className="bg-[#f5f5f5] w-full">
-          <div className="px-6 md:px-16 py-10 md:py-14 max-w-[1000px] mx-auto">
-            <h2 className="font-['Instrument_Serif',serif] text-[#c9a84c] text-[24px] md:text-[32px] mb-8">
-              Más artículos
-            </h2>
+          {/* Article grid */}
+          {rest.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {rest.map(a => (
                 <ArticleCard key={a.frontmatter.slug} article={a} />
               ))}
             </div>
-          </div>
-        </section>
-      )}
+          )}
+        </div>
+      </section>
 
-      {/* No articles yet */}
+      {/* No articles at all */}
       {allArticles.length === 0 && (
-        <section className="bg-white w-full">
+        <section className="bg-[#f5f5f5] w-full">
           <div className="px-6 md:px-16 py-16 max-w-[1000px] mx-auto text-center">
             <p className="font-['Schibsted_Grotesk',sans-serif] text-[#9ca3af] text-[16px]">
               Próximamente nuevos artículos.
@@ -152,7 +209,7 @@ export default function BlogPage() {
       )}
 
       {/* Notice */}
-      <section className="bg-white w-full">
+      <section className="bg-[#f5f5f5] w-full">
         <div className="px-6 md:px-16 py-10 max-w-[1000px] mx-auto">
           <p className="font-['Schibsted_Grotesk',sans-serif] text-[13px] text-[#9ca3af] leading-[1.7] border-l-2 border-[#e8e8e8] pl-4">
             Los artículos de este blog tienen carácter informativo y no constituyen asesoría legal. Para recibir orientación sobre su caso específico,{" "}
