@@ -15,7 +15,7 @@ published: true
 
 La inamovilidad laboral continúa siendo una de las principales protecciones que deben conocer los trabajadores venezolanos durante 2025 y 2026.
 
-El régimen vigente fue establecido mediante el **Decreto N.º 5.070**, publicado en la **Gaceta Oficial de la República Bolivariana de Venezuela N.º 6.868 Extraordinario, de fecha 27 de diciembre de 2024**. El decreto establece la inamovilidad laboral durante el período comprendido entre el **1 de enero de 2025 y el 31 de diciembre de 2026**, ambas fechas inclusive. citeturn0search0turn0search2
+El régimen vigente fue establecido mediante el **Decreto N.º 5.070**, publicado en la **Gaceta Oficial de la República Bolivariana de Venezuela N.º 6.868 Extraordinario, de fecha 27 de diciembre de 2024**. El decreto establece la inamovilidad laboral durante el período comprendido entre el **1 de enero de 2025 y el 31 de diciembre de 2026**, ambas fechas inclusive.
 
 Pero una de las preguntas más importantes es: **¿significa esto que ningún trabajador puede ser despedido?**
 
@@ -25,13 +25,13 @@ La respuesta es no. La protección tiene alcance, condiciones y excepciones que 
 
 La inamovilidad laboral es una protección que limita la posibilidad de que determinados trabajadores sean despedidos, desmejorados o trasladados sin que se cumplan las condiciones establecidas por la normativa aplicable.
 
-El Decreto N.º 5.070 estableció esta protección para trabajadores y trabajadoras de los sectores público y privado regidos por la Ley Orgánica del Trabajo, los Trabajadores y las Trabajadoras (LOTTT), durante el período señalado. citeturn0search2
+El Decreto N.º 5.070 estableció esta protección para trabajadores y trabajadoras de los sectores público y privado regidos por la Ley Orgánica del Trabajo, los Trabajadores y las Trabajadoras (LOTTT), durante el período señalado.
 
 Su finalidad declarada es proteger el derecho al trabajo y preservar el empleo.
 
 ## ¿Hasta cuándo está vigente la inamovilidad laboral de 2025-2026?
 
-El Decreto N.º 5.070 establece un período de **dos años**, contado desde el **1 de enero de 2025 hasta el 31 de diciembre de 2026**, ambas fechas inclusive. citeturn0search0turn0search3
+El Decreto N.º 5.070 establece un período de **dos años**, contado desde el **1 de enero de 2025 hasta el 31 de diciembre de 2026**, ambas fechas inclusive.
 
 Aunque el decreto fue publicado en diciembre de 2024, su período de vigencia comienza el 1 de enero de 2025.
 
@@ -57,7 +57,7 @@ Si necesita revisar una situación concreta, puede [contactar a la abogada Marin
 
 El Decreto N.º 5.070 establece que, cuando un trabajador protegido sea despedido, desmejorado sin justa causa o trasladado sin su consentimiento, puede denunciar el hecho ante el Inspector o Inspectora del Trabajo de la jurisdicción.
 
-El decreto establece un plazo de **30 días continuos siguientes** para presentar la denuncia y solicitar las medidas correspondientes. citeturn0search2
+El decreto establece un plazo de **30 días continuos siguientes** para presentar la denuncia y solicitar las medidas correspondientes.
 
 Entre las solicitudes previstas se encuentran el **reenganche y pago de salarios caídos**, además de los demás beneficios dejados de percibir, o la restitución de la situación jurídica infringida, según corresponda al caso y al procedimiento aplicable.
 
@@ -65,7 +65,7 @@ Entre las solicitudes previstas se encuentran el **reenganche y pago de salarios
 
 No es recomendable dejar pasar el tiempo.
 
-El propio Decreto N.º 5.070 establece el plazo de 30 días continuos para denunciar determinados actos de despido, desmejora o traslado cuando el trabajador se encuentra protegido. citeturn0search2turn0search3
+El propio Decreto N.º 5.070 establece el plazo de 30 días continuos para denunciar determinados actos de despido, desmejora o traslado cuando el trabajador se encuentra protegido.
 
 Por eso, si acaba de ocurrir un despido, conviene conservar inmediatamente todos los documentos y buscar orientación sobre el cómputo del plazo aplicable.
 
@@ -89,7 +89,7 @@ No conviene destruir mensajes ni documentos que posteriormente puedan ser releva
 
 ## ¿Dónde se presenta el reclamo por inamovilidad?
 
-El Decreto N.º 5.070 señala al **Inspector o Inspectora del Trabajo de la jurisdicción** como autoridad ante la cual puede denunciarse el despido, desmejora o traslado en los supuestos contemplados por el decreto. citeturn0search2
+El Decreto N.º 5.070 señala al **Inspector o Inspectora del Trabajo de la jurisdicción** como autoridad ante la cual puede denunciarse el despido, desmejora o traslado en los supuestos contemplados por el decreto.
 
 El procedimiento se vincula con el artículo 425 de la LOTTT, según lo establecido expresamente en el propio decreto.
 
@@ -102,13 +102,13 @@ Dependiendo del caso, el Decreto N.º 5.070 contempla la posibilidad de solicita
 - beneficios dejados de percibir;
 - restitución de la situación jurídica infringida.
 
-La procedencia concreta de cada solicitud depende de los hechos y del procedimiento aplicable. citeturn0search2
+La procedencia concreta de cada solicitud depende de los hechos y del procedimiento aplicable.
 
 ## ¿Qué ocurre si mi empleador me cambia de puesto o me traslada?
 
 La protección no se limita al despido.
 
-El Decreto N.º 5.070 también contempla el supuesto del **traslado sin consentimiento** del trabajador protegido. citeturn0search2
+El Decreto N.º 5.070 también contempla el supuesto del **traslado sin consentimiento** del trabajador protegido.
 
 Por eso, una modificación importante de las condiciones de trabajo no debe analizarse automáticamente como un simple cambio administrativo. Hay que determinar qué cambió, por qué cambió y si la medida afecta derechos protegidos.
 
@@ -168,7 +168,7 @@ También es importante anotar las fechas exactas de los acontecimientos, especia
 
 No espere a que transcurra el plazo sin revisar su situación.
 
-El Decreto N.º 5.070 establece un plazo de **30 días continuos** para denunciar determinados actos ante la Inspectoría del Trabajo. citeturn0search2
+El Decreto N.º 5.070 establece un plazo de **30 días continuos** para denunciar determinados actos ante la Inspectoría del Trabajo.
 
 Una evaluación jurídica puede determinar si la protección es aplicable, qué procedimiento corresponde y qué documentos deberían presentarse.
 
