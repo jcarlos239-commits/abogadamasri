@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router";
-import { usePageSEO, ContactCta } from "../shared";
-import { allArticles } from "../../blog/_articles";
+import { useRouteSEO, ContactCta } from "../shared";
+import { allArticles } from "../../blog/_loader";
 
 function formatDate(iso: string): string {
   const d = new Date(iso);
@@ -10,8 +10,6 @@ function formatDate(iso: string): string {
   ];
   return `${d.getUTCDate()} de ${months[d.getUTCMonth()]} de ${d.getUTCFullYear()}`;
 }
-
-const SITE_URL = "https://www.abogadamasri.com";
 
 // ── Related Articles ──────────────────────────────────────────────────────────
 
@@ -76,6 +74,10 @@ export default function BlogArticlePage() {
   const { slug } = useParams<{ slug: string }>();
   const article = allArticles.find(a => a.frontmatter.slug === slug);
 
+  // useRouteSEO must be called before any early return (Rules of Hooks).
+  // When article is undefined it passes no frontmatter → resolves from pathname (returns empty → skips DOM).
+  useRouteSEO(article?.frontmatter);
+
   // Graceful 404 for unknown slugs
   if (!article) {
     return (
@@ -95,35 +97,6 @@ export default function BlogArticlePage() {
   }
 
   const { frontmatter: fm, html } = article;
-
-  // Build SEO values using fallback chains from Task 14
-  const seoTitle       = fm.seoTitle ?? fm.title;
-  const seoDescription = fm.seoDescription ?? fm.description;
-  const metaTitle      = `${seoTitle} | Marinela Masri`;
-  const canonicalPath  = `/blog/${fm.slug}/`;
-  const canonical      = fm.canonical ?? `${SITE_URL}${canonicalPath}`;
-  const ogTitle        = fm.ogTitle ?? seoTitle;
-  const ogDescription  = fm.ogDescription ?? seoDescription;
-  const rawFeatured    = fm.ogImage ?? fm.featuredImage;
-  const ogImageUrl     = rawFeatured
-    ? (rawFeatured.startsWith("http") ? rawFeatured : `${SITE_URL}${rawFeatured.startsWith("/") ? "" : "/"}${rawFeatured}`)
-    : `${SITE_URL}/og-image.jpg`;
-
-  // JS-side meta update (the static HTML already has these baked in at build time)
-  usePageSEO({
-    title: metaTitle,
-    description: ogDescription,
-    path: fm.canonical ? new URL(canonical).pathname : canonicalPath,
-    ogType: "article",
-    ogImage: ogImageUrl,
-    robots: fm.robots,
-    author: fm.author,
-    publishedTime: new Date(fm.date).toISOString(),
-    modifiedTime: fm.dateModified
-      ? new Date(fm.dateModified).toISOString()
-      : new Date(fm.date).toISOString(),
-    articleAuthor: fm.author,
-  });
 
   return (
     <div className="w-full">

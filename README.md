@@ -1,11 +1,19 @@
+# abogadamasri.com
 
-  # Build production-ready React website
+React/Vite site for [abogadamasri.com](https://www.abogadamasri.com/).
 
-  This is a code bundle for Build production-ready React website. The original project is available at https://www.figma.com/design/5ybO4P8qpEXASnllgopVbx/Build-production-ready-React-website.
+## Package manager
 
-  ## Running the code
+**pnpm 10.17.1** — no other package manager is supported.
 
-  Run `npm i` to install the dependencies.
+## Setup
 
-  Run `npm run dev` to start the development server.
-  
+```
+pnpm install
+```
+
+## Build
+
+```
+pnpm build
+```

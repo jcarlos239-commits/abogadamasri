@@ -3,11 +3,11 @@
 // Sends GA4 page_view events on SPA navigation without duplicates.
 //
 // Design:
-//  - The static HTML files already fire gtag('config', ...) on page load, which
-//    sends the initial page_view for SSR/static pages.
-//  - This component runs ONLY after React hydration. It uses a ref to track
-//    whether the component has already sent a view for the current URL, so it
-//    does NOT double-send the initial page load.
+//  - initGa4() runs once on the client after React mounts. It injects the
+//    gtag.js script dynamically and calls gtag('config', ...), which sends the
+//    initial page_view. Static HTML files contain NO GA4 scripts.
+//  - This component tracks the "last sent URL" so it does NOT double-send the
+//    initial page_view that gtag('config') already fired.
 //  - React StrictMode double-invokes effects in development only, but because
 //    we track the "last sent URL" the second invocation is a no-op.
 //  - On subsequent client-side navigations (pathname or search changes) a fresh
@@ -23,6 +23,27 @@ declare global {
     gtag?: (...args: unknown[]) => void;
     dataLayer?: unknown[];
   }
+}
+
+const GA4_ID = "G-GM03DD1T2R";
+
+// Injects GA4 once on the client. SSR-safe: never touches window/document
+// during prerender. Idempotent: a flag prevents double-initialization.
+function initGa4() {
+  if (typeof window === "undefined") return;
+  if ((window as Window & { __ga4Init?: boolean }).__ga4Init) return;
+  (window as Window & { __ga4Init?: boolean }).__ga4Init = true;
+
+  window.dataLayer = window.dataLayer || [];
+  // eslint-disable-next-line prefer-rest-params
+  window.gtag = function() { window.dataLayer!.push(arguments as unknown); };
+  window.gtag("js", new Date());
+  window.gtag("config", GA4_ID);
+
+  const s = document.createElement("script");
+  s.async = true;
+  s.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
+  document.head.appendChild(s);
 }
 
 function gtagEvent(name: string, params?: Record<string, unknown>) {
@@ -58,8 +79,10 @@ export function trackContactCta(label?: string) {
 export function RouteAnalytics() {
   const location = useLocation();
   // Track the last URL we already reported so we never double-send.
-  // Initialise to the current URL — the static HTML page_view covers it.
   const lastSent = useRef<string | null>(null);
+
+  // Initialize GA4 once on the client after React mounts.
+  useEffect(() => { initGa4(); }, []);
 
   useEffect(() => {
     const url = window.location.href;
@@ -67,8 +90,8 @@ export function RouteAnalytics() {
     // Skip if we already sent a view for this exact URL.
     if (lastSent.current === url) return;
 
-    // Skip the very first render when it matches the SSR/static page_view.
-    // The gtag('config') in the static HTML already fired for this URL.
+    // Skip the very first render — gtag('config') in initGa4() already fired
+    // the initial page_view for this URL.
     if (lastSent.current === null) {
       lastSent.current = url;
       return;

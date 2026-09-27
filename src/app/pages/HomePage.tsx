@@ -1,9 +1,11 @@
 import { motion } from "motion/react";
 import { Link } from "react-router";
-import imgHero     from "@/imports/Root/c1070124e5afc89bd68e1e4d92caeb5306ab5160.webp";
+import imgHero       from "@/imports/Root/c1070124e5afc89bd68e1e4d92caeb5306ab5160.webp";
+import imgHeroMobile from "@/imports/Root/hero-mobile.webp";
 import imgRect     from "@/imports/Root/db574d06762a18763fd34165d99983ad364d4047.png";
 import imgRect1    from "@/imports/Root/f23974d1c6001db55b9b2363a3521dae87c918e7.png";
-import { NAV_H, WA_BASE, MsgIcon, WaButton, ContactCta, WhyTrust } from "../shared";
+import { useRouteSEO, NAV_H, WA_BASE, MsgIcon, WaButton, ContactCta, WhyTrust } from "../shared";
+import { trackPhoneClick } from "../RouteAnalytics";
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
@@ -12,24 +14,51 @@ function Hero() {
     <section id="inicio" className="relative w-full overflow-hidden" style={{ paddingTop: NAV_H }}>
       <motion.div
         className="absolute inset-0"
-        animate={{ scaleX: [1.03, 1], scaleY: [1.03, 1] }}
-        transition={{ scaleX: { duration: 6, ease: "easeInOut", repeat: Infinity }, scaleY: { duration: 6, ease: "easeInOut", repeat: Infinity } }}
+        initial={{ scale: 1.06 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 1.8, ease: "easeOut" }}
         style={{ transformOrigin: "50% 50%" }}
       >
-        <picture>
-          {/* Serve a lightweight crop on narrow screens (mobile) */}
-          <source media="(max-width: 768px)" srcSet="/hero-mobile.webp" type="image/webp" />
-          {/* Desktop: Vite-imported WebP (hashed, fingerprinted) */}
-          <img alt="" role="presentation" fetchpriority="high" width="2242" height="1250" className="absolute max-w-none object-cover size-full" src={imgHero} />
+        {/* Layer 0 — photographic background */}
+        <picture
+          style={{
+            position: "absolute",
+            top: 0, left: 0, right: 0, bottom: 0,
+            display: "block",
+            overflow: "hidden",
+            zIndex: 0,
+          }}
+        >
+          <source media="(max-width: 768px)" srcSet={imgHeroMobile} type="image/webp" />
+          <img
+            alt=""
+            role="presentation"
+            fetchpriority="high"
+            width="2242"
+            height="1250"
+            src={imgHero}
+            style={{
+              position: "absolute",
+              top: 0, left: 0, right: 0, bottom: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center",
+              display: "block",
+            }}
+          />
         </picture>
-        <div className="absolute inset-0 bg-[rgba(26,43,74,0.70)]" />
+        {/* Layer 1 — dark overlay */}
+        <div style={{ position: "absolute", inset: 0, backgroundColor: "rgba(26,43,74,0.55)", zIndex: 1 }} />
       </motion.div>
 
-      <div className="relative flex flex-col items-center justify-center gap-8 px-6 md:px-16 py-14 md:py-20 min-h-[440px] md:min-h-[500px]">
+      {/* Layer 2 — hero content */}
+      <div className="relative flex flex-col items-center justify-center gap-8 px-6 md:px-16 py-14 md:py-20 min-h-[440px] md:min-h-[500px]" style={{ zIndex: 2 }}>
         <motion.div
           className="flex flex-col gap-4 items-center text-center w-full"
-          animate={{ opacity: [0, 0, 1, 1], y: [30, 30, 0, 0] }}
-          transition={{ duration: 6, times: [0, 0.05, 0.2, 1], repeat: Infinity }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.15, ease: "easeOut" }}
         >
           <h1 className="font-['Instrument_Serif',serif] leading-[1.1] text-[#c9a84c] text-[26px] sm:text-[36px] md:text-[52px] lg:text-[72px]">
             Abogados en Caracas, Venezuela
@@ -47,8 +76,9 @@ function Hero() {
 
         <motion.div
           className="flex flex-col sm:flex-row gap-3 w-full max-w-[560px]"
-          animate={{ opacity: [0, 0, 1, 1], y: [20, 20, 0, 0] }}
-          transition={{ duration: 6, times: [0, 0.1333, 0.2667, 1], repeat: Infinity }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.4, ease: "easeOut" }}
         >
           <WaButton
             waText="Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20consulta"
@@ -59,6 +89,7 @@ function Hero() {
           </WaButton>
           <a
             href="tel:+584141700773"
+            onClick={() => trackPhoneClick()}
             className="flex-1 flex items-center justify-center border border-white text-white px-5 py-3.5 rounded-[8px] font-['Schibsted_Grotesk',sans-serif] font-semibold text-[13px] md:text-[15px]"
           >
             Llámame: +58 414-170-0773
@@ -74,7 +105,7 @@ function Hero() {
 const serviceCards = [
   { slug: "/derecho-civil/",             icon: "⚖️", label: "Derecho Civil",          desc: "Contratos, sucesiones, trámites registrales, litigios civiles y poderes notariales." },
   { slug: "/derecho-mercantil/",         icon: "🏢", label: "Derecho Mercantil",      desc: "Constitución, actualización y disolución de empresas. Actas de asamblea y más." },
-  { slug: "/derecho-laboral/",           icon: "👔", label: "Derecho Laboral",        desc: "Prestaciones sociales, calificaciones de despido y acuerdos extrajudiciales." },
+  { slug: "/derecho-laboral/",           icon: "👔", label: "Derecho Laboral",        desc: "Asesoría laboral para empresas y empleadores: contratos, cumplimiento de la LOTTT y prevención de conflictos." },
   { slug: "/derecho-familia-divorcios/", icon: "💍", label: "Divorcios y Familia",    desc: "Divorcios, custodia, manutención y régimen LOPNNA para familias en Venezuela." },
   { slug: "/bienes-inmuebles/",          icon: "🏠", label: "Bienes Inmuebles",       desc: "Compraventa, arrendamientos, condominio y asesoría inmobiliaria integral." },
   { slug: "/contratos-documentos/",      icon: "📄", label: "Contratos y Documentos",desc: "Redacción, revisión y autenticación de contratos y documentos legales." },
@@ -171,6 +202,7 @@ function About() {
 // ─── Export ───────────────────────────────────────────────────────────────────
 
 export default function HomePage() {
+  useRouteSEO();
   return (
     <>
       <Hero />

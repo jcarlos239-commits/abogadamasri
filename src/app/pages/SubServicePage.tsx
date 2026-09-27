@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { usePageSEO, WA_BASE, MsgIcon, ContactCta, WhyTrust } from "../shared";
+import { useRouteSEO, WA_BASE, MsgIcon, ContactCta, WhyTrust } from "../shared";
 import { serviceMap } from "./ServicePage";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -11,8 +11,6 @@ interface SubServiceData {
   icon:            string;
   title:           string;
   h1?:             string;
-  metaTitle:       string;
-  metaDesc:        string;
   heroDesc:        string;
   intro:           string;
   introHeading:    string;
@@ -36,8 +34,6 @@ const allSubServices: SubServiceData[] = [
     icon:        "🏛️",
     title:       "Herencias y Sucesiones",
     h1:          "Abogado de Herencias y Sucesiones en Caracas",
-    metaTitle:   "Abogado de Herencias y Sucesiones en Caracas | Marinela Masri",
-    metaDesc:    "Abogado de herencias y sucesiones en Caracas, Venezuela. Asesoría legal en declaraciones sucesorales, herencias, testamentos y particiones.",
     heroDesc:    "Asesoría legal en materia sucesoral en Venezuela: gestión de herencias, trámites ante el SENIAT y orientación a herederos en Caracas.",
     intro:       "El fallecimiento de un familiar plantea, además del proceso de duelo, una serie de gestiones legales que deben realizarse correctamente para que los bienes del causante pasen a sus herederos. En Venezuela, este proceso —conocido como sucesión— implica trámites ante el SENIAT, inscripciones ante el Registro Público y, en muchos casos, la coordinación entre los herederos para llegar a acuerdos sobre la distribución del patrimonio.\n\nContar con orientación legal desde el inicio del proceso sucesoral ayuda a evitar errores costosos, demoras innecesarias y conflictos entre herederos. Marinela Masri acompaña a sus clientes en la gestión de los trámites sucesorales, tanto presencialmente en Caracas como en línea para clientes en todo el país.",
     items: [
@@ -71,8 +67,6 @@ const allSubServices: SubServiceData[] = [
     icon:        "💔",
     title:       "Divorcio en Venezuela",
     h1:          "Abogado de Divorcio en Venezuela",
-    metaTitle:   "Abogado de Divorcio en Venezuela | Marinela Masri",
-    metaDesc:    "Abogado de divorcio en Venezuela. Marinela Masri ofrece asesoría y representación legal en procesos de divorcio y asuntos relacionados con la separación.",
     heroDesc:    "Orientación y representación legal en procesos de divorcio en Venezuela: divorcios contenciosos, por desafecto y separación de cuerpos.",
     intro:       "El divorcio es uno de los procesos legales que mayor impacto tiene en la vida de una persona. Además de disolver el vínculo matrimonial, puede involucrar la distribución de bienes conyugales, la definición de regímenes de convivencia con los hijos y otros asuntos que requieren atención cuidadosa.\n\nEn Venezuela, los procesos de divorcio se rigen principalmente por el Código Civil y la jurisprudencia del Tribunal Supremo de Justicia. Contar con asesoría legal desde el inicio del proceso permite tomar decisiones informadas y proteger adecuadamente los derechos e intereses de quien busca asistencia.",
     items: [
@@ -103,8 +97,6 @@ const allSubServices: SubServiceData[] = [
     icon:        "👶",
     title:       "Custodia y LOPNNA",
     h1:          "Abogado de Custodia y LOPNNA en Caracas",
-    metaTitle:   "Abogado de Custodia y LOPNNA en Caracas | Marinela Masri",
-    metaDesc:    "Abogado de custodia y LOPNNA en Caracas, Venezuela. Asesoría legal sobre guarda y custodia, patria potestad y régimen de convivencia familiar.",
     heroDesc:    "Orientación legal en custodia, régimen de convivencia, manutención y asuntos bajo la LOPNNA en Venezuela.",
     intro:       "Los asuntos relacionados con niños, niñas y adolescentes tienen un régimen legal especial en Venezuela: la LOPNNA (Ley Orgánica para la Protección del Niño, Niña y Adolescente) establece los derechos de los menores y los procedimientos que deben seguirse ante los tribunales de protección.\n\nEstos procesos pueden surgir independientemente de un divorcio: padres separados o en proceso de separación que necesitan definir la custodia, la convivencia o la manutención de sus hijos, así como situaciones que involucran la patria potestad o el reconocimiento de paternidad. Marinela Masri ofrece asesoría en estas materias con profesionalismo y atención al bienestar de los menores involucrados.",
     items: [
@@ -136,8 +128,6 @@ const allSubServices: SubServiceData[] = [
     icon:        "📜",
     title:       "Poderes Notariales",
     h1:          "Abogado de Poder Notarial en Venezuela",
-    metaTitle:   "Abogado de Poder Notarial en Venezuela | Marinela Masri",
-    metaDesc:    "Abogado de poder notarial en Venezuela. Asesoría para la elaboración y formalización de poderes, documentos notariales y representación legal.",
     heroDesc:    "Preparación y asesoría en poderes notariales en Venezuela: poderes generales, especiales, de administración y disposición, nacionales e internacionales.",
     intro:       "Un poder notarial es el instrumento mediante el cual una persona (el poderdante) autoriza a otra (el apoderado) a actuar legalmente en su nombre para los actos que el poder especifique. Es uno de los documentos legales más utilizados en Venezuela, tanto por personas que necesitan que alguien gestione sus asuntos mientras están ausentes, como por quienes requieren un representante para un trámite específico.\n\nEl tipo de poder y su alcance deben ser definidos con precisión desde el inicio: un poder demasiado amplio puede generar riesgos; uno demasiado limitado puede no ser suficiente para los trámites que se necesitan. Marinela Masri puede orientarle sobre el tipo de poder adecuado para su situación y asistirle en la preparación del documento.",
     items: [
@@ -170,8 +160,6 @@ const allSubServices: SubServiceData[] = [
     icon:        "🏢",
     title:       "Condominios",
     h1:          "Abogado para Condominios en Venezuela",
-    metaTitle:   "Abogado para Condominios en Venezuela | Marinela Masri",
-    metaDesc:    "Abogado para condominios en Venezuela. Asesoría a juntas de condominio y propietarios en cobro de cuotas, conflictos, asambleas y gestión legal.",
     heroDesc:    "Asesoría legal a juntas de condominio y propietarios en Venezuela: cobro de cuotas, conflictos entre propietarios, asambleas y derechos bajo la Ley de Propiedad Horizontal.",
     intro:       "Los condominios en Venezuela se rigen por la Ley de Propiedad Horizontal, que establece los derechos y obligaciones de propietarios, juntas administradoras y administradores. Cuando surgen conflictos por impago de cuotas, desacuerdos entre propietarios o problemas en la gestión del edificio, contar con asesoría legal permite resolver estas situaciones de forma ordenada y dentro del marco legal venezolano.\n\nMarinela Masri ofrece orientación jurídica en materia de condominio tanto para juntas administradoras que necesitan gestionar el cobro de cuotas o resolver conflictos internos, como para propietarios que tienen dudas sobre sus derechos y obligaciones dentro del condominio.",
     items: [
@@ -208,8 +196,6 @@ const allSubServices: SubServiceData[] = [
     icon:        "🌐",
     title:       "Legalización y Apostilla",
     h1:          "Legalización y Apostilla de Documentos en Venezuela",
-    metaTitle:   "Legalización y Apostilla en Venezuela | Marinela Masri",
-    metaDesc:    "Legalización y apostilla de documentos en Venezuela. Asesoría y gestión de documentos civiles, académicos, notariales y emitidos por SAREN.",
     heroDesc:    "Orientación y gestión de legalización y apostilla de documentos en Venezuela: documentos civiles, académicos, notariales y emitidos por SAREN para uso internacional.",
     intro:       "La apostilla y la legalización son los procedimientos que permiten que documentos venezolanos tengan validez legal en otros países. Venezuela es signataria del Convenio de La Haya sobre la Apostilla, lo que simplifica el proceso para los países miembros del convenio. Para los países no signatarios, el trámite de legalización implica pasos adicionales ante el Ministerio de Relaciones Exteriores y los organismos competentes.\n\nDependiendo del tipo de documento —civil, académico, notarial o emitido por organismos como el SAREN— el proceso puede requerir pasos previos de autenticación o verificación. Marinela Masri puede orientarle sobre el procedimiento correcto para cada tipo de documento y asistirle en la gestión.",
     items: [
@@ -246,8 +232,6 @@ const allSubServices: SubServiceData[] = [
     icon:        "📋",
     title:       "Registro Mercantil",
     h1:          "Registro Mercantil para Empresas en Venezuela",
-    metaTitle:   "Registro Mercantil para Empresas | Marinela Masri",
-    metaDesc:    "Registro Mercantil para empresas en Venezuela. Asesoría legal en constitución de sociedades, actas de asamblea, actualización y trámites ante SAREN.",
     heroDesc:    "Asesoría legal para la constitución, actualización y registro de empresas ante el Registro Mercantil en Venezuela: sociedades mercantiles, actas y documentos societarios.",
     intro:       "El Registro Mercantil es el organismo que da fe pública de los actos y contratos de las empresas en Venezuela. Desde la constitución de una nueva sociedad hasta la actualización de su junta directiva, modificaciones estatutarias o disolución, cada trámite requiere documentación legal correcta y el cumplimiento de procedimientos específicos.\n\nMarinela Masri acompaña a empresas, comerciantes y emprendedores en sus trámites ante el Registro Mercantil, garantizando que los documentos societarios estén correctamente redactados, que los actos queden debidamente registrados y que su empresa opere con plena seguridad jurídica.",
     items: [
@@ -293,7 +277,7 @@ const COMBINED_MAP: Record<string, { slug: string; icon: string; title: string }
 // ─── SubServicePageLayout ─────────────────────────────────────────────────────
 
 function SubServicePageLayout({ data }: { data: SubServiceData }) {
-  usePageSEO(data.metaTitle, data.metaDesc, data.slug);
+  useRouteSEO();
 
   const related = data.related
     .map(s => COMBINED_MAP[s])

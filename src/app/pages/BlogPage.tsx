@@ -1,11 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { usePageSEO, ContactCta } from "../shared";
-import { allArticles, OFFICIAL_CATEGORIES, type Article, type OfficialCategory } from "../../blog/_articles";
-
-const META_TITLE = "Blog Jurídico en Venezuela | Marinela Masri";
-const META_DESC  = "Blog jurídico con información, orientación y actualidad legal relevante para Venezuela. Derecho civil, mercantil, laboral, familia y más.";
-const SLUG       = "/blog/";
+import { useRouteSEO, ContactCta } from "../shared";
+import { allArticles } from "../../blog/_loader";
+import { OFFICIAL_CATEGORIES, type Article, type OfficialCategory } from "../../blog/_articles";
 
 function formatDate(iso: string): string {
   const d = new Date(iso);
@@ -98,7 +95,7 @@ function CategoryFilter({
 // ── BlogPage ──────────────────────────────────────────────────────────────────
 
 export default function BlogPage() {
-  usePageSEO(META_TITLE, META_DESC, SLUG);
+  useRouteSEO();
 
   const [activeCategory, setActiveCategory] = useState<OfficialCategory | null>(null);
 

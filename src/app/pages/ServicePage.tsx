@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { usePageSEO, WA_BASE, SERVICE_ROUTES, MsgIcon, ContactCta, WhyTrust } from "../shared";
+import { useRouteSEO, WA_BASE, SERVICE_ROUTES, MsgIcon, ContactCta, WhyTrust } from "../shared";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -8,8 +8,6 @@ export interface ServiceData {
   icon:           string;
   title:          string;
   h1?:            string;
-  metaTitle:      string;
-  metaDesc:       string;
   heroDesc:       string;
   intro:          string;
   introHeading?:  string;
@@ -20,6 +18,8 @@ export interface ServiceData {
   related:        string[];
   waText:         string;
   subTopics?: { slug: string; icon: string; label: string; desc: string }[];
+  ctaHeading?: string;
+  ctaSubText?: string;
 }
 
 // ─── Service data ─────────────────────────────────────────────────────────────
@@ -30,8 +30,6 @@ const allServices: ServiceData[] = [
     icon:      "⚖️",
     title:     "Derecho Civil",
     h1:        "Abogado de Derecho Civil en Caracas",
-    metaTitle: "Abogado de Derecho Civil en Caracas | Marinela Masri",
-    metaDesc:  "Abogado civil en Caracas, Venezuela. Marinela Masri ofrece asesoría legal en asuntos de derecho civil, obligaciones, sucesiones y herencias.",
     heroDesc:  "Asesoría y representación en materia civil en Caracas: sucesiones, contratos, trámites registrales, poderes notariales y litigios civiles en Venezuela.",
     intro:     "El Derecho Civil regula las relaciones entre personas en su vida cotidiana: la propiedad, los contratos, las herencias, la familia y los conflictos entre particulares. Contar con una abogada civil de confianza le protege ante errores costosos y garantiza que sus derechos estén respaldados desde el primer momento.\n\nEn la práctica civil venezolana, cada trámite —desde una sucesión ante el SENIAT hasta la autenticación de un poder notarial— requiere pasos específicos y documentación precisa. Con consultas presenciales en Caracas y atención en línea para todo el país, Marinela Masri acompaña a sus clientes desde la primera gestión hasta la resolución final del asunto.",
     items: [
@@ -84,8 +82,6 @@ const allServices: ServiceData[] = [
     icon:      "🏢",
     title:     "Derecho Mercantil",
     h1:        "Abogado Mercantil en Caracas",
-    metaTitle: "Abogado Mercantil en Caracas | Marinela Masri",
-    metaDesc:  "Abogado mercantil en Caracas, Venezuela. Asesoría y representación legal para empresas, sociedades mercantiles, contratos y asuntos de derecho comercial.",
     heroDesc:  "Orientación jurídica para empresas y comerciantes en Caracas: constitución, actualización y gestión legal de su empresa ante el Registro Mercantil.",
     intro:     "El Derecho Mercantil regula la actividad de las empresas, los comerciantes y las relaciones comerciales. Una empresa correctamente constituida y actualizada opera con seguridad jurídica. Marinela Masri acompaña a empresarios y emprendedores en cada etapa de la vida de su empresa.\n\nDesde la creación de una Compañía Anónima hasta la actualización de su junta directiva o la disolución de la sociedad, cada paso ante el Registro Mercantil requiere documentación legal correcta y oportuna. Marinela Masri gestiona estos trámites con precisión, evitando demoras y complicaciones que puedan afectar la operación de su empresa.",
     items: [
@@ -124,41 +120,43 @@ const allServices: ServiceData[] = [
     slug:      "/derecho-laboral/",
     icon:      "👔",
     title:     "Derecho Laboral",
-    h1:        "Abogado Laboral en Caracas",
-    metaTitle: "Abogado Laboral en Caracas | Marinela Masri",
-    metaDesc:  "Abogado laboral en Caracas, Venezuela. Asesoría y representación en despidos, prestaciones sociales, contratos de trabajo, reclamos y conflictos laborales.",
-    heroDesc:  "Defensa y asesoría en materia laboral en Venezuela para trabajadores y empleadores: prestaciones sociales, calificaciones de despido y acuerdos laborales.",
-    intro:     "El Derecho Laboral regula la relación entre trabajadores y empleadores. Tanto si usted es un trabajador que desea conocer sus derechos como si es un empleador que necesita orientación legal, contar con una abogada laboral es fundamental para resolver situaciones de manera justa y dentro del marco legal venezolano.\n\nLa Ley Orgánica del Trabajo, los Trabajadores y las Trabajadoras (LOTTT) establece derechos y obligaciones que tanto patronos como trabajadores deben conocer. Marinela Masri puede asesorarle sobre los derechos aplicables a su situación, redactar acuerdos extrajudiciales con validez legal y representarle ante los tribunales laborales de ser necesario.",
+    h1:        "Derecho Laboral para Empresas y Empleadores en Venezuela",
+    heroDesc:  "Asesoría y representación en Derecho Laboral para empresas y empleadores en Caracas, Venezuela: prevención de conflictos, cumplimiento laboral, contratos, procedimientos y defensa ante controversias laborales.",
+    intro:     "Las decisiones relacionadas con trabajadores pueden generar consecuencias legales, económicas y administrativas cuando no se revisan adecuadamente. Por ello, la asesoría laboral no debe limitarse a intervenir cuando ya existe un conflicto.\n\nEl objetivo es ayudar al empleador a identificar riesgos, revisar sus obligaciones y tomar decisiones laborales con mayor seguridad jurídica, de acuerdo con la legislación venezolana aplicable.\n\nLa asesoría puede abarcar situaciones relacionadas con la contratación, condiciones de trabajo, procedimientos internos, terminación de la relación laboral, inamovilidad, acuerdos laborales y controversias que puedan surgir entre la empresa y sus trabajadores.",
     items: [
-      "Asesoría legal en materia laboral, online y presencial",
-      "Calificación de despido ante los tribunales laborales",
-      "Demanda de prestaciones sociales",
-      "Representación en procesos laborales",
-      "Acuerdos extrajudiciales entre patrono y trabajador",
-      "Revisión de contratos de trabajo y cumplimiento legal bajo la LOTTT",
-      "Orientación sobre derechos y obligaciones laborales en Venezuela",
+      "Asesoría jurídica laboral para empresas y empleadores",
+      "Revisión y redacción de contratos de trabajo",
+      "Análisis de obligaciones laborales y cumplimiento de la LOTTT",
+      "Asesoría sobre procedimientos y decisiones relacionadas con trabajadores",
+      "Prevención y manejo de conflictos laborales",
+      "Asesoría en materia de inamovilidad y estabilidad laboral",
+      "Revisión de acuerdos entre empleadores y trabajadores",
+      "Asesoría ante procedimientos y actuaciones administrativas en materia laboral",
+      "Representación y defensa de empleadores en controversias laborales",
+      "Asesoría ante reclamaciones y demandas laborales",
+      "Análisis jurídico de situaciones relacionadas con la terminación de relaciones laborales",
     ],
     whenToSeek: [
-      "Cuando fue despedido y quiere conocer sus derechos",
-      "Cuando su empleador no le ha cancelado las prestaciones sociales",
-      "Cuando como empleador enfrenta una demanda o reclamación laboral",
-      "Cuando desea llegar a un acuerdo extrajudicial con trabajadores o empleador",
-      "Cuando necesita orientación sobre obligaciones laborales de su empresa",
+      "Cuando su empresa enfrenta una demanda o reclamación laboral",
       "Cuando necesita revisar o redactar contratos de trabajo conforme a la LOTTT",
+      "Cuando necesita orientación sobre obligaciones laborales de su organización",
+      "Cuando desea prevenir conflictos laborales antes de que escalen",
+      "Cuando necesita asesoría sobre inamovilidad o estabilidad laboral",
+      "Cuando necesita representación ante procedimientos administrativos laborales",
     ],
-    introHeading:    "Defensa y asesoría en materia laboral en Venezuela",
-    servicesHeading: "Servicios de Derecho Laboral",
+    introHeading:    "Defensa y Asesoría laboral preventiva para empresas en Venezuela",
+    servicesHeading: "Servicios de Derecho Laboral para Empresas",
     relatedHeading:  "Áreas relacionadas con el Derecho Laboral",
     related: ["/contratos-documentos/", "/derecho-mercantil/", "/derecho-civil/"],
-    waText:  "Hola%2C%20necesito%20asesor%C3%ADa%20en%20Derecho%20Laboral",
+    waText:  "Hola%2C%20necesito%20asesor%C3%ADa%20laboral%20para%20mi%20empresa",
+    ctaHeading: "¿Su empresa enfrenta una situación laboral?",
+    ctaSubText: "Obtenga orientación jurídica sobre las alternativas disponibles para su empresa.",
   },
   {
     slug:      "/derecho-familia-divorcios/",
     icon:      "💍",
     title:     "Divorcios y Familia",
     h1:        "Abogado de Familia y Divorcios en Caracas",
-    metaTitle: "Abogado de Familia y Divorcios en Caracas | Marinela Masri",
-    metaDesc:  "Abogado de familia en Caracas, Venezuela. Asesoría legal en divorcios, custodia, LOPNNA, patria potestad y otros asuntos de derecho de familia.",
     heroDesc:  "Acompañamiento legal en divorcios, custodia, manutención y todos los asuntos de familia bajo el Código Civil y la LOPNNA en Venezuela.",
     intro:     "Los asuntos de familia son de los más delicados que puede enfrentar una persona. Marinela Masri ofrece asesoría legal en materia familiar con profesionalismo, empatía y discreción, buscando siempre la solución que mejor proteja los derechos de sus clientes y, especialmente, el bienestar de los niños, niñas y adolescentes involucrados.\n\nLos procesos de familia en Venezuela se rigen por el Código Civil y, en todo lo relacionado con niños, niñas y adolescentes, por la LOPNNA. Los tribunales de protección tienen procedimientos y plazos propios. Contar con asesoría legal desde el inicio puede marcar una diferencia significativa en el resultado del proceso y en el tiempo que tarda su resolución.",
     items: [
@@ -206,8 +204,6 @@ const allServices: ServiceData[] = [
     icon:      "🏠",
     title:     "Bienes Inmuebles",
     h1:        "Abogado Inmobiliario en Caracas",
-    metaTitle: "Abogado Inmobiliario en Caracas | Marinela Masri",
-    metaDesc:  "Abogado inmobiliario en Caracas, Venezuela. Asesoría legal en compraventa, arrendamientos, documentos, propiedad y otros asuntos de bienes inmuebles.",
     heroDesc:  "Asesoría legal en compraventa, arrendamientos, condominio y asuntos de propiedades inmuebles en Caracas y toda Venezuela.",
     intro:     "Las transacciones y conflictos inmobiliarios requieren asesoría legal especializada. Marinela Masri ofrece asesoría integral a propietarios, compradores, arrendatarios y juntas de condominio, garantizando que sus derechos sobre los inmuebles estén completamente protegidos.\n\nEn el mercado inmobiliario venezolano existen situaciones particulares: inmuebles con documentación incompleta, deudas de condominio acumuladas, contratos de arrendamiento vencidos y propietarios que necesitan recuperar su bien. Marinela Masri conoce estas realidades y ofrece soluciones jurídicas adaptadas al contexto legal venezolano actual.",
     items: [
@@ -248,8 +244,6 @@ const allServices: ServiceData[] = [
     icon:      "📄",
     title:     "Contratos y Documentos",
     h1:        "Abogado de Contratos en Caracas",
-    metaTitle: "Abogado de Contratos en Caracas | Marinela Masri",
-    metaDesc:  "Abogado de contratos en Caracas, Venezuela. Asesoría y redacción de contratos, documentos legales, poderes notariales y otros trámites jurídicos.",
     heroDesc:  "Redacción, revisión y autenticación de contratos, poderes notariales y documentos legales en Caracas y toda Venezuela.",
     intro:     "Un contrato mal redactado o un documento con errores puede generar conflictos costosos. Marinela Masri le ayuda a redactar, revisar y autenticar todos sus documentos legales con precisión, protegiéndole antes de que firme cualquier compromiso.\n\nEn Venezuela, la validez y eficacia de muchos documentos depende no solo de su contenido, sino del instrumento utilizado para formalizarlos: autenticación ante Notaría, registro ante el Registro Público o firma ante testigos. Marinela Masri le orienta sobre cuál es el instrumento correcto para cada situación y se encarga de todo el proceso de redacción y formalización.",
     items: [
@@ -297,7 +291,7 @@ export const serviceMap = Object.fromEntries(allServices.map(s => [s.slug, s]));
 // ─── ServicePageLayout ────────────────────────────────────────────────────────
 
 function ServicePageLayout({ data }: { data: ServiceData }) {
-  usePageSEO(data.metaTitle, data.metaDesc, data.slug);
+  useRouteSEO();
 
   const related = data.related
     .map(s => serviceMap[s])
@@ -429,7 +423,7 @@ function ServicePageLayout({ data }: { data: ServiceData }) {
       <WhyTrust />
 
       {/* CTA */}
-      <ContactCta waText={data.waText} />
+      <ContactCta waText={data.waText} heading={data.ctaHeading} subText={data.ctaSubText} />
     </div>
   );
 }

@@ -1,18 +1,21 @@
 import { motion } from "motion/react";
-import { useState, useEffect, useRef, type ReactNode } from "react";
+import { useState, useEffect, useRef, useId, type ReactNode } from "react";
 import { Link, useLocation } from "react-router";
 import { Menu, X, ChevronDown } from "lucide-react";
 import * as Dialog from "@radix-ui/react-dialog";
 import svgPaths from "@/imports/Root/svg-72i1clds9c";
 import { trackWhatsAppClick, trackPhoneClick, trackEmailClick, trackContactCta } from "./RouteAnalytics";
+import { BUSINESS_INFO } from "@/seo/business";
+import { resolveStaticRouteSEO } from "@/seo/routeConfig";
+import { resolveArticleSEO } from "@/blog/seoResolver";
+import { buildArticleSchema, buildArticleBreadcrumbSchema } from "@/seo/jsonld";
+import type { ArticleFrontmatter } from "@/blog/_articles";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 export const NAV_H = 64;
-export const MAPS_URL =
-  "https://www.google.com/maps/place/Abogada+Marinela+Masri+Kasrin/@10.4944047,-66.8873985,3322m/data=!3m1!1e3!4m10!1m2!2m1!1sabogados+en+caracas!3m6!1s0x5549f078d44630b:0xf4eaf479cc7c2534!8m2!3d10.4944047!4d-66.877711!15sChNhYm9nYWRvcyBlbiBjYXJhY2FzWhUiE2Fib2dhZG9zIGVuIGNhcmFjYXOSAQZsYXd5ZXLgAQA!16s%2Fg%2F11zdjd0v72?entry=ttu&g_ep=EgoyMDI2MDgwOS4wIKXMDSoASAFQAw%3D%3D";
-export const MAPS_EMBED =
-  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3921.268!2d-66.877711!3d10.4944047!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5549f078d44630b%3A0xf4eaf479cc7c2534!2sAbogada%20Marinela%20Masri%20Kasrin!5e0!3m2!1ses!2sve!4v1723500000000!5m2!1ses!2sve";
+const MAPS_URL   = BUSINESS_INFO.mapsUrl;
+const MAPS_EMBED = `https://maps.google.com/maps?q=${BUSINESS_INFO.latitude},${BUSINESS_INFO.longitude}&output=embed&hl=es&z=17`;
 export const WA_BASE = "https://wa.me/584141700773?text=";
 
 export const SERVICE_ROUTES = [
@@ -55,8 +58,13 @@ function setCanonical(href: string) {
   el.href = href;
 }
 
-const HOME_TITLE = "Abogados en Caracas | Marinela Masri | Asesoría Legal";
-const HOME_DESC  = "Abogados en Caracas, Venezuela. Marinela Masri ofrece asesoría legal en Derecho Civil, Mercantil, Laboral, Familia, Bienes Inmuebles y Contratos.";
+// SEO values for the homepage are now authoritative in src/seo/routeConfig.ts.
+// These aliases are kept temporarily for any remaining callers and will be
+// treated as deprecated — do not add new usages.
+/** @deprecated Use useRouteSEO() instead */
+export const HOME_TITLE = "Abogados en Caracas | Marinela Masri | Asesoría Legal";
+/** @deprecated Use useRouteSEO() instead */
+export const HOME_DESC  = "Abogados en Caracas, Venezuela. Marinela Masri ofrece asesoría legal en Derecho Civil, Mercantil, Laboral, Familia, Bienes Inmuebles y Contratos.";
 const SITE_URL   = "https://www.abogadamasri.com";
 const OG_IMAGE   = `${SITE_URL}/og-image.jpg`;
 
@@ -66,6 +74,7 @@ export type PageSEOOptions = {
   path: string;
   ogType?: "website" | "article";
   ogImage?: string;
+  ogImageAlt?: string;
   ogImageWidth?: number;
   ogImageHeight?: number;
   robots?: string;
@@ -76,7 +85,32 @@ export type PageSEOOptions = {
   modifiedTime?: string;
   /** article:author */
   articleAuthor?: string;
+  /** Route-specific JSON-LD. Pass a single schema object or an array of schema objects.
+   *  Pass null/undefined to clear any previous route JSON-LD (e.g. routes without schemas). */
+  jsonLd?: object | object[] | null;
 };
+
+/**
+ * Manages the single route-specific JSON-LD script in <head>.
+ * Removes all previously managed scripts (data-site-jsonld="route" | "faq"),
+ * then injects one new combined script when data is provided.
+ * Idempotent — safe under React StrictMode double-invocation.
+ */
+function setRouteJsonLd(data: object | object[] | null | undefined): void {
+  document.head
+    .querySelectorAll<HTMLScriptElement>("script[data-site-jsonld]")
+    .forEach(el => {
+      const v = el.getAttribute("data-site-jsonld");
+      if (v === "route" || v === "faq") el.remove();
+    });
+  if (!data) return;
+  const el = document.createElement("script");
+  el.type = "application/ld+json";
+  el.setAttribute("data-site-jsonld", "route");
+  const items = Array.isArray(data) ? data : [data];
+  el.textContent = JSON.stringify(items.length === 1 ? items[0] : items);
+  document.head.appendChild(el);
+}
 
 /** Update ALL SEO meta tags on client-side navigation without duplicates. */
 export function usePageSEO(options: PageSEOOptions | string, description?: string, path?: string) {
@@ -86,7 +120,13 @@ export function usePageSEO(options: PageSEOOptions | string, description?: strin
       ? { title: options, description: description ?? "", path: path ?? "/" }
       : options;
 
+  // Serialize jsonLd to a stable string key for dependency comparison.
+  // This prevents infinite effect re-runs when callers pass freshly-created objects.
+  const jsonLdKey = opts.jsonLd != null ? JSON.stringify(opts.jsonLd) : null;
+
   useEffect(() => {
+    // Skip DOM updates when title is empty (unknown route — avoid wiping metadata).
+    if (!opts.title) return;
     const canonical = SITE_URL + opts.path;
     const ogTitle = opts.title;
     const ogDesc = opts.description;
@@ -110,6 +150,7 @@ export function usePageSEO(options: PageSEOOptions | string, description?: strin
     setMeta("og:image:type", ogImage.endsWith(".webp") ? "image/webp" : ogImage.endsWith(".png") ? "image/png" : "image/jpeg", "property");
     setMeta("og:image:width", String(opts.ogImageWidth ?? 1200), "property");
     setMeta("og:image:height", String(opts.ogImageHeight ?? 630), "property");
+    if (opts.ogImageAlt) setMeta("og:image:alt", opts.ogImageAlt, "property");
     setMeta("og:locale", "es_VE", "property");
 
     // Article-specific tags (only when ogType === 'article')
@@ -129,37 +170,70 @@ export function usePageSEO(options: PageSEOOptions | string, description?: strin
     setMeta("twitter:title", ogTitle);
     setMeta("twitter:description", ogDesc);
     setMeta("twitter:image", ogImage);
+    if (opts.ogImageAlt) setMeta("twitter:image:alt", opts.ogImageAlt);
 
-    return () => {
-      document.title = HOME_TITLE;
-      setMeta("description", HOME_DESC);
-      setMeta("author", "Marinela Masri");
-      setMeta("robots", "index, follow");
-      setCanonical(SITE_URL + "/");
-      setMeta("og:type", "website", "property");
-      setMeta("og:url", SITE_URL + "/", "property");
-      setMeta("og:site_name", "Abogada Marinela Masri", "property");
-      setMeta("og:title", HOME_TITLE, "property");
-      setMeta("og:description", HOME_DESC, "property");
-      setMeta("og:image", OG_IMAGE, "property");
-      setMeta("og:image:secure_url", OG_IMAGE, "property");
-      setMeta("og:image:type", "image/jpeg", "property");
-      setMeta("og:image:width", "1200", "property");
-      setMeta("og:image:height", "630", "property");
-      setMeta("og:locale", "es_VE", "property");
-      removeMeta("article:published_time");
-      removeMeta("article:modified_time");
-      removeMeta("article:author");
-      setMeta("twitter:card", "summary_large_image");
-      setMeta("twitter:title", HOME_TITLE);
-      setMeta("twitter:description", HOME_DESC);
-      setMeta("twitter:image", OG_IMAGE);
-    };
+    // Synchronize route-specific JSON-LD — replaces the previous route's script.
+    setRouteJsonLd(opts.jsonLd ?? null);
+
+    // No cleanup: incoming page's usePageSEO effect overwrites on mount, so
+    // resetting to home defaults here causes double DOM writes with no benefit.
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    opts.title, opts.description, opts.path, opts.ogType, opts.ogImage,
+    opts.title, opts.description, opts.path, opts.ogType, opts.ogImage, opts.ogImageAlt,
     opts.robots, opts.author, opts.publishedTime, opts.modifiedTime, opts.articleAuthor,
+    jsonLdKey,
   ]);
+}
+
+/**
+ * Single SEO hook for all page components.
+ * - For blog article routes: pass the article's frontmatter.
+ * - For all other routes: call with no argument — resolves from the current pathname.
+ *
+ * Replaces individual usePageSEO calls in page components.
+ * SSR-safe: resolver has no browser globals.
+ */
+export function useRouteSEO(articleFm?: ArticleFrontmatter): void {
+  const { pathname } = useLocation();
+
+  let opts: PageSEOOptions;
+
+  if (articleFm) {
+    const seo = resolveArticleSEO(articleFm);
+    opts = {
+      title:         seo.metaTitle,
+      description:   seo.ogDescription,
+      path:          seo.canonicalPath,
+      ogType:        "article",
+      ogImage:       seo.ogImage,
+      robots:        seo.robots,
+      author:        articleFm.author,
+      publishedTime: seo.publishedTime,
+      modifiedTime:  seo.dateModified,
+      articleAuthor: articleFm.author,
+      jsonLd: [
+        buildArticleSchema(seo, articleFm.title, articleFm.author ?? "Marinela Masri", articleFm.category, articleFm.keywords ?? null),
+        buildArticleBreadcrumbSchema(articleFm.title, seo.canonical),
+      ],
+    };
+  } else {
+    const routeSEO = resolveStaticRouteSEO(pathname);
+    opts = routeSEO
+      ? {
+          title:       routeSEO.title,
+          description: routeSEO.description,
+          path:        routeSEO.path,
+          ogType:      routeSEO.ogType,
+          ogImage:     routeSEO.ogImage,
+          ogImageAlt:  routeSEO.ogImageAlt,
+          robots:      routeSEO.robots,
+          author:      routeSEO.author,
+          jsonLd:      routeSEO.jsonLd,
+        }
+      : { title: "", description: "", path: pathname }; // unknown route — effect guard skips DOM update
+  }
+
+  usePageSEO(opts);
 }
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
@@ -201,13 +275,14 @@ export function PhoneIcon() {
   );
 }
 export function MsgIcon({ stroke = "white" }: { stroke?: string }) {
+  const clipId = useId();
   return (
     <div className="relative shrink-0 size-5" aria-hidden="true">
       <svg className="absolute inset-0 size-full" fill="none" viewBox="0 0 20 20">
-        <g clipPath="url(#mc)">
+        <g clipPath={`url(#${clipId})`}>
           <path d={svgPaths.p2ea05980} stroke={stroke} strokeLinecap="round" strokeWidth="2" />
         </g>
-        <defs><clipPath id="mc"><rect width="20" height="20" fill="white" /></clipPath></defs>
+        <defs><clipPath id={clipId}><rect width="20" height="20" fill="white" /></clipPath></defs>
       </svg>
     </div>
   );
@@ -221,6 +296,8 @@ export function Navbar() {
   const [dropOpen, setDropOpen]             = useState(false);
   const [scrolled, setScrolled]             = useState(false);
   const dropRef                             = useRef<HTMLDivElement>(null);
+  const drawerRef                           = useRef<HTMLDivElement>(null);
+  const servicesListRef                     = useRef<HTMLDivElement>(null);
   const location                            = useLocation();
 
   useEffect(() => {
@@ -229,14 +306,31 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", h);
   }, []);
 
-  // close desktop dropdown when clicking outside
+  // close desktop dropdown when clicking outside — only active while open
   useEffect(() => {
+    if (!dropOpen) return;
     const h = (e: MouseEvent) => {
       if (dropRef.current && !dropRef.current.contains(e.target as Node)) setDropOpen(false);
     };
     document.addEventListener("mousedown", h);
     return () => document.removeEventListener("mousedown", h);
-  }, []);
+  }, [dropOpen]);
+
+  // Make the mobile drawer inert (not keyboard-reachable) when closed
+  useEffect(() => {
+    const el = drawerRef.current;
+    if (!el) return;
+    if (mobileOpen) el.removeAttribute("inert");
+    else el.setAttribute("inert", "");
+  }, [mobileOpen]);
+
+  // Make the mobile services submenu inert when collapsed
+  useEffect(() => {
+    const el = servicesListRef.current;
+    if (!el) return;
+    if (mobileServices) el.removeAttribute("inert");
+    else el.setAttribute("inert", "");
+  }, [mobileServices]);
 
   // close everything on route change + scroll to top
   useEffect(() => {
@@ -245,15 +339,6 @@ export function Navbar() {
     setMobileServices(false);
     window.scrollTo(0, 0);
   }, [location.pathname]);
-
-  function goSection(id: string) {
-    setMobileOpen(false);
-    if (location.pathname === "/") {
-      setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }), 50);
-    } else {
-      window.location.href = `/#${id}`;
-    }
-  }
 
   return (
     <>
@@ -279,20 +364,26 @@ export function Navbar() {
             </Link>
 
             {/* Services dropdown */}
-            <div className="relative flex items-center gap-0.5" ref={dropRef}>
+            <div
+              className="relative flex items-center gap-0.5"
+              ref={dropRef}
+              onKeyDown={(e) => { if (e.key === "Escape") setDropOpen(false); }}
+            >
               <Link to="/servicios/" className="font-['Schibsted_Grotesk',sans-serif] font-medium text-[#1a2b4a] text-[15px] hover:text-[#c9a84c] transition-colors">
                 Servicios
               </Link>
               <button
+                type="button"
                 onClick={() => setDropOpen(v => !v)}
                 aria-expanded={dropOpen}
+                aria-controls="services-dropdown"
                 aria-label="Mostrar áreas de práctica"
                 className="p-1 text-[#1a2b4a] hover:text-[#c9a84c] transition-colors"
               >
                 <ChevronDown size={13} className={`transition-transform duration-200 ${dropOpen ? "rotate-180" : ""}`} />
               </button>
               {dropOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-[12px] shadow-xl border border-[#e5e7eb] py-2 min-w-[220px] z-50">
+                <div id="services-dropdown" className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-[12px] shadow-xl border border-[#e5e7eb] py-2 min-w-[220px] z-50">
                   <Link
                     to="/servicios/"
                     onClick={() => setDropOpen(false)}
@@ -333,9 +424,12 @@ export function Navbar() {
 
           {/* Hamburger */}
           <button
+            type="button"
             className="md:hidden p-2 -mr-2 text-[#1a2b4a] active:opacity-60"
             onClick={() => setMobileOpen(v => !v)}
-            aria-label="Menú"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-nav-drawer"
+            aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -344,7 +438,10 @@ export function Navbar() {
 
       {/* Mobile drawer */}
       <div
+        id="mobile-nav-drawer"
+        ref={drawerRef}
         style={{ top: NAV_H }}
+        aria-hidden={!mobileOpen}
         className={`fixed inset-x-0 z-40 bg-white border-b border-[#e5e7eb] shadow-lg md:hidden
           transition-[max-height,opacity] duration-300 overflow-hidden
           ${mobileOpen ? "max-h-[560px] opacity-100" : "max-h-0 opacity-0 pointer-events-none"}`}
@@ -360,11 +457,18 @@ export function Navbar() {
               <Link to="/servicios/" className="font-['Schibsted_Grotesk',sans-serif] font-medium text-[#1a2b4a] text-[16px] active:text-[#c9a84c]">
                 Servicios
               </Link>
-              <button onClick={() => setMobileServices(v => !v)} aria-label="Mostrar áreas de práctica" className="p-1 text-[#1a2b4a] active:text-[#c9a84c]">
+              <button
+                type="button"
+                onClick={() => setMobileServices(v => !v)}
+                aria-label="Mostrar áreas de práctica"
+                aria-expanded={mobileServices}
+                aria-controls="mobile-services-list"
+                className="p-1 text-[#1a2b4a] active:text-[#c9a84c]"
+              >
                 <ChevronDown size={16} className={`transition-transform duration-200 ${mobileServices ? "rotate-180" : ""}`} />
               </button>
             </div>
-            <div className={`overflow-hidden transition-[max-height] duration-300 ${mobileServices ? "max-h-[340px]" : "max-h-0"}`}>
+            <div id="mobile-services-list" ref={servicesListRef} className={`overflow-hidden transition-[max-height] duration-300 ${mobileServices ? "max-h-[340px]" : "max-h-0"}`}>
               <div className="flex flex-col pl-4 pb-2">
                 {SERVICE_ROUTES.map(s => (
                   <Link key={s.slug} to={s.slug} className="flex items-center gap-2.5 py-2.5 text-[#1a2b4a] active:text-[#c9a84c]">
@@ -460,8 +564,8 @@ function MapCard() {
         <div>
           <p className="font-['Schibsted_Grotesk',sans-serif] font-bold text-[#c9a84c] text-[11px] uppercase tracking-widest mb-0.5">Ubicación</p>
           <p className="font-['Schibsted_Grotesk',sans-serif] text-white text-[13px] md:text-[14px] leading-[1.5]">
-            Centro Comercial City Market, Blvr. de Sabana Grande,<br />
-            Caracas 1050, Distrito Capital, Venezuela
+            {BUSINESS_INFO.address.streetAddress},<br />
+            {BUSINESS_INFO.address.addressLocality} {BUSINESS_INFO.address.postalCode}, {BUSINESS_INFO.address.addressRegion}, Venezuela
           </p>
         </div>
       </a>
@@ -471,16 +575,20 @@ function MapCard() {
 
 // ─── ContactCta ───────────────────────────────────────────────────────────────
 
-export function ContactCta({ waText = "Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20consulta" }: { waText?: string }) {
+export function ContactCta({
+  waText = "Hola%2C%20me%20gustar%C3%ADa%20agendar%20una%20consulta",
+  heading,
+  subText,
+}: { waText?: string; heading?: string; subText?: string }) {
   return (
     <section id="contacto" className="bg-[#c9a84c] w-full">
       <div className="flex flex-col items-center gap-8 md:gap-12 py-12 md:py-16 px-6 md:px-16">
         <div className="flex flex-col gap-3 items-center text-center text-[#1a2b4a]">
           <h2 className="font-['Instrument_Serif',serif] text-[28px] sm:text-[36px] md:text-[48px] lg:text-[56px] leading-tight">
-            ¿Necesita Asesoría Legal?
+            {heading ?? "¿Necesita Asesoría Legal?"}
           </h2>
           <p className="font-['Schibsted_Grotesk',sans-serif] font-medium opacity-80 text-[14px] md:text-[22px]">
-            Contácteme hoy mismo para una consulta
+            {subText ?? "Contácteme hoy mismo para una consulta"}
           </p>
         </div>
 
@@ -607,6 +715,7 @@ export function WaButton({
   children: ReactNode;
 }) {
   const [open, setOpen] = useState(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const url = `${WA_BASE}${waText}`;
 
   function handleOpen() {
@@ -620,36 +729,44 @@ export function WaButton({
     window.open(url, "_blank", "noopener,noreferrer");
   }
 
+  function handleOpenChange(v: boolean) {
+    setOpen(v);
+    if (!v) requestAnimationFrame(() => triggerRef.current?.focus());
+  }
+
   return (
     <>
-      <button type="button" onClick={handleOpen} className={className} aria-label={ariaLabel}>
+      <button ref={triggerRef} type="button" onClick={handleOpen} className={className} aria-label={ariaLabel}>
         {children}
       </button>
 
-      <Dialog.Root open={open} onOpenChange={setOpen}>
+      <Dialog.Root open={open} onOpenChange={handleOpenChange}>
         <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 z-[200] bg-black/50" />
+          <Dialog.Overlay className="fixed inset-0 z-[200] bg-black/50 backdrop-blur-[2px]" />
           <Dialog.Content
-            className="fixed left-1/2 top-1/2 z-[201] w-[calc(100%-2rem)] max-w-[360px] -translate-x-1/2 -translate-y-1/2 rounded-[12px] bg-white p-7 shadow-2xl focus:outline-none"
+            className="fixed left-1/2 top-1/2 z-[201] w-[calc(100%-2rem)] max-w-[380px] -translate-x-1/2 -translate-y-1/2 rounded-[16px] bg-white p-8 shadow-[0_20px_60px_rgba(0,0,0,0.18)] focus:outline-none"
           >
-            <Dialog.Title className="font-['Instrument_Serif',serif] text-[#1a2b4a] text-[20px] leading-snug mb-3">
-              Aviso antes de continuar
+            <div className="flex flex-col items-center mb-1">
+              <div className="w-10 h-1 rounded-full bg-[#c9a84c] mb-5" />
+            </div>
+            <Dialog.Title className="font-['Instrument_Serif',serif] text-[#1a2b4a] text-[22px] leading-[1.25] mb-4 text-center">
+              Toda consulta genera honorarios profesionales
             </Dialog.Title>
-            <Dialog.Description className="font-['Schibsted_Grotesk',sans-serif] text-[#374151] text-[14px] leading-[1.6] mb-6">
-              Agende su cita para una consulta (sujeta a honorarios profesionales).
+            <Dialog.Description className="font-['Schibsted_Grotesk',sans-serif] text-[#4b5563] text-[15px] leading-[1.6] mb-7 text-center">
+              ¿Deseas continuar hacia WhatsApp?
             </Dialog.Description>
             <div className="flex flex-col gap-3">
               <button
                 type="button"
                 onClick={handleContinue}
-                className="w-full bg-[#1a2b4a] text-white font-['Schibsted_Grotesk',sans-serif] font-semibold text-[14px] py-3 px-6 rounded-[8px] hover:bg-[#223560] transition-colors"
+                className="w-full bg-[#25d366] text-white font-['Schibsted_Grotesk',sans-serif] font-bold text-[14px] py-3.5 px-6 rounded-[10px] hover:bg-[#1fb858] active:brightness-95 transition-colors"
               >
                 Continuar a WhatsApp
               </button>
               <Dialog.Close asChild>
                 <button
                   type="button"
-                  className="w-full text-[#6b7280] font-['Schibsted_Grotesk',sans-serif] text-[13px] py-2 hover:text-[#1a2b4a] transition-colors"
+                  className="w-full text-[#9ca3af] font-['Schibsted_Grotesk',sans-serif] text-[13px] py-2.5 hover:text-[#4b5563] transition-colors"
                 >
                   Cancelar
                 </button>
@@ -693,18 +810,83 @@ export function FloatingWaButton() {
 
 // ─── AboutModal (homepage only) ───────────────────────────────────────────────
 
-export function AboutModal({ open, onClose, title, children }: { open: boolean; onClose: () => void; title: string; children: ReactNode }) {
+export function AboutModal({ open, onClose, title, children, triggerRef }: {
+  open: boolean;
+  onClose: () => void;
+  title: string;
+  children: ReactNode;
+  /** Ref to the element that opened the modal. When provided, focus returns here on close. */
+  triggerRef?: React.RefObject<HTMLElement>;
+}) {
+  const closeRef    = useRef<HTMLButtonElement>(null);
+  const dialogRef   = useRef<HTMLDivElement>(null);
+  const prevFocusRef = useRef<Element | null>(null);
+
   useEffect(() => {
     if (open) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "";
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
+  // Move focus into the dialog when it opens; restore focus to the trigger on close.
+  // triggerRef (from caller) takes priority over the prevFocusRef fallback.
+  useEffect(() => {
+    if (open) {
+      // Capture active element as fallback in case triggerRef is not provided
+      prevFocusRef.current = document.activeElement;
+      requestAnimationFrame(() => closeRef.current?.focus());
+    }
+    return () => {
+      // Prefer the explicit trigger ref; fall back to the captured active element
+      const target = (triggerRef?.current ?? prevFocusRef.current) as HTMLElement | null;
+      // Only restore focus if the element is still in the DOM
+      if (target && document.contains(target)) {
+        target.focus();
+      }
+      prevFocusRef.current = null;
+    };
+  // triggerRef is a stable ref object — safe to include without causing re-runs
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
+
   if (!open) return null;
+
+  function handleKeyDown(e: React.KeyboardEvent) {
+    if (e.key === "Escape") { onClose(); return; }
+    if (e.key === "Tab") {
+      const el = dialogRef.current;
+      if (!el) return;
+      const focusable = Array.from(
+        el.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last  = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
+    }
+  }
+
   return (
     <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center">
-      <div className="absolute inset-0 bg-black/60" onClick={onClose} />
+      <button
+        type="button"
+        className="absolute inset-0 bg-black/60 cursor-default"
+        onClick={onClose}
+        aria-label="Cerrar"
+        tabIndex={-1}
+      />
       <motion.div
+        ref={dialogRef as React.Ref<HTMLDivElement>}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="about-modal-title"
+        onKeyDown={handleKeyDown}
         className="relative bg-white w-full sm:max-w-[540px] sm:mx-4 rounded-t-[20px] sm:rounded-[16px] p-6 md:p-8 shadow-2xl max-h-[90vh] overflow-y-auto"
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -713,10 +895,10 @@ export function AboutModal({ open, onClose, title, children }: { open: boolean; 
         <div className="sm:hidden flex justify-center mb-3">
           <div className="w-10 h-1 rounded-full bg-[#d1d5db]" />
         </div>
-        <button onClick={onClose} className="absolute top-4 right-4 p-1 text-[#6b7280]" aria-label="Cerrar">
+        <button ref={closeRef} type="button" onClick={onClose} className="absolute top-4 right-4 p-1 text-[#6b7280]" aria-label="Cerrar">
           <X size={22} />
         </button>
-        <p className="font-['Instrument_Serif',serif] text-[#1a2b4a] text-[24px] md:text-[28px] leading-[1.2] mb-4 pr-8">{title}</p>
+        <h2 id="about-modal-title" className="font-['Instrument_Serif',serif] text-[#1a2b4a] text-[24px] md:text-[28px] leading-[1.2] mb-4 pr-8">{title}</h2>
         <div className="font-['Schibsted_Grotesk',sans-serif] text-[#4b5563] text-[14px] md:text-[15px] leading-[1.65]">
           {children}
         </div>

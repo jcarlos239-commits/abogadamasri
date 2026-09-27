@@ -1,11 +1,10 @@
-// ── Blog article loader ────────────────────────────────────────────────────────
+// ── Blog article types and constants ──────────────────────────────────────────
 //
-// Uses Vite's import.meta.glob to discover every .md file in ./articles/.
-// Each .md file is transformed at build time by the blogPlugin() in vite.config.ts
-// into a JS module that exports { frontmatter, html }.
+// Pure types and constants — no import.meta.glob — safe to import from
+// vite.config.ts (Node.js) as well as from application modules.
 //
-// To add a new article: create a .md file in src/blog/articles/ and push to GitHub.
-// No changes to this file or any React component are needed.
+// The runtime article loader (import.meta.glob + allArticles) lives in
+// src/blog/_loader.ts, which is only consumed by browser/app modules.
 
 /** The six permanent official practice-area categories for the blog. */
 export const OFFICIAL_CATEGORIES = [
@@ -60,16 +59,3 @@ export type Article = {
   frontmatter: ArticleFrontmatter
   html: string
 }
-
-type RawModule = { default: Article }
-
-const modules = import.meta.glob('./articles/*.md', { eager: true }) as Record<string, RawModule>
-
-export const allArticles: Article[] = Object.values(modules)
-  .map(m => m.default)
-  .filter(a => a?.frontmatter?.slug && a?.frontmatter?.title && a?.frontmatter?.published !== false)
-  .sort((a, b) => {
-    const da = new Date(a.frontmatter.date).getTime()
-    const db = new Date(b.frontmatter.date).getTime()
-    return db - da  // newest first
-  })

@@ -1,8 +1,6 @@
 import { Link } from "react-router";
-import { usePageSEO, WA_BASE, MsgIcon, WaButton, ContactCta, WhyTrust } from "../shared";
-
-const META_TITLE = "Servicios Legales en Caracas | Marinela Masri";
-const META_DESC  = "Conoce los servicios legales de Marinela Masri en Caracas, con asesoría en derecho civil, mercantil, laboral, familia, inmuebles y contratos.";
+import { useRouteSEO, WA_BASE, MsgIcon, WaButton, ContactCta, WhyTrust } from "../shared";
+import { trackPhoneClick } from "../RouteAnalytics";
 
 const services = [
   {
@@ -23,8 +21,8 @@ const services = [
     slug:   "/derecho-laboral/",
     icon:   "👔",
     title:  "Derecho Laboral",
-    desc:   "Defensa de trabajadores y empleadores. Prestaciones sociales, calificaciones de despido y acuerdos extrajudiciales bajo la LOTTT.",
-    items:  ["Calificación de despido", "Demanda de prestaciones sociales", "Acuerdos extrajudiciales", "Orientación bajo la LOTTT"],
+    desc:   "Asesoría laboral para empresas y empleadores. Contratos de trabajo, cumplimiento de la LOTTT, prevención de conflictos y defensa ante controversias laborales.",
+    items:  ["Contratos de trabajo y cumplimiento LOTTT", "Prevención de conflictos laborales", "Asesoría sobre inamovilidad laboral", "Defensa ante procedimientos laborales"],
   },
   {
     slug:   "/derecho-familia-divorcios/",
@@ -50,7 +48,7 @@ const services = [
 ];
 
 export default function ServiciosPage() {
-  usePageSEO(META_TITLE, META_DESC, "/servicios/");
+  useRouteSEO();
 
   return (
     <div className="w-full">
@@ -160,6 +158,7 @@ export default function ServiciosPage() {
             </WaButton>
             <a
               href="tel:+584141700773"
+              onClick={() => trackPhoneClick()}
               className="flex items-center justify-center border border-[#1a2b4a] text-[#1a2b4a] px-7 py-3.5 rounded-[8px] font-['Schibsted_Grotesk',sans-serif] font-semibold text-[14px] hover:bg-[#1a2b4a] hover:text-white transition-all"
             >
               Llamar: +58 414-170-0773

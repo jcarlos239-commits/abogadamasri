@@ -1,11 +1,8 @@
 import { Link } from "react-router";
-import { usePageSEO, ContactCta, WhyTrust, SERVICE_ROUTES } from "../shared";
-
-const META_TITLE = "Abogada en Caracas | Marinela Masri | Trayectoria Jurídica";
-const META_DESC  = "Conoce a Marinela Masri, abogada en Caracas con más de 25 años de trayectoria jurídica y experiencia en diversas áreas del derecho.";
+import { useRouteSEO, ContactCta, WhyTrust, SERVICE_ROUTES } from "../shared";
 
 export default function SobreMarinelaPage() {
-  usePageSEO(META_TITLE, META_DESC, "/sobre-marinela-masri/");
+  useRouteSEO();
 
   return (
     <div className="w-full">

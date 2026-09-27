@@ -5,7 +5,6 @@
  *
  * Instrument Serif  — 400 (regular) only; used for headings.
  * Schibsted Grotesk — 400, 500, 600, 700; used for body/UI text.
- * Inter             — 400 only; used for supplementary body text.
  *
  * These imports replace the Google Fonts <link> tags that were previously in
  * all static HTML files and in the FONTS_LINK constant in vite.config.ts.
@@ -21,5 +20,3 @@
 @import "@fontsource/schibsted-grotesk/latin-600.css";
 @import "@fontsource/schibsted-grotesk/latin-700.css";
 
-/* Inter — 400 regular */
-@import "@fontsource/inter/latin-400.css";
