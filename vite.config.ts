@@ -29,6 +29,40 @@ import { resolveStaticRouteSEO, type RouteSEO } from './src/seo/routeConfig'
 // The Vercel build picks it up automatically — no React edits needed.
 
 const SITE = 'https://www.abogadamasri.com'
+const GTM_CONTAINER_ID = 'GTM-PMSXKGMQ'
+const ROOT_HTML = fs.readFileSync(path.resolve(__dirname, 'index.html'), 'utf-8')
+const GTM_HEAD_SNIPPET = ROOT_HTML.match(
+  /<!-- Google Tag Manager -->[\s\S]*?<!-- End Google Tag Manager -->/,
+)?.[0]
+const GTM_BODY_SNIPPET = ROOT_HTML.match(
+  /<!-- Google Tag Manager \(noscript\) -->[\s\S]*?<!-- End Google Tag Manager \(noscript\) -->/,
+)?.[0]
+
+if (!GTM_HEAD_SNIPPET || !GTM_BODY_SNIPPET) {
+  throw new Error('[gtm] The official GTM snippets are missing from index.html')
+}
+
+// Applies the single global GTM installation to every MPA HTML entry. The root
+// index already contains the official snippet, so the guards make this
+// idempotent while ensuring direct visits to nested static routes are tracked.
+function gtmPlugin(): Plugin {
+  return {
+    name: 'global-google-tag-manager',
+    transformIndexHtml(html) {
+      let output = html
+
+      if (!output.includes(`})(window,document,'script','dataLayer','${GTM_CONTAINER_ID}');`)) {
+        output = output.replace('<head>', `<head>\n${GTM_HEAD_SNIPPET}`)
+      }
+
+      if (!output.includes(`googletagmanager.com/ns.html?id=${GTM_CONTAINER_ID}`)) {
+        output = output.replace('<body>', `<body>\n${GTM_BODY_SNIPPET}`)
+      }
+
+      return output
+    },
+  }
+}
 
 // ── DOMPurify configuration ───────────────────────────────────────────────────
 // Conservative policy: allow standard Markdown output elements only.
@@ -513,6 +547,7 @@ ${safeJson({
   return `<!doctype html>
 <html lang="es">
   <head>
+${GTM_HEAD_SNIPPET}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#1a2b4a" />
@@ -558,6 +593,7 @@ ${ldRouteCombined}
     </script>${faqLd}
   </head>
   <body>
+${GTM_BODY_SNIPPET}
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
@@ -670,8 +706,7 @@ async function prerenderPages(distOut: string): Promise<void> {
     root: __dirname,
     logLevel: 'warn',
     resolve: { alias: { '@': path.resolve(__dirname, 'src') } },
-    plugins: [
-    figmaAssetResolver(),react(), mdTransformPlugin()],
+    plugins: [react(), mdTransformPlugin()],
     build: {
       ssr: path.resolve(__dirname, 'src/entry-server.tsx'),
       outDir: ssrTempDir,
@@ -966,25 +1001,13 @@ function blogPlugin(): Plugin {
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-
-function figmaAssetResolver() {
-  return {
-    name: 'figma-asset-resolver',
-    resolveId(id) {
-      if (id.startsWith('figma:asset/')) {
-        const filename = id.replace('figma:asset/', '')
-        return path.resolve(__dirname, 'src/assets', filename)
-      }
-    },
-  }
-}
-
 export default defineConfig({
   plugins: [
     // The React and Tailwind plugins are both required for Make, even if
     // Tailwind is not being actively used – do not remove them
     react(),
     tailwindcss(),
+    gtmPlugin(),
     blogPlugin(),
   ],
   resolve: {
