@@ -9,7 +9,7 @@ export const BUSINESS_INFO = {
   email: "marinelamasri79@gmail.com",
   address: {
     streetAddress:
-      "Av. F.F.A.A, Edificio Fondo Comun, Torre Norte, Mezzanina. Local Nro 7. Salón APGCAPITOLIO, frente a entrada",
+      "Piso 9, Oficina B, Edificio Fondo Comun, Torre Sur, Av. F.F.A.A",
     addressLocality: "Caracas",
     addressRegion: "Distrito Capital",
     postalCode: "1010",
@@ -17,6 +17,7 @@ export const BUSINESS_INFO = {
   },
   latitude:  10.506613281244032,
   longitude: -66.90884481349133,
-  mapsUrl: "https://www.google.com/maps?q=10.506613281244032,-66.90884481349133",
+  mapsUrl: "https://maps.app.goo.gl/5FgriZ5Co2NozQU67",
+  mapsEmbedUrl:
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3580.6916089770884!2d-66.9088285!3d10.5064914!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a5fad89090983%3A0xbf47805f40b84bb9!2sAbg%20Marinela%20Masri!5e0!3m2!1sen!2sus!4v1793796088214!5m2!1sen!2sus",
 } as const
-

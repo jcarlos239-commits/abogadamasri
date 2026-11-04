@@ -15,7 +15,7 @@ import type { ArticleFrontmatter } from "@/blog/_articles";
 
 export const NAV_H = 64;
 const MAPS_URL   = BUSINESS_INFO.mapsUrl;
-const MAPS_EMBED = `https://maps.google.com/maps?q=${BUSINESS_INFO.latitude},${BUSINESS_INFO.longitude}&output=embed&hl=es&z=17`;
+const MAPS_EMBED = BUSINESS_INFO.mapsEmbedUrl;
 export const WA_BASE = "https://wa.me/584141700773?text=";
 
 export const SERVICE_ROUTES = [
@@ -515,6 +515,7 @@ function MapCard() {
               title="Ubicación Abogada Marinela Masri"
               src={MAPS_EMBED}
               width="100%" height="100%"
+              loading="lazy"
               style={{ border: 0, display: "block" }}
               allowFullScreen
               referrerPolicy="no-referrer-when-downgrade"
