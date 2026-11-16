@@ -1,7 +1,7 @@
 ---
 author: Marinela Masri
 category: Derecho Civil
-date: 2026-10-02
+date: "2026-10-02"
 description: "Conozca quién podría responder por los daños del terremoto
   de La Guaira de 2026: responsabilidad del Estado, constructoras,
   ingenieros y derechos de las personas afectadas en Venezuela."
