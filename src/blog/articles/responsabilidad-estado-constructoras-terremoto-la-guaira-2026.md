@@ -8,7 +8,7 @@ description: "Conozca quién podría responder por los daños del terremoto
 published: true
 slug: responsabilidad-estado-constructoras-terremoto-la-guaira-2026
 title: "Terremoto de La Guaira 2026: ¿Quién responde por los daños?
-  Responsabilidad del Estado y las constructoras en Venezuela \\|
+  Responsabilidad del Estado y las constructoras en Venezuela |
   Marinela Masri"
 ---
 
